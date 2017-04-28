@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>ARM环境下栈溢出攻击初探 | Hexo</title>
+  <title>ARM环境下栈溢出攻击初探 | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="题目来自于2016年全国高校网安联赛pwn专场。 参考文献：http://www.freebuf.com/articles/terminal/107276.html 其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要">
 <meta name="keywords" content="pwn,ARM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ARM环境下栈溢出攻击初探">
 <meta property="og:url" content="http://yoursite.com/2017/04/07/ARM-overflow/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="WinterSun Space">
 <meta property="og:description" content="题目来自于2016年全国高校网安联赛pwn专场。 参考文献：http://www.freebuf.com/articles/terminal/107276.html 其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要">
 <meta property="og:updated_time" content="2017-04-10T15:52:11.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARM环境下栈溢出攻击初探">
 <meta name="twitter:description" content="题目来自于2016年全国高校网安联赛pwn专场。 参考文献：http://www.freebuf.com/articles/terminal/107276.html 其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -44,7 +44,7 @@
 		</a>
 
 		<hgroup>
-		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		  <h1 class="header-author"><a href="/">WinterSun</a></h1>
 		</hgroup>
 
 		
@@ -94,7 +94,7 @@
       <nav id="mobile-nav">
   	<div class="overlay">
   		<div class="slider-trigger"><i class="icon-sort"></i></div>
-  		<h1 class="header-author js-mobile-header hide">John Doe</h1>
+  		<h1 class="header-author js-mobile-header hide">WinterSun</h1>
   	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
@@ -102,7 +102,7 @@
 				<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author">John Doe</h1>
+			  <h1 class="header-author">WinterSun</h1>
 			</hgroup>
 			
 			<nav class="header-menu">
@@ -295,7 +295,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 John Doe
+    		&copy; 2017 WinterSun
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
