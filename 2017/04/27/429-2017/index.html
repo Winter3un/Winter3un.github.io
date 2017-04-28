@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/27/429-2017/index.html">
 <meta property="og:site_name" content="WinterSun Space">
 <meta property="og:description" content="前言下次pwn选手真的不该去429线下。。这BGM神TM的= =。。 比赛很稳，主队拿了第7，分队第12，不过需要反思的是： 1、解pwn的速度还需要提升（awd形式尽早写出exp拿分很有优势） 2、web的话一定要防御住、防御住、防御住、重要的话说三遍。。 3、写好的exp脚本交由负责流量审计的队友来维护 4、pwn需要一个后门，不然遇到别人劫持了我们的exp流量就很吃亏了。 5、exp需要将g">
-<meta property="og:updated_time" content="2017-04-28T08:31:41.078Z">
+<meta property="og:updated_time" content="2017-04-28T08:32:37.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【pwn】2017-429final">
 <meta name="twitter:description" content="前言下次pwn选手真的不该去429线下。。这BGM神TM的= =。。 比赛很稳，主队拿了第7，分队第12，不过需要反思的是： 1、解pwn的速度还需要提升（awd形式尽早写出exp拿分很有优势） 2、web的话一定要防御住、防御住、防御住、重要的话说三遍。。 3、写好的exp脚本交由负责流量审计的队友来维护 4、pwn需要一个后门，不然遇到别人劫持了我们的exp流量就很吃亏了。 5、exp需要将g">
@@ -168,8 +168,6 @@
 <a id="more"></a>
 <h3 id="pwn2"><a href="#pwn2" class="headerlink" title="pwn2"></a>pwn2</h3><p>第一个开放的题目是pwn2，9点开放的比赛，我在10点10分左右已经将具体利用思路构思完毕（静态分析30分钟+动态分析40分钟），坑爹的是对libc文件进行分析的时候（因为我需要拿到free_hook的地址），IDA无法静态分析，这边消耗了两个小时，写完exp的时候已经是领盒饭12点了。。别人利用这个pwn2已经打了至少18轮，900分。。</p>
 <p>pwn2是一个具有off by one和常规溢出漏洞的二进制程序，他创建的虚表结构如下</p>
-<p>PTR[0]<br>8|8|8<br>–|–|–<br>|(Long int)hashcode Length|(char <em>)Name|(char </em>)Hash code|<br>|—-|–|–|</p>
-<p>PTR[1]<br>8|8|8<br>–|–|–<br>|(Long int)hashcode Length|(char <em>)Name|(char </em>)Hash code|<br>|—-|–|–|</p>
 <p>回过头我们看下这个二进制程序 Hashcode 的input函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">__int64 __<span class="function">fastcall <span class="title">sub_4009DB</span><span class="params">(__int64 a1, <span class="keyword">int</span> a2)</span></span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">char</span> v3; <span class="comment">// [sp+1Bh] [bp-5h]@2</span></div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [sp+1Ch] [bp-4h]@1</span></div><div class="line"></div><div class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; ; ++i )</div><div class="line">  &#123;</div><div class="line">    v3 = getchar();</div><div class="line">    <span class="keyword">if</span> ( i == a2 )</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    *(_BYTE *)(a1 + (<span class="keyword">signed</span> <span class="keyword">int</span>)i) = v3;</div><div class="line">  &#125;</div><div class="line">  *(_BYTE *)((<span class="keyword">signed</span> <span class="keyword">int</span>)i + a1) = <span class="number">0</span>;</div><div class="line">  <span class="keyword">return</span> i;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>记得大一教我C语言的老师说过，C下标的索引是从0开始的,所以a[len(a)]=0 这样的形式会造成1个\x00字节越界赋值。正常来说，这样1个\x00字节，最多覆盖下一个虚表结构的preg_size的结构，但是存在另一个溢出漏洞，我们可以将hashcode的长度可输入长度进行修改（注意，hashcode的可输入区域长度没有变化），这便造成了越界溢出，溢出的数据覆盖到了下一个ptr虚表，利用过程如下（这个利用过程其实没有用到off by one）。</p>
 <ul>
