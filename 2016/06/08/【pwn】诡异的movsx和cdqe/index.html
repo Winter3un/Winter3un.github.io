@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | Hexo</title>
+  <title>【pwn】诡异的movsx和cdqe | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords">
+  <meta name="description" content="背景这是在做hack.lu 2014 的pwn的一题时发现的，也算补一波自己的汇编姿势了。">
+<meta name="keywords" content="pwn,bin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/04/27/hello-world/index.html">
+<meta property="og:title" content="【pwn】诡异的movsx和cdqe">
+<meta property="og:url" content="http://yoursite.com/2016/06/08/【pwn】诡异的movsx和cdqe/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-04-28T06:46:31.235Z">
+<meta property="og:description" content="背景这是在做hack.lu 2014 的pwn的一题时发现的，也算补一波自己的汇编姿势了。">
+<meta property="og:updated_time" content="2016-12-20T02:35:36.781Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="【pwn】诡异的movsx和cdqe">
+<meta name="twitter:description" content="背景这是在做hack.lu 2014 的pwn的一题时发现的，也算补一波自己的汇编姿势了。">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -136,33 +136,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【pwn】诡异的movsx和cdqe" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      【pwn】诡异的movsx和cdqe
     </h1>
   
 
-        <a href="/2017/04/27/hello-world/" class="archive-article-date">
-  	<time datetime="2017-04-28T06:46:31.235Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+        <a href="/2016/06/08/【pwn】诡异的movsx和cdqe/" class="archive-article-date">
+  	<time datetime="2016-06-08T22:39:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-08</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>这是在做hack.lu 2014 的pwn的一题时发现的，也算补一波自己的汇编姿势了。<br><br> <a id="more"></a></p>
+<h3 id="科普"><a href="#科普" class="headerlink" title="科普"></a>科普</h3><p>一般而言，我们定义一个字符型数据，正常认识中，我们默认它是无符号的。<br><code>char a;</code> <strong>错误认知：这是无符号的。</strong><br>但是实际上编译器默认将其认为是有符号的。<br>当我们输入<code>&#39;\x7f&#39;</code>时，32位下转换成整形后其数据为<code>0x0000007f</code><br>当我们输入<code>&#39;\x80&#39;</code>时，32位下转换成整形后其数据为<code>0xffffff80</code></p>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>在这边movsx为<code>带符号位扩展</code>，cdqe为<code>转换DWORD(eax)成QWORD(RAX)</code>，所以经过这两步操作，我们的1个字节的字符型数据成功转换成了8字节整型数据，而且是带符号的。那么该整形数据的取证范围为<code>-7f~+7f</code><br>所以我们可以利用该属性进行整型溢出（想想都兴奋），比如这个数据正好我们能控制，正好该数据是数组的索引。。那么我们就能够取到这个数组地址之前0x7f范围内的数据</p>
 
       
 
@@ -192,6 +186,11 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+	</div>
+
       
 
       
@@ -242,7 +241,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/27/hello-world/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2016/06/08/【pwn】诡异的movsx和cdqe/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -256,15 +255,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/27/2017-429-final/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/06/08/Auto-post/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【pwn】2017-429final
+          Auto post
         
       </div>
     </a>
   
+  
+    <a href="/2016/06/08/2015-问鼎杯线下PWN/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2015-问鼎杯线下PWN</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

