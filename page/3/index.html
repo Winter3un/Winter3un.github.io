@@ -133,65 +133,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-pwn-关于栈的迁移" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/20/pwn-关于栈的迁移/">[pwn] 关于栈的迁移</a>
-    </h1>
-  
-
-        <a href="/2016/05/20/pwn-关于栈的迁移/" class="archive-article-date">
-  	<time datetime="2016-05-20T15:29:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-20</time>
-</a>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="pwn-关于栈的迁移"><a href="#pwn-关于栈的迁移" class="headerlink" title="[pwn] 关于栈的迁移"></a>[pwn] 关于栈的迁移</h2><p>在我们仅仅只能够控制ebp的情况下，我们怎么才能够控制eip去拿到我们的shell呢。</p>
-<h3 id="以下为科普"><a href="#以下为科普" class="headerlink" title="以下为科普"></a>以下为科普</h3><p>以32位程序举例，在使用<code>call</code>这个命令，进入一个函数的时候,程序会进行一系列栈操作:<br><code>push eip+4;push ebp;mov ebp,esp;</code>来保护现场，避免执行完函数后堆栈不平衡以及找不到之前的入口地址。</p>
-<p>执行完函数后会进行一系列操作来还原现场<code>leave;ret;</code><br>这边的leave就相当于进入函数栈操作的逆过程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">leave  == mov esp,ebp;pop ebp;</div><div class="line">ret    == pop eip #弹出栈顶数据给eip寄存器</div></pre></td></tr></table></figure></p>
-<p>这样如果能够控制栈空间到任意地址，那么我们就能利用ret来控制eip的数据了（栈顶数据）<br>
-        
-          <a class="article-more-a" href="/2016/05/20/pwn-关于栈的迁移/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/20/pwn-关于栈的迁移/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
     <article id="post-hexo-build" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
