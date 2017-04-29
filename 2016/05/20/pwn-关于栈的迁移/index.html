@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://yoursite.com">
+  <link rel="dns-prefetch" href="https://winter3un.github.io">
   <title>[pwn] 关于栈的迁移 | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="[pwn] 关于栈的迁移在我们仅仅只能够控制ebp的情况下，我们怎么才能够控制eip去拿到我们的shell呢。 以下为科普以32位程序举例，在使用call这个命令，进入一个函数的时候,程序会进行一系列栈操作:push eip+4;push ebp;mov ebp,esp;来保护现场，避免执行完函数后堆栈不平衡以及找不到之前的入口地址。 执行完函数后会进行一系列操作来还原现场leave;ret;这边">
 <meta name="keywords" content="pwn,bin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[pwn] 关于栈的迁移">
-<meta property="og:url" content="http://yoursite.com/2016/05/20/pwn-关于栈的迁移/index.html">
+<meta property="og:url" content="https://winter3un.github.io/2016/05/20/pwn-关于栈的迁移/index.html">
 <meta property="og:site_name" content="WinterSun Space">
 <meta property="og:description" content="[pwn] 关于栈的迁移在我们仅仅只能够控制ebp的情况下，我们怎么才能够控制eip去拿到我们的shell呢。 以下为科普以32位程序举例，在使用call这个命令，进入一个函数的时候,程序会进行一系列栈操作:push eip+4;push ebp;mov ebp,esp;来保护现场，避免执行完函数后堆栈不平衡以及找不到之前的入口地址。 执行完函数后会进行一系列操作来还原现场leave;ret;这边">
 <meta property="og:updated_time" content="2016-12-20T02:35:00.988Z">
@@ -247,7 +247,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2016/05/20/pwn-关于栈的迁移/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://winter3un.github.io/2016/05/20/pwn-关于栈的迁移/" alt="微信分享二维码">
     </div>
 </div>
 
