@@ -129,6 +129,65 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-xdctf2016-wp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/05/xdctf2016-wp/">XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</a>
+    </h1>
+  
+
+        <a href="/2016/10/05/xdctf2016-wp/" class="archive-article-date">
+  	<time datetime="2016-10-05T07:33:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-05</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题目如下</p>
+
+<p>下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的）</p>
+<p>下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap<br></p>
+        
+          <a class="article-more-a" href="/2016/10/05/xdctf2016-wp/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writeup/">writeup</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/10/05/xdctf2016-wp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-C-S-WeChat" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -645,65 +704,6 @@
 
 
   
-    <article id="post-pwn-关于栈的迁移" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/20/pwn-关于栈的迁移/">[pwn] 关于栈的迁移</a>
-    </h1>
-  
-
-        <a href="/2016/05/20/pwn-关于栈的迁移/" class="archive-article-date">
-  	<time datetime="2016-05-20T15:29:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-20</time>
-</a>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="pwn-关于栈的迁移"><a href="#pwn-关于栈的迁移" class="headerlink" title="[pwn] 关于栈的迁移"></a>[pwn] 关于栈的迁移</h2><p>在我们仅仅只能够控制ebp的情况下，我们怎么才能够控制eip去拿到我们的shell呢。</p>
-<h3 id="以下为科普"><a href="#以下为科普" class="headerlink" title="以下为科普"></a>以下为科普</h3><p>以32位程序举例，在使用<code>call</code>这个命令，进入一个函数的时候,程序会进行一系列栈操作:<br><code>push eip+4;push ebp;mov ebp,esp;</code>来保护现场，避免执行完函数后堆栈不平衡以及找不到之前的入口地址。</p>
-<p>执行完函数后会进行一系列操作来还原现场<code>leave;ret;</code><br>这边的leave就相当于进入函数栈操作的逆过程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">leave  == mov esp,ebp;pop ebp;</div><div class="line">ret    == pop eip #弹出栈顶数据给eip寄存器</div></pre></td></tr></table></figure></p>
-<p>这样如果能够控制栈空间到任意地址，那么我们就能利用ret来控制eip的数据了（栈顶数据）<br>
-        
-          <a class="article-more-a" href="/2016/05/20/pwn-关于栈的迁移/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/20/pwn-关于栈的迁移/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -766,14 +766,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">AWD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ARM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">code</a>
               </li>
              
@@ -786,15 +778,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">Writeup</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bctf</a>
+                <a href="javascript:void(0)">writeup</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">writeup</a>
+                <a href="javascript:void(0)">bctf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,11 +802,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ctf</a>
+                <a href="javascript:void(0)">bin</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bin</a>
+                <a href="javascript:void(0)">ctf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -823,6 +819,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">fmt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">note</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
               </li>
             
             <div class="clearfix"></div>

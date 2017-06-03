@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://winter3un.github.io/2017/04/08/how-to-get-libc/index.html">
 <meta property="og:site_name" content="WinterSun Space">
 <meta property="og:description" content="比赛的时候，遇到比较坑爹的情况，没有提供给libc库，这个时候就需要用各种姿势去泄露libc库。 1、询问组委会，是否提供libc库，很有可能就放提示了 2、通过return2libc技巧，泄露got内保存的库函数地址，去 http://libcdb.com/  找对应的库版本，这边我写了一个get_libc的小脚本（但并不是百分之一百能找到的。 1234567891011121314151617">
-<meta property="og:updated_time" content="2017-04-08T07:50:46.476Z">
+<meta property="og:updated_time" content="2017-05-22T16:58:15.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="how_to_get_libc">
 <meta name="twitter:description" content="比赛的时候，遇到比较坑爹的情况，没有提供给libc库，这个时候就需要用各种姿势去泄露libc库。 1、询问组委会，是否提供libc库，很有可能就放提示了 2、通过return2libc技巧，泄露got内保存的库函数地址，去 http://libcdb.com/  找对应的库版本，这边我写了一个get_libc的小脚本（但并不是百分之一百能找到的。 1234567891011121314151617">
@@ -157,6 +157,9 @@
 <p>3、利用return to dl resolve技术，这个已经有成熟的辅助工具了。<a href="https://github.com/inaz2/roputils" target="_blank" rel="external">https://github.com/inaz2/roputils</a></p>
 <p>4、利用其他题目的libc库，出题人为了方便，很有可能用的相同libc库</p>
 <p>5、利用pwntools提供的dynelf函数来寻找system地址，不过需要有个leak函数。可参考 <a href="http://bobao.360.cn/learning/detail/3298.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/3298.html</a> （蛋疼的是，不知道为啥我的ELF()函数一直是坏的。</p>
+<hr>
+<p>2017/5/23日添加</p>
+<p>6、泄露Smallbin的FD、BK进行libc base获取</p>
 
       
 
@@ -335,14 +338,6 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">AWD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ARM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">code</a>
               </li>
              
@@ -355,15 +350,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">Writeup</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bctf</a>
+                <a href="javascript:void(0)">writeup</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">writeup</a>
+                <a href="javascript:void(0)">bctf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -375,11 +374,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ctf</a>
+                <a href="javascript:void(0)">bin</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bin</a>
+                <a href="javascript:void(0)">ctf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -392,6 +391,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">fmt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">note</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
               </li>
             
             <div class="clearfix"></div>
