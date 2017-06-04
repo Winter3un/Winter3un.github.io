@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://winter3un.github.io/2017/06/04/heap-all/index.html">
 <meta property="og:site_name" content="WinterSun Space">
 <meta property="og:description" content="涉及到的知识点1、fastbin attack 2、unsorted bin attack 3、malloc堆内存管理">
-<meta property="og:updated_time" content="2017-06-04T16:11:31.538Z">
+<meta property="og:updated_time" content="2017-06-04T16:15:22.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【pwn】cuit2017 & 0ctf2017 heap总结">
 <meta name="twitter:description" content="涉及到的知识点1、fastbin attack 2、unsorted bin attack 3、malloc堆内存管理">
@@ -155,19 +155,7 @@
 <p>3、malloc堆内存管理</p>
 <a id="more"></a>
 <h3 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h3><p>当我们用malloc申请一个0x20的空间的时候，glibc实际上给予了我们一个如下这样子的一个结构。</p>
-<table>
-<thead>
-<tr>
-<th>head(0x8/0x10)</th>
-<th>data(0x20)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p>|head(0x8/0x10)|data(0x20)|</p>
 <p><strong>注意：由于x84和x64的机器字长不一样，故其head头部大小也不一样，x86为0x8长度，x64为0x10长度。</strong></p>
 <p>data区域是我们可以进行数据输入的区间，malloc返回的指针便是该区间的首地址，记作PTR</p>
 <p>当我们free它的时候，它会判定是否与top chunk相邻，如果相邻，它将会与top chunk合并，如果不是的话，它会进一步判断自身大小是否满足fast bin的要求，fastbin的边界大小由 libc内的全局变量fast_max决定，不过x86下这个值为0x40，x64下位0x80，小于等于这个值的所有chunk，free后将有fast bin管理，如果该chunk可以重复free，我们则可以利用fast bin attack来实现<strong>有限制的地址写能力</strong>（<a href="https://github.com/shellphish/how2heap/blob/master/fastbin_dup_into_stack.c" target="_blank" rel="external">https://github.com/shellphish/how2heap/blob/master/fastbin_dup_into_stack.c</a> ）。而如果边界的大小大于fastbin的边界大小，该chunk则会加入到unsorted bin中去，此时我们可以修改bk来实现unsorted attack （ <a href="https://github.com/shellphish/how2heap/blob/master/unsorted_bin_attack.c" target="_blank" rel="external">https://github.com/shellphish/how2heap/blob/master/unsorted_bin_attack.c</a> ）如果free 一个small/large chunk 的时候，可以修改本chunk、前一个或后一个，small/large chunk的head and data，则可以进行double free攻击。（ <a href="http://www.hackdig.com/08/hack-25191.htm" target="_blank" rel="external">http://www.hackdig.com/08/hack-25191.htm</a>  ）</p>
