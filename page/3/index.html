@@ -129,6 +129,62 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2015-问鼎杯线下PWN" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/08/2015-问鼎杯线下PWN/">2015-问鼎杯线下PWN</a>
+    </h1>
+  
+
+        <a href="/2016/06/08/2015-问鼎杯线下PWN/" class="archive-article-date">
+  	<time datetime="2016-06-08T22:39:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-08</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这题当时没做出了哎。。好吧，其实考察点是整型溢出。。。挺有价值的一题题目。<br>题目地址：<a href="https://github.com/Winter3un/ctf_task">https://github.com/Winter3un/ctf_task</a><br>通过逆向得知，题目需要密码，而密码是通过一个算法得到的，要输入一个字符串满足这个算法，但是在32位内，我们的任何输入都满足不了条件，突然发现这边可以进行整型溢出（超过32位的数据，寄存器将丢弃）<br>那么我们可以构造类似于0x1ae312d386d209这样的数据，高于32位的数据将会被丢弃。即<code>0x1ae312d386d209</code> == <code>0xD386D209</code><br>exp如下:<br>
+        
+          <a class="article-more-a" href="/2016/06/08/2015-问鼎杯线下PWN/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/06/08/2015-问鼎杯线下PWN/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【pwn】诡异的movsx和cdqe" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -481,6 +537,22 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">AWD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">bctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ARM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">code</a>
               </li>
              
@@ -493,23 +565,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">AWD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">pwn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">Writeup</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">writeup</a>
+                <a href="javascript:void(0)">arm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,11 +573,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">arm</a>
+                <a href="javascript:void(0)">writeup</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">heap</a>
+                <a href="javascript:void(0)">Writeup</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,19 +585,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">wargame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">note</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ARM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -550,6 +594,18 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">fmt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">heap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">note</a>
               </li>
             
             <div class="clearfix"></div>
