@@ -1,136 +1,282 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hans">
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://winter3un.github.io">
-  <title>WinterSun Space</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="WinterSun" />
+
+
+    
+    
+
+
+<meta property="og:type" content="website">
 <meta property="og:title" content="WinterSun Space">
 <meta property="og:url" content="https://winter3un.github.io/page/3/index.html">
 <meta property="og:site_name" content="WinterSun Space">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WinterSun Space">
-  
-    <link rel="alternative" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/main.css?v=4.0.0">
-  
 
-  
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <style> .article { opacity: 0;} </style>
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>WinterSun Space</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: true,
+        isPost: false,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
 
 </head>
-
 <body>
-  <div id="container" q-class="show:isCtnShow">
-    <canvas id="anm-canvas" class="anm-canvas"></canvas>
-    <div class="left-col" q-class="show:isShow">
-      <div class="overlay"></div>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
 <div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
-		</a>
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">WinterSun</a></h1>
+        </hgroup>
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">WinterSun</a></h1>
-		</hgroup>
+        
 
-		
+        
 
-		<nav class="header-menu">
-			<ul>
-			
-				<li><a href="/">主页</a></li>
-	        
-			</ul>
-		</nav>
-		<nav class="header-smart-menu">
-	        
-    		
-    			
-    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
-    			
-    			
-            
-    			
-    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
-    			
-    			
-            
-    			
-    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
-    			
-    			
-            
-		</nav>
-		<nav class="header-nav">
-			<div class="social">
-				
-					<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
-		        
-			</div>
-		</nav>
-	</header>		
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/511683586@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/Winter3un" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/Winter3un/activities" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARM/">ARM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWD/">AWD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Writeup/">Writeup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arm/">arm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bctf/">bctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bin/">bin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fmt/">fmt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heap/">heap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heap-overflow/">heap overflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/note/">note</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pwn/">pwn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pwntools/">pwntools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wargame/">wargame</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/writeup/">writeup</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
 </div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">WinterSun</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">WinterSun</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/511683586@qq.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/Winter3un" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-2015-问鼎杯线下PWN" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/2015-问鼎杯线下PWN/" class="article-date">
+      <time datetime="2016-06-08T22:39:32.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+
 
     </div>
-    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"><i class="icon-sort"></i></div>
-  		<h1 class="header-author js-mobile-header hide">WinterSun</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				<img src="https://avatars1.githubusercontent.com/u/12570968?v=3&amp;s=460" class="js-avatar">
-			</div>
-			<hgroup>
-			  <h1 class="header-author">WinterSun</h1>
-			</hgroup>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-		        
-		        	<li><a href="/archives/">所有文章</a></li>
-		        
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/Winter3un" title="github"><i class="icon-github"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Winter3un/activities" title="zhihu"><i class="icon-zhihu"></i></a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-
-      <div id="wrapper" class="body-wrap">
-        <div class="menu-l">
-          <div class="canvas-wrap">
-            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
-          </div>
-          <div id="js-content" class="content-ll">
-            
   
-    <article id="post-2015-问鼎杯线下PWN" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
       <header class="article-header">
         
@@ -140,41 +286,36 @@
     </h1>
   
 
-        <a href="/2016/06/08/2015-问鼎杯线下PWN/" class="archive-article-date">
-  	<time datetime="2016-06-08T22:39:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-08</time>
-</a>
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这题当时没做出了哎。。好吧，其实考察点是整型溢出。。。挺有价值的一题题目。<br>题目地址：<a href="https://github.com/Winter3un/ctf_task">https://github.com/Winter3un/ctf_task</a><br>通过逆向得知，题目需要密码，而密码是通过一个算法得到的，要输入一个字符串满足这个算法，但是在32位内，我们的任何输入都满足不了条件，突然发现这边可以进行整型溢出（超过32位的数据，寄存器将丢弃）<br>那么我们可以构造类似于0x1ae312d386d209这样的数据，高于32位的数据将会被丢弃。即<code>0x1ae312d386d209</code> == <code>0xD386D209</code><br>exp如下:<br>
-        
-          <a class="article-more-a" href="/2016/06/08/2015-问鼎杯线下PWN/#more">more >></a>
-        
-      
-
+          
+              <p>这题当时没做出了哎。。好吧，其实考察点是整型溢出。。。挺有价值的一题题目。<br>题目地址：<a href="https://github.com/Winter3un/ctf_task">https://github.com/Winter3un/ctf_task</a><br>通过逆向得知，题目需要密码，而密码是通过一个算法得到的，要输入一个字符串满足这个算法，但是在32位内，我们的任何输入都满足不了条件，突然发现这边可以进行整型溢出（超过32位的数据，寄存器将丢弃）<br>那么我们可以构造类似于0x1ae312d386d209这样的数据，高于32位的数据将会被丢弃。即<code>0x1ae312d386d209</code> == <code>0xD386D209</code><br>exp如下:<br>
+          
       
     </div>
+    
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-	</div>
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+    </div>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/08/2015-问鼎杯线下PWN/">展开全文 >></a>
+          <a href="/2016/06/08/2015-问鼎杯线下PWN/#more">阅读全文 >></a>
         </p>
-      
-
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
+  
 </article>
 
 
@@ -184,9 +325,22 @@
 
 
 
+
   
-    <article id="post-【pwn】诡异的movsx和cdqe" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-【pwn】诡异的movsx和cdqe" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/【pwn】诡异的movsx和cdqe/" class="article-date">
+      <time datetime="2016-06-08T22:39:17.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+
+
+    </div>
+  
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
       <header class="article-header">
         
@@ -196,41 +350,36 @@
     </h1>
   
 
-        <a href="/2016/06/08/【pwn】诡异的movsx和cdqe/" class="archive-article-date">
-  	<time datetime="2016-06-08T22:39:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-08</time>
-</a>
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>这是在做hack.lu 2014 的pwn的一题时发现的，也算补一波自己的汇编姿势了。<br><br>
-        
-          <a class="article-more-a" href="/2016/06/08/【pwn】诡异的movsx和cdqe/#more">more >></a>
-        
-      
-
+          
+              <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>这是在做hack.lu 2014 的pwn的一题时发现的，也算补一波自己的汇编姿势了。<br><br>
+          
       
     </div>
+    
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-	</div>
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+    </div>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/08/【pwn】诡异的movsx和cdqe/">展开全文 >></a>
+          <a href="/2016/06/08/【pwn】诡异的movsx和cdqe/#more">阅读全文 >></a>
         </p>
-      
-
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
+  
 </article>
 
 
@@ -240,9 +389,22 @@
 
 
 
+
   
-    <article id="post-Auto-post" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Auto-post" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/Auto-post/" class="article-date">
+      <time datetime="2016-06-08T22:38:59.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+
+
+    </div>
+  
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
       <header class="article-header">
         
@@ -252,47 +414,42 @@
     </h1>
   
 
-        <a href="/2016/06/08/Auto-post/" class="archive-article-date">
-  	<time datetime="2016-06-08T22:38:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-08</time>
-</a>
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>某个坑爹的小伙伴说只要我做出这玩意就请我吃3斤龙虾，于是我本着社会主义精神，昧着虾心，来写这篇文章。</p>
+          
+              <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>某个坑爹的小伙伴说只要我做出这玩意就请我吃3斤龙虾，于是我本着社会主义精神，昧着虾心，来写这篇文章。</p>
 <p>主要用的知识点：</p>
 <ol>
 <li>python编程</li>
 <li>http协议包分析</li>
 <li>requests库文件的使用</li>
 </ol>
-        
-          <a class="article-more-a" href="/2016/06/08/Auto-post/#more">more >></a>
-        
-      
-
+          
       
     </div>
+    
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
-	</div>
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/08/Auto-post/">展开全文 >></a>
+          <a href="/2016/06/08/Auto-post/#more">阅读全文 >></a>
         </p>
-      
-
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
+  
 </article>
 
 
@@ -302,9 +459,22 @@
 
 
 
+
   
-    <article id="post-pwn-关于栈的迁移" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-pwn-关于栈的迁移" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/20/pwn-关于栈的迁移/" class="article-date">
+      <time datetime="2016-05-20T15:29:04.000Z" itemprop="datePublished">2016-05-20</time>
+</a>
+
+
+    </div>
+  
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
       <header class="article-header">
         
@@ -314,44 +484,39 @@
     </h1>
   
 
-        <a href="/2016/05/20/pwn-关于栈的迁移/" class="archive-article-date">
-  	<time datetime="2016-05-20T15:29:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-20</time>
-</a>
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="pwn-关于栈的迁移"><a href="#pwn-关于栈的迁移" class="headerlink" title="[pwn] 关于栈的迁移"></a>[pwn] 关于栈的迁移</h2><p>在我们仅仅只能够控制ebp的情况下，我们怎么才能够控制eip去拿到我们的shell呢。</p>
+          
+              <h2 id="pwn-关于栈的迁移"><a href="#pwn-关于栈的迁移" class="headerlink" title="[pwn] 关于栈的迁移"></a>[pwn] 关于栈的迁移</h2><p>在我们仅仅只能够控制ebp的情况下，我们怎么才能够控制eip去拿到我们的shell呢。</p>
 <h3 id="以下为科普"><a href="#以下为科普" class="headerlink" title="以下为科普"></a>以下为科普</h3><p>以32位程序举例，在使用<code>call</code>这个命令，进入一个函数的时候,程序会进行一系列栈操作:<br><code>push eip+4;push ebp;mov ebp,esp;</code>来保护现场，避免执行完函数后堆栈不平衡以及找不到之前的入口地址。</p>
 <p>执行完函数后会进行一系列操作来还原现场<code>leave;ret;</code><br>这边的leave就相当于进入函数栈操作的逆过程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">leave  == mov esp,ebp;pop ebp;</div><div class="line">ret    == pop eip #弹出栈顶数据给eip寄存器</div></pre></td></tr></table></figure></p>
 <p>这样如果能够控制栈空间到任意地址，那么我们就能利用ret来控制eip的数据了（栈顶数据）<br>
-        
-          <a class="article-more-a" href="/2016/05/20/pwn-关于栈的迁移/#more">more >></a>
-        
-      
-
+          
       
     </div>
+    
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-	</div>
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+    </div>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/20/pwn-关于栈的迁移/">展开全文 >></a>
+          <a href="/2016/05/20/pwn-关于栈的迁移/#more">阅读全文 >></a>
         </p>
-      
-
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
+  
 </article>
 
 
@@ -361,9 +526,22 @@
 
 
 
+
   
-    <article id="post-hexo-build" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-hexo-build" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/19/hexo-build/" class="article-date">
+      <time datetime="2016-05-19T14:51:09.000Z" itemprop="datePublished">2016-05-19</time>
+</a>
+
+
+    </div>
+  
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
       <header class="article-header">
         
@@ -373,45 +551,40 @@
     </h1>
   
 
-        <a href="/2016/05/19/hexo-build/" class="archive-article-date">
-  	<time datetime="2016-05-19T14:51:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-19</time>
-</a>
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="首先你得有个自己的github账户"><a href="#首先你得有个自己的github账户" class="headerlink" title="首先你得有个自己的github账户"></a>首先你得有个自己的github账户</h2><p><a href="www.github.com">www.github.com</a></p>
+          
+              <h2 id="首先你得有个自己的github账户"><a href="#首先你得有个自己的github账户" class="headerlink" title="首先你得有个自己的github账户"></a>首先你得有个自己的github账户</h2><p><a href="www.github.com">www.github.com</a></p>
 <p>注册完成后，新建一个名为<code>YOURUSERNAME.github.io</code>仓库，并在设置内将该仓库设置为gitpage</p>
 
 
 <h2 id="在linux本地设置好git"><a href="#在linux本地设置好git" class="headerlink" title="在linux本地设置好git"></a>在linux本地设置好git</h2>
-        
-          <a class="article-more-a" href="/2016/05/19/hexo-build/#more">more >></a>
-        
-      
-
+          
       
     </div>
+    
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
-	</div>
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/19/hexo-build/">展开全文 >></a>
+          <a href="/2016/05/19/hexo-build/#more">阅读全文 >></a>
         </p>
-      
-
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
+  
 </article>
 
 
@@ -421,9 +594,22 @@
 
 
 
+
   
-    <article id="post-mprotect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-mprotect" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/18/mprotect/" class="article-date">
+      <time datetime="2016-05-19T00:36:34.000Z" itemprop="datePublished">2016-05-18</time>
+</a>
+
+
+    </div>
+  
   <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
     
       <header class="article-header">
         
@@ -433,43 +619,39 @@
     </h1>
   
 
-        <a href="/2016/05/18/mprotect/" class="archive-article-date">
-  	<time datetime="2016-05-19T00:36:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-18</time>
-</a>
       </header>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这道题目源自于 2016安云杯，题目原题可以在文章最后的附件里下载。</p>
+          
+              <p>这道题目源自于 2016安云杯，题目原题可以在文章最后的附件里下载。</p>
 <p>当时拿到这道题目以后，想法很简单。使用fmt将puts函数的got改掉换成程序自带的mprotect后门（如图）。先是用mprotect将栈空间段设置为可执行，然后利用gets函数将shellcode放入站上，由于最后没有将eax清空，eax寄存器仍然保存着栈地址，所以我们可以利用 jmp eax 或者 call eax 跳转到栈上执行。（一个简单的pwn案例）<br>
-        
-          <a class="article-more-a" href="/2016/05/18/mprotect/#more">more >></a>
-        
-      
-
+          
       
     </div>
+    
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-	</div>
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+    </div>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/18/mprotect/">展开全文 >></a>
+          <a href="/2016/05/18/mprotect/#more">阅读全文 >></a>
         </p>
-      
-
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
+  
 </article>
+
 
 
 
@@ -484,267 +666,92 @@
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
     </nav>
   
-
-
-          </div>
-        </div>
-      </div>
+</div>
       <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2017 WinterSun
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2015-2017 WinterSun
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
     </div>
-  </div>
 </footer>
     </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
     <script>
-	var yiliaConfig = {
-		mathjax: false,
-		isHome: true,
-		isPost: false,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false,
-		root: "/",
-		innerArchive: true
-	}
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
 </script>
 
-<script src="/./main.js?v=4.0.0"></script>
-
-
-    
-<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
-  <div class="tools-wrap">
-    
-    	<section class="tools-section tools-section-all" q-show="innerArchive">
-        <div class="search-wrap">
-          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
-          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
-          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
-        </div>
-        <div class="widget tagcloud search-tag">
-          <p class="search-tag-wording">tag:</p>
-          <label class="search-switch">
-            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
-          </label>
-          <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">pwn</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ARM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">code</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">Writeup</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">writeup</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">heap overflow</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">arm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">AWD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">heap</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">ctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">bin</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">wargame</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">note</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">pwntools</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">fmt</a>
-              </li>
-            
-            <div class="clearfix"></div>
-          </ul>
-        </div>
-        <ul class="search-ul">
-          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
-            2、在根目录_config.yml里添加配置：
-<pre style="font-size: 12px;" q-show="jsonFail">
-  jsonContent:
-    meta: false
-    pages: false
-    posts:
-      title: true
-      date: true
-      path: true
-      text: true
-      raw: false
-      content: false
-      slug: false
-      updated: false
-      comments: false
-      link: false
-      permalink: false
-      excerpt: false
-      categories: false
-      tags: true
-</pre>
-          </p>
-          <li class="search-li" q-repeat="items" q-show="isShow">
-            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
-            <p class="search-time">
-              <i class="icon-calendar icon"></i>
-              <span q-text="date|dateformat"></span>
-            </p>
-            <p class="search-tag">
-              <i class="icon-price-tags icon"></i>
-              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
-            </p>
-          </li>
-        </ul>
-    	</section>
-    
-
-    
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://o0xmuhe.me/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>MuHe</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://www.bertramc.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>bertramc</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
-    
-
-    
-    	<section class="tools-section tools-section-me" q-show="aboutme">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">曾实习于安恒、桐乡市公安局反欺诈中心、Mirage队长、CTF玩家、网络安全研究员、pwner、半赛棍、浙警院13级学生</div>
-  	  	
-    	</section>
-    
-  </div>
-  
-</div>
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
   </div>
 </body>
 </html>
