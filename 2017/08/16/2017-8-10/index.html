@@ -5,17 +5,17 @@
   
   <title>810线下赛复盘 | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="pwn前言线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下五个知识点。  string overflow int overflow off by one race condition heap overlay  fmt  正文第一个漏洞出现在west模块，该模块可以创建最多两个house，初始的金币都为5（虽然有一个">
+  <meta name="description" content="pwn前言线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下6个知识点。  string overflow int overflow off by one race condition heap overlay  fmt">
 <meta name="keywords" content="pwn,awd,web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="810线下赛复盘">
 <meta property="og:url" content="https://winter3un.github.io/2017/08/16/2017-8-10/index.html">
 <meta property="og:site_name" content="WinterSun Space">
-<meta property="og:description" content="pwn前言线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下五个知识点。  string overflow int overflow off by one race condition heap overlay  fmt  正文第一个漏洞出现在west模块，该模块可以创建最多两个house，初始的金币都为5（虽然有一个">
-<meta property="og:updated_time" content="2017-08-17T04:14:05.071Z">
+<meta property="og:description" content="pwn前言线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下6个知识点。  string overflow int overflow off by one race condition heap overlay  fmt">
+<meta property="og:updated_time" content="2017-08-17T07:10:46.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="810线下赛复盘">
-<meta name="twitter:description" content="pwn前言线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下五个知识点。  string overflow int overflow off by one race condition heap overlay  fmt  正文第一个漏洞出现在west模块，该模块可以创建最多两个house，初始的金币都为5（虽然有一个">
+<meta name="twitter:description" content="pwn前言线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下6个知识点。  string overflow int overflow off by one race condition heap overlay  fmt">
   
     <link rel="alternative" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
   
@@ -253,7 +253,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下五个知识点。</p>
+        <h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下6个知识点。</p>
 <ul>
 <li>string overflow</li>
 <li>int overflow</li>
@@ -262,6 +262,7 @@
 <li>heap overlay </li>
 <li>fmt</li>
 </ul>
+<a id="more"></a>
 <h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>第一个漏洞出现在west模块，该模块可以创建最多两个house，初始的金币都为5（虽然有一个tricks，但是然并软），然后可以选择其中一个house的id购买weapon，若其中一个house的weapon比另一个强，就可以将另一个house消灭掉（free），那么我们怎么才能增加我们的金币数目呢，其实我们可以利用string overflow的方式，如下代码。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">fgets(&amp;s1, 0x16, stdin);</div><div class="line">v9 = 0xA;</div><div class="line">if ( strlen(&amp;s1) &gt; 0x10 )</div><div class="line">&#123;</div><div class="line">puts(&quot;Your name is too long!&quot;);</div><div class="line">exit(-1);</div><div class="line">&#125;</div><div class="line">str_cpy(0x28LL * (signed int)i + 0x605148, (__int64)&amp;s1);</div></pre></td></tr></table></figure>
 <p>s1可以输入0x16个字节，而string函数都以<code>&#39;\x00&#39;</code>字节定义字符串的结束，我们可以构造绕过，将money覆盖成一个最大数<code>0x7fffffff</code>,即可买我们想要的任何装备，接着漏洞出现在<code>snprintf</code>处，该函数的返回值由原本要复制到<code>dst addr</code> 的数据长度决定，故而这边存在一个溢出，我们只要让返回值大于<code>0x54</code>即可，<code>int overflow</code>刚好能够做到这件事。接着利用刚才获取的长度溢出一个字节（只能达到一个字节，故而我们可以利用<code>off by one</code>技术将指向soliders的指针位置上移），接着利用heap overlay技术将该上移的指针加入到unsorted bin内，在下次分配的时候，能够再次分配到该空间，故而我们可以利用该空间将house中的soliders指针地址修改成<code>atoi_got</code>，然后在写入<code>print_plt</code>的地址，利用fmt技术泄漏libc信息，算出system的地址，将atoi_got的地址修改成system地址，即可拿到shell，草稿如下。</p>
@@ -325,7 +326,7 @@
         <p><span>本文标题:</span><a href="/2017/08/16/2017-8-10/">810线下赛复盘</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 WinterSun 的个人博客">WinterSun</a></p>
         <p><span>发布时间:</span>2017年08月16日 - 09时32分</p>
-        <p><span>最后更新:</span>2017年08月16日 - 21时14分</p>
+        <p><span>最后更新:</span>2017年08月17日 - 00时10分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/16/2017-8-10/" title="810线下赛复盘">https://winter3un.github.io/2017/08/16/2017-8-10/</a>
             <span class="copy-path" data-clipboard-text="原文: https://winter3un.github.io/2017/08/16/2017-8-10/　　作者: WinterSun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
