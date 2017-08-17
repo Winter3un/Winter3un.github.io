@@ -240,7 +240,7 @@
   <entry>
     <title><![CDATA[about]]></title>
     <url>%2Fabout%2Findex.html</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[//TODO]]></content>
   </entry>
   <entry>
     <title><![CDATA[tags]]></title>
