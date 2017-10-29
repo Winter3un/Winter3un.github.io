@@ -255,7 +255,7 @@
 <h3 id="attacker"><a href="#attacker" class="headerlink" title="attacker"></a>attacker</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python:2.7.14</div></pre></td></tr></table></figure>
 <h2 id="cve-2017-0199"><a href="#cve-2017-0199" class="headerlink" title="cve-2017-0199"></a>cve-2017-0199</h2><p>该漏洞影响版本如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Microsoft Office 2016</div><div class="line">Microsoft Office 2013</div><div class="line">Microsoft Office 2010</div><div class="line">Microsoft Office 2007</div></pre></td></tr></table></figure>
-<p>这个漏洞出在word对已经插入的远程对象访问的时候，如果访问的时候http相应头重含有<code>Content-Type: application/hta</code>那么将会对该对象以脚本的方式解析执行。具体的过程如图所示<br><img src="img/1.png" alt=""></p>
+<p>这个漏洞出在word对已经插入的远程对象访问的时候，如果访问的时候http相应头重含有<code>Content-Type: application/hta</code>那么将会对该对象以脚本的方式解析执行。具体的过程如图所示<br><img src="/2017/10/29/cve-2017-office/1.png" alt="1.png" title=""></p>
 <p>脚本：<a href="https://github.com/bhdresh/CVE-2017-0199" target="_blank" rel="external">https://github.com/bhdresh/CVE-2017-0199</a></p>
 <p>在实验过程中，发现该脚本有几处坑，一个是<code>server_thread</code>函数写了两遍,还有一个是<code>open</code>函数缺少了一个参数，故而本人修改了这两处问题，修改后的代码放于github上。</p>
 <p>使用方式和原来的脚本没有大的区别</p>
