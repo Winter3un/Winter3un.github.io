@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://winter3un.github.io/2018/03/19/2018-n1ctf/index.html">
 <meta property="og:site_name" content="WinterSun Space">
 <meta property="og:description" content="前言因为工作上涉及到web知识的比较多，所以作为pwn选手，这次并没有关注pwn的任何一题题目。。反倒是把web题做了个一遍ORZ">
-<meta property="og:updated_time" content="2018-03-19T11:22:02.269Z">
+<meta property="og:updated_time" content="2018-03-19T11:23:40.832Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="n1ctf 2018 web writeup">
 <meta name="twitter:description" content="前言因为工作上涉及到web知识的比较多，所以作为pwn选手，这次并没有关注pwn的任何一题题目。。反倒是把web题做了个一遍ORZ">
@@ -271,7 +271,7 @@
 <h2 id="77777-2"><a href="#77777-2" class="headerlink" title="77777-2"></a>77777-2</h2><p>emmmm关键的代码没有变，加强了waf，把password，pw，union等关键词挡住了，但是可以用如下的姿势绕过。</p>
 <p><code>flag=0&amp;hi=%2bconv(hex(substr((select pw ),1, 4)), 16, 10)</code></p>
 <p>没错。。pw左右各一个空格就绕过了，玄学。。</p>
-<p>后台生成查询语句为<code>UPDATE user SET points = 0+conv(hex(substr((select password),1, 4)), 16, 10)</code> 应该是非预期，话说正解到底是啥？</p>
+<p>后台生成查询语句为<code>UPDATE user SET points = 0+conv(hex(substr((select pw ),1, 4)), 16, 10)</code> 应该是非预期，话说正解到底是啥？</p>
 <h2 id="funning-eating-cms"><a href="#funning-eating-cms" class="headerlink" title="funning eating cms"></a>funning eating cms</h2><p>一个cms系统。。用了网上的模版。</p>
 <p><code>index.php</code>页面的page参数存在文件包含漏洞，但是文件后缀名必须是php的才能包含，无法用来命令执行，只能看下源码，操作姿势<a href="http://47.52.152.93:20000/user.php?page=php://filter/read=convert.base64-encode/resource=config" target="_blank" rel="external">http://47.52.152.93:20000/user.php?page=php://filter/read=convert.base64-encode/resource=config</a></p>
 <p>把看到的php文件都下载到本地，审计一波，发现<code>function.php</code>文件内<code>parse_url</code>函数存在绕过，当构造<code>////x.php?key=value</code>这种形式的uri的时候，parse_url函数将无法解析该uri。</p>
@@ -358,7 +358,7 @@
         <p><span>本文标题:</span><a href="/2018/03/19/2018-n1ctf/">n1ctf 2018 web writeup</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 WinterSun 的个人博客">WinterSun</a></p>
         <p><span>发布时间:</span>2018年03月19日 - 04时20分</p>
-        <p><span>最后更新:</span>2018年03月19日 - 04时22分</p>
+        <p><span>最后更新:</span>2018年03月19日 - 04时23分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/03/19/2018-n1ctf/" title="n1ctf 2018 web writeup">https://winter3un.github.io/2018/03/19/2018-n1ctf/</a>
             <span class="copy-path" data-clipboard-text="原文: https://winter3un.github.io/2018/03/19/2018-n1ctf/　　作者: WinterSun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
