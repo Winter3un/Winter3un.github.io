@@ -6,7 +6,7 @@
   <title>【pwn】2017-429final | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言下次pwn选手真的不该去429线下。。这BGM神TM的= =。。 比赛很稳，主队拿了第7，分队第12，不过需要反思的是： 1、解pwn的速度还需要提升（awd形式尽早写出exp拿分很有优势） 2、web的话一定要防御住、防御住、防御住、重要的话说三遍。。 3、写好的exp脚本交由负责流量审计的队友来维护 4、pwn需要一个后门，不然遇到别人劫持了我们的exp流量就很吃亏了。 5、exp需要将g">
-<meta name="keywords" content="pwn,AWD">
+<meta name="keywords" content="AWD,pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【pwn】2017-429final">
 <meta property="og:url" content="https://winter3un.github.io/2017/04/27/2017-429-final/index.html">
@@ -326,7 +326,7 @@
             </div>
           </div>
         </div>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript" src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
         <script type="text/javascript">
           $(".pay_item").click(function(){
             $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
@@ -392,7 +392,7 @@
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
-<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script>
     var valueHide = "隐藏目录";
     var valueShow = "显示目录";
@@ -434,6 +434,33 @@
 
 
     
+        <section id="comments">
+  <div id="valine_thread" style="margin: 30px;"></div>
+        <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+        <script>
+            var GUEST_INFO = ['nick','mail','link'];
+            var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+                return GUEST_INFO.indexOf(item) > -1
+            });
+            var notify = 'false' == true;
+            var verify = 'false' == true;
+            var valine = new Valine();
+            valine.init({
+                el: '#valine_thread',
+                notify: notify,
+                verify: verify,
+                appId: "null",
+                appKey: "null",
+                placeholder: "Just go go",
+                pageSize:'10',
+                avatar:'mm',
+                lang:'zh-cn'
+            })
+        </script>
+</section> 
+    
+      
 
 
 
@@ -511,7 +538,7 @@
 </footer>
 
     </div>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="/js/main.js"></script>
 
     <script>
