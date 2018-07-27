@@ -224,7 +224,255 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"></div>
+      <div class="body-wrap"><article id="post-how-to-get-libc" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/08/how-to-get-libc/" class="article-date">
+      <time datetime="2017-04-08T07:29:54.000Z" itemprop="datePublished">2017-04-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      how_to_get_libc
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>比赛的时候，遇到比较坑爹的情况，没有提供给libc库，这个时候就需要用各种姿势去泄露libc库。</p>
+<p>1、询问组委会，是否提供libc库，很有可能就放提示了</p>
+<p>2、通过return2libc技巧，泄露got内保存的库函数地址，去 <a href="http://libcdb.com/" target="_blank" rel="external">http://libcdb.com/</a>  找对应的库版本，这边我写了一个get_libc的小脚本（但并不是百分之一百能找到的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> requests <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="comment"># a_name = raw_input('input a_name= ')</span></div><div class="line"><span class="comment"># a_addr = raw_input('input a_addr=')</span></div><div class="line"><span class="comment"># b_name = raw_input('input b_name=')</span></div><div class="line"><span class="comment"># b_addr = raw_input('input b_addr=')</span></div><div class="line"><span class="comment"># a_name= 'read'</span></div><div class="line"><span class="comment"># a_addr='0xb76a9bd0'</span></div><div class="line"><span class="comment"># b_name='shutdown'</span></div><div class="line"><span class="comment"># b_addr='0xb76bc610'</span></div><div class="line">a_name=<span class="string">'printf'</span></div><div class="line">a_addr=<span class="string">'0x7f0ff5dadba0'</span></div><div class="line">b_name=<span class="string">'read'</span></div><div class="line">b_addr=<span class="string">'0x7f0ff5e50470'</span></div><div class="line"></div><div class="line">may_system_offset=[]</div><div class="line">url = <span class="string">'http://libcdb.com/search?symbolA='</span>+a_name+<span class="string">'&amp;addressA='</span>+a_addr+<span class="string">'&amp;symbolB='</span>+b_name+<span class="string">'&amp;addressB='</span>+b_addr</div><div class="line">r1 = get(url)</div><div class="line">list_ = re.findall(<span class="string">r'&lt;li&gt;&lt;a href="(.*?)"&gt;Libc\:'</span>,r1.content)</div><div class="line">payload = <span class="string">'may_system_offset = ['</span></div><div class="line"><span class="keyword">if</span> len(list_)&gt;<span class="number">0</span>:</div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> list_:</div><div class="line">		url = <span class="string">'http://libcdb.com'</span>+x+<span class="string">'/symbols?name=__libc_system'</span></div><div class="line">		system_offset = get(url)</div><div class="line">		system_offset = re.findall(<span class="string">r'/dt&gt;\n        &lt;dd&gt;(.*?)&lt;/dd&gt;\n        \n    &lt;/dl&gt;'</span>,system_offset.content)[<span class="number">0</span>].replace(<span class="string">'libc_base + 0x'</span>,<span class="string">''</span>)</div><div class="line">		<span class="keyword">print</span> system_offset</div><div class="line">		url = <span class="string">'http://libcdb.com'</span>+x+<span class="string">'/symbols?name='</span>+b_name</div><div class="line">		func_offset = get(url)</div><div class="line">		<span class="comment"># print func_offset.content</span></div><div class="line">		func_offset = re.findall(<span class="string">r'&gt;'</span>+b_name+<span class="string">'&lt;/dt&gt;\n        &lt;dd&gt;(.*?)&lt;/dd&gt;'</span>,func_offset.content)[<span class="number">0</span>].replace(<span class="string">'libc_base + 0x'</span>,<span class="string">''</span>)</div><div class="line">		may_system_offset.append(int(system_offset,<span class="number">16</span>)-int(func_offset,<span class="number">16</span>))</div><div class="line">	may_system_offset = list(set(may_system_offset))</div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> may_system_offset:</div><div class="line">		payload += hex(x)+<span class="string">','</span></div><div class="line">	payload = payload[:<span class="number">-1</span>]</div><div class="line">	<span class="keyword">print</span> payload+<span class="string">']'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'oops! nothing!'</span></div><div class="line">	</div><div class="line">raw_input()</div></pre></td></tr></table></figure>
+<p>3、利用return to dl resolve技术，这个已经有成熟的辅助工具了。<a href="https://github.com/inaz2/roputils" target="_blank" rel="external">https://github.com/inaz2/roputils</a></p>
+<p>4、利用其他题目的libc库，出题人为了方便，很有可能用的相同libc库</p>
+<p>5、利用pwntools提供的dynelf函数来寻找system地址，不过需要有个leak函数。可参考 <a href="http://bobao.360.cn/learning/detail/3298.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/3298.html</a> （蛋疼的是，不知道为啥我的ELF()函数一直是坏的。</p>
+<hr>
+<p>2017/5/23日添加</p>
+<p>6、泄露Smallbin的FD、BK进行libc base获取</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>你要赏我吃糖果吗？</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="//cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/04/08/how-to-get-libc/">how_to_get_libc</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 WinterSun 的个人博客">WinterSun</a></p>
+        <p><span>发布时间:</span>2017年04月08日 - 00时29分</p>
+        <p><span>最后更新:</span>2017年05月22日 - 09时58分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/04/08/how-to-get-libc/" title="how_to_get_libc">https://winter3un.github.io/2017/04/08/how-to-get-libc/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://winter3un.github.io/2017/04/08/how-to-get-libc/　　作者: WinterSun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/04/08/T3CTF2017/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          【pwn】T3CTF2017 堆溢出以及return to  dl slove
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/09/初探pwntools-fmt特性/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【pwn】 初探pwntools fmt特性</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'luuman'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+    
+      
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/04/08/T3CTF2017/" title="上一篇: 【pwn】T3CTF2017 堆溢出以及return to  dl slove">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/04/09/初探pwntools-fmt特性/" title="下一篇: 【pwn】 初探pwntools fmt特性">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/rsa-ctf/">CTF-RSA破解方式整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/2018-706-wp/">2018 706 writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/19/ddctf-2018/">DDCTF-2018  WEB WRITEUP</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/19/2018-n1ctf/">n1ctf 2018 web writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/20/2018-2-21/">低版本php+nginx 解析漏洞</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/29/cve-2017-office/">对cve-2017-0199与cve-2017-8759的浅析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/2017-8-10/">810线下赛复盘</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/2017-8-9/">8月9日个人赛总结 && writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/jarvisoj-web/">【web】jarvis oj 刷题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/04/heap-all/">【pwn】cuit2017 & 0ctf2017 heap总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/03/墨色的五月/">墨色的五月</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/27/2017-429-final/">【pwn】2017-429final</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/22/429-2017/">【pwn】2017-429预赛</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/arm-double-free-attack/">arm_double_free_attack</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/初探pwntools-fmt特性/">【pwn】 初探pwntools fmt特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/how-to-get-libc/">how_to_get_libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/08/T3CTF2017/">【pwn】T3CTF2017 堆溢出以及return to  dl slove</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/ARM-overflow/">ARM环境下栈溢出攻击初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/fastbin-attack/">fastbin attack 利用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/17/FILE结构体的溢出利用【FSP】/">FILE结构体的溢出利用【FSP】</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/05/xdctf2016-wp/">XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/C-S-WeChat/">C/S-WeChat</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/18/杂记-2016-7-18/">杂记-2016-7-18</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/05/ICHUNQIU2016-PWN/">【ICQ2016】 writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/20/CCF2016/">【CFF2016-pwn】 Writeup</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/python命令行执行系统命令/">python沙盒绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/wargame-pwnable-bf/">[wargame-pwnable] bf</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/2015-问鼎杯线下PWN/">2015-问鼎杯线下PWN</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/【pwn】诡异的movsx和cdqe/">【pwn】诡异的movsx和cdqe</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/Auto-post/">Auto post</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/pwn-关于栈的迁移/">[pwn] 关于栈的迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/19/hexo-build/">hexo build</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/18/mprotect/">mprotect 之痛</a></li></ul>
+    <script src="/live2d/js/jquery.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
       <footer id="footer">
     <div class="outer">
         <div id="footer-info">
