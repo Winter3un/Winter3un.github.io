@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://winter3un.github.io/2018/07/30/ctf-web/</loc>
+    <lastmod>2018-07-31T01:50:08.497Z</lastmod>
+    <data>
+        <display>
+        <title>ctf-web知识点整理</title>
+        <pubTime>2018-07-31T01:48:54.000Z</pubTime>
+        
+        <tag>web</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://winter3un.github.io/2018/07/09/rsa-ctf/</loc>
     <lastmod>2018-07-27T03:07:29.491Z</lastmod>
     <data>
@@ -66,9 +83,9 @@
         <title>DDCTF-2018  WEB WRITEUP</title>
         <pubTime>2018-04-20T05:44:11.000Z</pubTime>
         
-        <tag>writeup</tag>
-         
         <tag>web</tag>
+         
+        <tag>writeup</tag>
          
          
            
@@ -269,9 +286,9 @@
         <title>【pwn】2017-429final</title>
         <pubTime>2017-04-28T06:24:59.000Z</pubTime>
         
-        <tag>AWD</tag>
-         
         <tag>pwn</tag>
+         
+        <tag>AWD</tag>
          
          
            
@@ -592,9 +609,9 @@
         <title>XDCTF2016_铁人三项_WP（HTTP数据包的快速分析）</title>
         <pubTime>2016-10-05T07:33:21.000Z</pubTime>
         
-        <tag>writeup</tag>
-         
         <tag>web</tag>
+         
+        <tag>writeup</tag>
          
          
            
