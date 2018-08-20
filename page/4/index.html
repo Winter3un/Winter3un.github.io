@@ -148,7 +148,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 11.67px;">bin</a> <a href="/tags/code/" style="font-size: 13.33px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 15px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 13.33px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18.33px;">web</a> <a href="/tags/writeup/" style="font-size: 16.67px;">writeup</a>
+                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a>
                     </div>
                 </section>
                 
@@ -226,11 +226,74 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-2015-问鼎杯线下PWN" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/2015-问鼎杯线下PWN/" class="article-date">
+      <time datetime="2016-06-08T22:39:32.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/08/2015-问鼎杯线下PWN/">2015-问鼎杯线下PWN</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>这题当时没做出了哎。。好吧，其实考察点是整型溢出。。。挺有价值的一题题目。<br>题目地址：<a href="https://github.com/Winter3un/ctf_task">https://github.com/Winter3un/ctf_task</a><br>通过逆向得知，题目需要密码，而密码是通过一个算法得到的，要输入一个字符串满足这个算法，但是在32位内，我们的任何输入都满足不了条件，突然发现这边可以进行整型溢出（超过32位的数据，寄存器将丢弃）<br>那么我们可以构造类似于0x1ae312d386d209这样的数据，高于32位的数据将会被丢弃。即<code>0x1ae312d386d209</code> == <code>0xD386D209</code><br>exp如下:<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/06/08/2015-问鼎杯线下PWN/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-【pwn】诡异的movsx和cdqe" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/06/08/【pwn】诡异的movsx和cdqe/" class="article-date">
-      <time datetime="2016-06-08T07:39:17.000Z" itemprop="datePublished">2016-06-08</time>
+      <time datetime="2016-06-08T22:39:17.000Z" itemprop="datePublished">2016-06-08</time>
 </a>
     </div>
   
@@ -293,7 +356,7 @@
   
     <div class="article-meta">
       <a href="/2016/06/08/Auto-post/" class="article-date">
-      <time datetime="2016-06-08T07:38:59.000Z" itemprop="datePublished">2016-06-08</time>
+      <time datetime="2016-06-08T22:38:59.000Z" itemprop="datePublished">2016-06-08</time>
 </a>
     </div>
   
@@ -362,7 +425,7 @@
   
     <div class="article-meta">
       <a href="/2016/05/20/pwn-关于栈的迁移/" class="article-date">
-      <time datetime="2016-05-20T00:29:04.000Z" itemprop="datePublished">2016-05-20</time>
+      <time datetime="2016-05-20T15:29:04.000Z" itemprop="datePublished">2016-05-20</time>
 </a>
     </div>
   
@@ -428,7 +491,7 @@
   
     <div class="article-meta">
       <a href="/2016/05/19/hexo-build/" class="article-date">
-      <time datetime="2016-05-18T23:51:09.000Z" itemprop="datePublished">2016-05-19</time>
+      <time datetime="2016-05-19T14:51:09.000Z" itemprop="datePublished">2016-05-19</time>
 </a>
     </div>
   
@@ -495,7 +558,7 @@
   
     <div class="article-meta">
       <a href="/2016/05/18/mprotect/" class="article-date">
-      <time datetime="2016-05-18T09:36:34.000Z" itemprop="datePublished">2016-05-18</time>
+      <time datetime="2016-05-19T00:36:34.000Z" itemprop="datePublished">2016-05-18</time>
 </a>
     </div>
   

