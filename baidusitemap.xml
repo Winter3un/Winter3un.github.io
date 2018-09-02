@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://winter3un.github.io/2018/07/30/ctf-web/</loc>
+    <lastmod>2018-09-02T04:20:26.564Z</lastmod>
+    <data>
+        <display>
+        <title>ctf-web指南</title>
+        <pubTime>2018-07-31T01:48:54.000Z</pubTime>
+        
+        <tag>web</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://winter3un.github.io/2018/08/19/return-to-dl-resolve/</loc>
     <lastmod>2018-08-20T03:52:54.348Z</lastmod>
     <data>
@@ -33,23 +50,6 @@
         <tag>writeup</tag>
          
         <tag>ctf</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://winter3un.github.io/2018/07/30/ctf-web/</loc>
-    <lastmod>2018-07-31T01:50:08.497Z</lastmod>
-    <data>
-        <display>
-        <title>ctf-web知识点整理</title>
-        <pubTime>2018-07-31T01:48:54.000Z</pubTime>
-        
-        <tag>web</tag>
          
          
            
@@ -324,9 +324,9 @@
         <title>【pwn】2017-429final</title>
         <pubTime>2017-04-28T06:24:59.000Z</pubTime>
         
-        <tag>pwn</tag>
-         
         <tag>AWD</tag>
+         
+        <tag>pwn</tag>
          
          
            
