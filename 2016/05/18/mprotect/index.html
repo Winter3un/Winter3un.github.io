@@ -6,7 +6,7 @@
   <title>mprotect 之痛 | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="这道题目源自于 2016安云杯，题目原题可以在文章最后的附件里下载。 当时拿到这道题目以后，想法很简单。使用fmt将puts函数的got改掉换成程序自带的mprotect后门（如图）。先是用mprotect将栈空间段设置为可执行，然后利用gets函数将shellcode放入站上，由于最后没有将eax清空，eax寄存器仍然保存着栈地址，所以我们可以利用 jmp eax 或者 call eax 跳转到">
-<meta name="keywords" content="pwn,ctf">
+<meta name="keywords" content="ctf,pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mprotect 之痛">
 <meta property="og:url" content="https://winter3un.github.io/2016/05/18/mprotect/index.html">

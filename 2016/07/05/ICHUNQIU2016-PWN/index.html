@@ -6,7 +6,7 @@
   <title>【ICQ2016】 writeup | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="pwn1func函数数组指针的索引没有规定范围，可以越界。 exp如下 12345678910111213141516from pwn import *context(log_level=&quot;debug&quot;)addr  =0x0804A030bbs  = 0x0804A0A0offset  = (bbs - addr)/4+1# p  =process(&apos;./tc1&apos;)p = remote(&apos;106.">
-<meta name="keywords" content="pwn,writeup">
+<meta name="keywords" content="writeup,pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【ICQ2016】 writeup">
 <meta property="og:url" content="https://winter3un.github.io/2016/07/05/ICHUNQIU2016-PWN/index.html">
