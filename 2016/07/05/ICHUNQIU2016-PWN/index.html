@@ -6,7 +6,7 @@
   <title>【ICQ2016】 writeup | WinterSun Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="pwn1func函数数组指针的索引没有规定范围，可以越界。 exp如下 12345678910111213141516from pwn import *context(log_level=&quot;debug&quot;)addr  =0x0804A030bbs  = 0x0804A0A0offset  = (bbs - addr)/4+1# p  =process(&apos;./tc1&apos;)p = remote(&apos;106.">
-<meta name="keywords" content="writeup,pwn">
+<meta name="keywords" content="pwn,writeup">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【ICQ2016】 writeup">
 <meta property="og:url" content="https://winter3un.github.io/2016/07/05/ICHUNQIU2016-PWN/index.html">
@@ -425,32 +425,6 @@
 
 
     
-        <section id="comments">
-  <div id="valine_thread" style="margin: 30px;"></div>
-        <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-        <script>
-            var GUEST_INFO = ['nick','mail','link'];
-            var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-                return GUEST_INFO.indexOf(item) > -1
-            });
-            var notify = 'false' == true;
-            var verify = 'false' == true;
-            var valine = new Valine();
-            valine.init({
-                el: '#valine_thread',
-                notify: notify,
-                verify: verify,
-                appId: "njw6ohgMcKaBmfUsHKxoOsMn-gzGzoHsz",
-                appKey: "qcIiKNl9h5A0ue1mvUKTyNla",
-                placeholder: "Just go go",
-                pageSize:'10',
-                avatar:'mm',
-                lang:'zh-cn'
-            })
-        </script>
-</section> 
-    
       
 
 
@@ -504,26 +478,6 @@
                 <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
             </div>
         </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >访客数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页阅读量: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
         
     </div>
 </footer>
