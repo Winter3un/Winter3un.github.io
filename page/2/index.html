@@ -150,7 +150,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a> <a href="/tags/日语/" style="font-size: 10px;">日语</a>
+                        <a href="/tags/ARM/" style="font-size: 10px;">ARM</a> <a href="/tags/AWD/" style="font-size: 10px;">AWD</a> <a href="/tags/Writeup/" style="font-size: 10px;">Writeup</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/awd/" style="font-size: 10px;">awd</a> <a href="/tags/bctf/" style="font-size: 10px;">bctf</a> <a href="/tags/bin/" style="font-size: 12px;">bin</a> <a href="/tags/code/" style="font-size: 14px;">code</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/ctf/" style="font-size: 16px;">ctf</a> <a href="/tags/cve/" style="font-size: 10px;">cve</a> <a href="/tags/fmt/" style="font-size: 10px;">fmt</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/heap-overflow/" style="font-size: 14px;">heap overflow</a> <a href="/tags/note/" style="font-size: 10px;">note</a> <a href="/tags/office/" style="font-size: 10px;">office</a> <a href="/tags/pwn/" style="font-size: 20px;">pwn</a> <a href="/tags/pwntools/" style="font-size: 10px;">pwntools</a> <a href="/tags/python/" style="font-size: 14px;">python</a> <a href="/tags/wargame/" style="font-size: 10px;">wargame</a> <a href="/tags/web/" style="font-size: 18px;">web</a> <a href="/tags/writeup/" style="font-size: 16px;">writeup</a> <a href="/tags/日语/" style="font-size: 12px;">日语</a> <a href="/tags/日语语法/" style="font-size: 10px;">日语语法</a>
                     </div>
                 </section>
                 
@@ -237,6 +237,70 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-cve-2017-office" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/29/cve-2017-office/" class="article-date">
+      <time datetime="2017-10-29T12:41:52.000Z" itemprop="datePublished">2017-10-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/29/cve-2017-office/">对cve-2017-0199与cve-2017-8759的浅析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>首先说一下为什么偏偏选了这两个cve来复现+分析，其实是因为这两个cve复现比较容易，而且是目前apt团体主要用于apt打击的工具，而且于我个人而言，也是第一次分析word漏洞（当然这两个只是word的逻辑漏洞，并不是溢出漏洞，相对来说比较容易分析）。</p>
+<p>没想到的是分析这两个漏洞的过程并不是一帆风顺，甚至可以说是坑坑洼洼了ORZ。也为了后人的学习以及自己将来的学习，故写下这篇文章。</p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cve/">cve</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/office/">office</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/10/29/cve-2017-office/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-2017-8-10" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -848,74 +912,6 @@
 
 
   
-    <article id="post-how-to-get-libc" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/08/how-to-get-libc/" class="article-date">
-      <time datetime="2017-04-08T07:29:54.000Z" itemprop="datePublished">2017-04-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/08/how-to-get-libc/">how_to_get_libc</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>比赛的时候，遇到比较坑爹的情况，没有提供给libc库，这个时候就需要用各种姿势去泄露libc库。</p>
-<p>1、询问组委会，是否提供libc库，很有可能就放提示了</p>
-<p>2、通过return2libc技巧，泄露got内保存的库函数地址，去 <a href="http://libcdb.com/" target="_blank" rel="external">http://libcdb.com/</a>  找对应的库版本，这边我写了一个get_libc的小脚本（但并不是百分之一百能找到的。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> requests <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="comment"># a_name = raw_input('input a_name= ')</span></div><div class="line"><span class="comment"># a_addr = raw_input('input a_addr=')</span></div><div class="line"><span class="comment"># b_name = raw_input('input b_name=')</span></div><div class="line"><span class="comment"># b_addr = raw_input('input b_addr=')</span></div><div class="line"><span class="comment"># a_name= 'read'</span></div><div class="line"><span class="comment"># a_addr='0xb76a9bd0'</span></div><div class="line"><span class="comment"># b_name='shutdown'</span></div><div class="line"><span class="comment"># b_addr='0xb76bc610'</span></div><div class="line">a_name=<span class="string">'printf'</span></div><div class="line">a_addr=<span class="string">'0x7f0ff5dadba0'</span></div><div class="line">b_name=<span class="string">'read'</span></div><div class="line">b_addr=<span class="string">'0x7f0ff5e50470'</span></div><div class="line"></div><div class="line">may_system_offset=[]</div><div class="line">url = <span class="string">'http://libcdb.com/search?symbolA='</span>+a_name+<span class="string">'&amp;addressA='</span>+a_addr+<span class="string">'&amp;symbolB='</span>+b_name+<span class="string">'&amp;addressB='</span>+b_addr</div><div class="line">r1 = get(url)</div><div class="line">list_ = re.findall(<span class="string">r'&lt;li&gt;&lt;a href="(.*?)"&gt;Libc\:'</span>,r1.content)</div><div class="line">payload = <span class="string">'may_system_offset = ['</span></div><div class="line"><span class="keyword">if</span> len(list_)&gt;<span class="number">0</span>:</div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> list_:</div><div class="line">		url = <span class="string">'http://libcdb.com'</span>+x+<span class="string">'/symbols?name=__libc_system'</span></div><div class="line">		system_offset = get(url)</div><div class="line">		system_offset = re.findall(<span class="string">r'/dt&gt;\n        &lt;dd&gt;(.*?)&lt;/dd&gt;\n        \n    &lt;/dl&gt;'</span>,system_offset.content)[<span class="number">0</span>].replace(<span class="string">'libc_base + 0x'</span>,<span class="string">''</span>)</div><div class="line">		<span class="keyword">print</span> system_offset</div><div class="line">		url = <span class="string">'http://libcdb.com'</span>+x+<span class="string">'/symbols?name='</span>+b_name</div><div class="line">		func_offset = get(url)</div><div class="line">		<span class="comment"># print func_offset.content</span></div><div class="line">		func_offset = re.findall(<span class="string">r'&gt;'</span>+b_name+<span class="string">'&lt;/dt&gt;\n        &lt;dd&gt;(.*?)&lt;/dd&gt;'</span>,func_offset.content)[<span class="number">0</span>].replace(<span class="string">'libc_base + 0x'</span>,<span class="string">''</span>)</div><div class="line">		may_system_offset.append(int(system_offset,<span class="number">16</span>)-int(func_offset,<span class="number">16</span>))</div><div class="line">	may_system_offset = list(set(may_system_offset))</div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> may_system_offset:</div><div class="line">		payload += hex(x)+<span class="string">','</span></div><div class="line">	payload = payload[:<span class="number">-1</span>]</div><div class="line">	<span class="keyword">print</span> payload+<span class="string">']'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'oops! nothing!'</span></div><div class="line">	</div><div class="line">raw_input()</div></pre></td></tr></table></figure>
-<p>3、利用return to dl resolve技术，这个已经有成熟的辅助工具了。<a href="https://github.com/inaz2/roputils" target="_blank" rel="external">https://github.com/inaz2/roputils</a></p>
-<p>4、利用其他题目的libc库，出题人为了方便，很有可能用的相同libc库</p>
-<p>5、利用pwntools提供的dynelf函数来寻找system地址，不过需要有个leak函数。可参考 <a href="http://bobao.360.cn/learning/detail/3298.html" target="_blank" rel="external">http://bobao.360.cn/learning/detail/3298.html</a> （蛋疼的是，不知道为啥我的ELF()函数一直是坏的。</p>
-<hr>
-<p>2017/5/23日添加</p>
-<p>6、泄露Smallbin的FD、BK进行libc base获取</p>
-
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/">pwn</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -926,7 +922,7 @@
     <div class="outer">
         <div id="footer-info">
             <div class="footer-left">
-                &copy; 2019 WinterSun
+                &copy; 2020 WinterSun
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
